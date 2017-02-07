@@ -1,0 +1,22 @@
+apply plugin: "java"
+apply plugin: "war"
+apply plugin: "eclipse-wtp"
+
+buildscript {
+	//这个插件有三个作用：1.会将工程编译成一个大的jar包；2.搜索public static void main()方法，将方法所在的类标记为可运行的类；3.根据Spring-boot的版本号自动去匹配所依赖的jar包的版本号
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.1.RELEASE")
+//    }
+}
+
+// 仓库地址
+repositories{
+  mavenCentral()
+}
+
+
+// 依赖的jar包
+dependencies{
+	compile 'org.springframework:spring-webmvc:4.3.4.RELEASE'
+	compile 'javax.servlet:servlet-api:2.5'
+}
