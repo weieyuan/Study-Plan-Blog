@@ -1,0 +1,79 @@
+#java的多线程
+* 无状态对象：既不包含任何域，也不包含任何对其他类中域的引用。
+* 同步代码代码块包含两个部分：锁对象的引用，由锁所保护的代码块。
+* volatile变量，编译器与运行时都会注意到这个变量是共享的，因此不会将该变量上的操作与其他内存操作一起重排序。volatile变量不会被缓存在寄存器中，因此在读取volatile变量时总会返回最新写入的值。
+
+####进程和线程
+* 进程
+	* 程序的执行过程
+	* 持有资源和线程
+* 线程
+	* 执行任务的最小单元
+	* 一个进程持有多个线程
+	* 线程共享进程的资源
+
+####并发容器
+* CopyOnWriteArrayList
+> 写入时复制(Copy-on-Write)
+> 对修改操作加锁，并且会复制一份底层的数组，在该数组上进行操作，最后将该数组赋值给底层数组，这样保证不会影响读的操作。
+> 该容器适用于大量读操作和少量写操作的场景
+
+* Collections.unmodifiableMap(Map map)
+> 代理map对象，但是不支持任何修改操作
+> 但是可以直接修改map对象
+
+* ConcurrentHashMap
+> 采用分段锁，可以保证任意数量的线程并发地读取该容器；读线程和写线程可以并发访问；一定数量的线程可以并发地修改该容器。
+> 并没有实现对Map加锁以提供独占访问，因此在多线程的环境中size和isEmpty的方法返回的并不是准确的值，只是一个估算的值
+> 在需要加锁Map进行独占访问时，这个容器就不适用了，可以采用Hashtable和synchronizedMap
+
+####同步工具类
+* 闭锁，
+> 例如CountDownLatch,FutureTask
+> 用来确保某些活动直到其他活动完成之后才可以执行，适用的场景例如必须把饭端到桌上，把菜端到桌上，我才能开始吃饭
+* 信号量
+> 例如Semaphore
+> 用来控制同时访问某个资源的操作数量
+* 栅栏
+> 例如CyclicBarrier
+> 与闭锁的区别是，所有的线程必须都到达栅栏的位置才可以向下执行。例如跑步的时候，必须所有人都在起跑线上排好队才可以开始跑步
+
+####定时任务
+* Timer
+> TimerTask抛出未受检的异常时将终止定时线程，这种情况下Timer也不会恢复线程的执行，而是错误地认为整个Timer都被取消了。
+> 建议使用ScheduledExecutorService来执行定时任务
+
+####线程池
+* 概念
+	* 线程池的基本大小(Core Pool Size):没有线程执行时线程池的大小,只有在工作队列满的情况下才会创建超过这个数量的线程
+	* 最大大小(Maximum Pool Size):可同时活动的线程数量的上限
+	* 存活时间：某个线程的空闲时间大于存活时间时，那么将会标记为可回收，并且当线程池的当前大小超过了基本大小时，这个线程将会被终止
+   
+* newFixedThreadPool
+> 提交一个任务就会创建一个线程，直到达到线程池的最大限制，这是线程池的规模不会发生变化，当某个线程down掉后，会补充一个新的线程
+* newCachedThreadPool
+> 可缓存的线程池，当缓存的线程数超过任务数时，会回收空闲的线程；当任务数增加时，则可以添加新的线程；线程池的规模不存在限制
+* newSingleThreadExecutor
+> 单线程，当线程down掉时，会创建一个新的线程来代替
+* newScheduledThreadPool
+> 创建固定长度的线程池，可以延时或者定时执行任务。
+
+####工作队列
+* LinkedBlockingQueue
+* ArrayBlockingQueue
+* PriorityBlockingQueue
+* SynchronousQueue
+
+####线程的中断
+* interrupt方法能够中断线程
+* isInterrupted方法能够返回线程的中断状态
+* interrupted方法将清除当前线程的中断状态，并返回它之前的值
+* 一般阻塞的方法都能抛出中断异常
+
+####其他
+* Future、Callable、FutureTask
+> Future描述一个任务的生命周期，方法有cancle/isCancled/isDone/get
+> Callable描述一个任务
+> FutureTask实现了Future接口和Callable接口，描述一个计算任务
+* CompletionService
+> 实现类ExcutorCompletionService，这个实现类能够执行任务，并且会把每个任务的结果放置到BlockingQueue中。
