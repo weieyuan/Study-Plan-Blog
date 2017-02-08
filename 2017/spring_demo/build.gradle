@@ -11,6 +11,7 @@ buildscript {
 
 // 仓库地址
 repositories{
+  mavenLocal()
   mavenCentral()
 }
 
