@@ -63,7 +63,7 @@
 * ArrayBlockingQueue
 * PriorityBlockingQueue
 * SynchronousQueue
-
+> 常用的场景是生产线程放置数据时，需要等待消费者线程来获取数据；反之亦然。
 ####线程的中断
 * interrupt方法能够中断线程
 * isInterrupted方法能够返回线程的中断状态
