@@ -20,4 +20,5 @@ repositories{
 dependencies{
 	compile 'org.springframework:spring-webmvc:4.3.4.RELEASE'
 	compile 'javax.servlet:servlet-api:2.5'
+	compile 'log4j:log4j:1.2.17'
 }
