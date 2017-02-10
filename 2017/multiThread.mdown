@@ -1,8 +1,5 @@
 #java的多线程
-* 无状态对象：既不包含任何域，也不包含任何对其他类中域的引用。
-* 同步代码代码块包含两个部分：锁对象的引用，由锁所保护的代码块。
-* volatile变量，编译器与运行时都会注意到这个变量是共享的，因此不会将该变量上的操作与其他内存操作一起重排序。volatile变量不会被缓存在寄存器中，因此在读取volatile变量时总会返回最新写入的值。
-
+___
 ####进程和线程
 * 进程
 	* 程序的执行过程
@@ -48,7 +45,7 @@
 	* 线程池的基本大小(Core Pool Size):没有线程执行时线程池的大小,只有在工作队列满的情况下才会创建超过这个数量的线程
 	* 最大大小(Maximum Pool Size):可同时活动的线程数量的上限
 	* 存活时间：某个线程的空闲时间大于存活时间时，那么将会标记为可回收，并且当线程池的当前大小超过了基本大小时，这个线程将会被终止
-   
+	* 线程池是通过ThreadFactory来创建线程的，可以指定自定义的ThreadFactory来自定义线程的创建
 * newFixedThreadPool
 > 提交一个任务就会创建一个线程，直到达到线程池的最大限制，这是线程池的规模不会发生变化，当某个线程down掉后，会补充一个新的线程
 * newCachedThreadPool
@@ -57,6 +54,14 @@
 > 单线程，当线程down掉时，会创建一个新的线程来代替
 * newScheduledThreadPool
 > 创建固定长度的线程池，可以延时或者定时执行任务。
+
+####线程池的饱和策略
+* 概念
+> 当有界队列被填满或者向已经关闭的Executor提交任务都会触发饱和策略。可以通过ThreadPoolExecutor.setRejectedExecutionHandler()来修改饱和策略
+* AbortPolicy，这是线程池的默认策略。抛出未检查的RejectedExecutionException
+* CallerRunsPolicy,调用者运行策略，会将调用者提交的任务返还给调用者，在调用者线程中运行该任务
+* DiscardPolicy，抛弃
+* DiscardOldestPolicy，抛弃最旧的，也就是执行优先级最高的
 
 ####工作队列
 * LinkedBlockingQueue
@@ -71,6 +76,9 @@
 * 一般阻塞的方法都能抛出中断异常
 
 ####其他
+* 无状态对象：既不包含任何域，也不包含任何对其他类中域的引用。
+* 同步代码代码块包含两个部分：锁对象的引用，由锁所保护的代码块。
+* volatile变量，编译器与运行时都会注意到这个变量是共享的，因此不会将该变量上的操作与其他内存操作一起重排序。volatile变量不会被缓存在寄存器中，因此在读取volatile变量时总会返回最新写入的值。
 * Future、Callable、FutureTask
 > Future描述一个任务的生命周期，方法有cancle/isCancled/isDone/get
 > Callable描述一个任务
