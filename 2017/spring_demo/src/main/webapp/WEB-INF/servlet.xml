@@ -21,4 +21,11 @@
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/*"></mvc:mapping>
+			<bean class="com.wei.global.AppInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 </beans>
