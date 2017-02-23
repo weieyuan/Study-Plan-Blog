@@ -85,3 +85,4 @@ ___
 > FutureTask实现了Future接口和Callable接口，描述一个计算任务
 * CompletionService
 > 实现类ExcutorCompletionService，这个实现类能够执行任务，并且会把每个任务的结果放置到BlockingQueue中。
+* 锁的缺陷，操作系统在挂起和恢复线程的过程中存在很大的开销
