@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 
+	private static final Logger logger = Logger.getLogger(HomeController.class);
+	
 	@PostConstruct
 	public void init()
 	{
@@ -18,6 +20,7 @@ public class HomeController {
 	@RequestMapping(value="/home")
 	public String home(ModelAndView m)
 	{
+		logger.info("HomeController.home....");
 		return "home";
 	}
 	
