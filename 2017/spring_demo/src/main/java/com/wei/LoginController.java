@@ -14,31 +14,27 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
-	
+
 	@RequestMapping("/login")
-	public String login(ModelAndView model)
-	{
+	public String login(ModelAndView model) {
 		return "login";
 	}
-	
-	@RequestMapping(value="/userlogin")
-	public String userLogin(HttpServletRequest request, HttpServletResponse response)
-	{
+
+	@RequestMapping(value = "/userlogin")
+	public String userLogin(HttpServletRequest request, HttpServletResponse response) {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
-		//校验用户名和密码
+		// 校验用户名和密码
 		boolean b = loginService.validateUser(userName, password);
-		if (b)
-		{
+		if (b) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userName", userName);
-			return "forward:/home";
-		}
-		else
-		{
+			// return "forward:/home";
+			return "redirect:/home";
+		} else {
 			return "redirect:/login";
 		}
-		
+
 	}
-	
+
 }

@@ -138,3 +138,11 @@ xsi:schemaLocation用于声明了目标名称空间的模式文档
 </beans>
 ```
 
+####SpringMVC搭建web系统的疑难点
+**springMvc中支持json对象的转换**
+>只有在jsckson2在classpth中时，spring才会把MappingJackson2HttpMessageConverter注册为默认的消息转换
+>因此需要引入com.fasterxml.jackson.core:jackson-databind:2.8.6的jar包
+
+![官方文档的说明](./image/messageConverters.PNG)
+
+
