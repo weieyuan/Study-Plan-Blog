@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
 	public boolean validateUser(String userName, String password) {
-		return true;
+		if ("admin".equals(userName) && "admin".equals(password)) {
+			return true;
+		}
+		return false;
 	}
 
 }

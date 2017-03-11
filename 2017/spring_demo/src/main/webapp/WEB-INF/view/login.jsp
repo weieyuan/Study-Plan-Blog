@@ -12,15 +12,15 @@
 </head>
 <body>
 <div class="container">
-      <form class="form-signin" action="/spring_demo/userlogin" method="post">
+      <form class="form-signin" id="form-signin" action="/spring_demo/userlogin" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
        <!--  <label for="inputEmail" class="sr-only">Email address</label> -->
-        <input type="username" name="userName" id="inputEmail" class="form-control" placeholder="user name" required autofocus>
+        <input type="username" name="userName" id="inputUsername" class="form-control" placeholder="user name" required autofocus>
         <!-- <label for="inputPassword" class="sr-only">Password</label> -->
         <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="remember-me"> Remember me
+            <input type="checkbox" id="remember" value="remember-me"> Remember me
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
@@ -35,5 +35,22 @@
 -->
 <script type="text/javascript" src="resources/js/lib/jquery/jquery-2.1.4.js"></script>
 <script type="text/javascript" src="resources/js/lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>	
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#form-signin").on("submit", function(){
+      var userName = $("#inputUsername").val();
+      var password = $("#inputPassword").val();
+      //这里可以对用户名和密码进行校验
+      if($("#remember").isChecked()){
+        //这里可以把用户名和密码存到cookie中
+      }
+      else{
+
+      }
+      return true;
+
+    });
+  });
+</script>
 </body>
 </html>

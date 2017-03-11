@@ -9,7 +9,12 @@ Utils.postJosn = function(url,params,oAfterOk,oAfterPok){
 		type: "POST",
 		dataType: "json",
 		success: function(data,status,jqXHR){
-			oAfterOk(data);
+			if(status === "success"){
+				oAfterOk(data);	
+			}
+			else{
+				oAfterOk();	
+			}
 		},
 		error: function(jqXHR, typeError){
 			console.log(jqXHR);

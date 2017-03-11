@@ -11,6 +11,7 @@
 <link href="resources/js/lib/bootstrap-fileinput-4.3.8/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css">
 <!--<link href="resources/css/home.css" rel="stylesheet">-->
 <link rel="stylesheet/less" type="text/css" href="resources/css/home1.less">
+<link rel="stylesheet/less" type="text/css" href="resources/css/article_list.less">
 </head>
 <body>
 
@@ -54,48 +55,16 @@
 
 
   <div class="container">
-    <div class="jumbotron">
-      <h1>Navbar example</h1>
-      <p>This example is a quick exercise to illustrate how the default, static and fixed to top navbar work. It includes the responsive CSS and HTML, so it also adapts to your viewport and device.</p>
-      <p>To see the difference between static and fixed top navbars, just scroll.</p>
-      <p>
-        <a class="btn btn-lg btn-primary" href="../../components/#navbar" role="button">View navbar docs &raquo;</a>
-      </p>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        This is a blog demo.
+      </div>
     </div>
     <input id="file-1" name="kartik-input-701[]" type="file" multiple=true class="file-loading">
-    <div class="list_article">
-  	 <article class="excerpt">
-  		<header>
-  			<a class="cat" href="#">Spring_Demo<i></i></a>
-  			<h2>
-  				<a>开篇</a>
-  			</h2>
-  		</header>
-  		<p class="meta">
-  			<span class="posttime glyphicon glyphicon-time">2017/3/9</span>
-  			<span class="viewnum glyphicon glyphicon-eye-open">浏览(<a href="#">1731</a>)</span>
-  			<span class="commentnum glyphicon glyphicon-pencil">评论(<a href="/Archives/Index/1#comments-title">53</a>)</span>
-  			<span class="praisebtn glyphicon glyphicon-heart">喜欢(<a data-id="1" praise-flag="0" href="/">415</a>)</span>
-  		</p>
-  		<p class="note">
-  			&nbsp&nbsp&nbsp&nbspw3schools.com 是最受欢迎的前端技术教程网站，但是国内用户一直不能访问，并且国内的中文翻译版本十分陈旧。因此做了个镜像，希望英文好的同学直接去看原版教程吧
-  			LESS为CSS赋予了动态语言的特性，如变量、继承、运算、函数。LESS既可以在客户端上运行 (支持IE 6+、Webkit、Firefox)，也可以借助Node.js或者Rhino在服务端运行。	
-  		</p>
-  		<fotter class="entry-footer">
-  			<span itemprop="keywords" class="tags-links">
-  			<a rel="tag" href="#">ASP.NET</a>
-  			<a rel="tag" href="/">MVC</a>
-  			<a rel="tag" href="/">Bootstrap</a>
-  			<a rel="tag" href="/">响应式</a>
-  			<a rel="tag" href="/">博客</a>
-  			</span>
-  			<a class="more-link gotoArchive" rel="nofollow" href="/Archives/Index/1">继续阅读 »</a>
-  		</fotter>
-  	 </article>
+    <div class="list_article" id="list_article">
     </div>
     <div>
       <textarea id="text_area" style="width: 100%;">
-        
       </textarea>
       <button id="text_area_submit">文本提交</button>
     </div>
@@ -121,6 +90,7 @@
 <script type="text/javascript" src="resources/js/lib/bootstrap-fileinput-4.3.8/js/fileinput.min.js"></script>
 <script type="text/javascript" src="resources/js/lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="resources/js/widget/utils.js"></script>
+<script type="text/javascript" src="resources/js/app/bloglist.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#file-1').fileinput({
@@ -129,6 +99,7 @@
 		    uploadUrl: "/spring_demo/uploadFile", // server upload action
 		    uploadAsync: true
 		});
+
     $("#text_area_submit").click(function(){
         var text = $("#text_area").val();
         Utils.postJosn("/spring_demo/submitTextArea",{
@@ -137,6 +108,8 @@
           console.log(data);
         });
     });
+    var oBlogList = new BlogList();
+    oBlogList.init("list_article");
 	});
 	
 </script>
