@@ -49,3 +49,27 @@ ___
 * AND和OR组合使用：SELECT column_name1,column_name2 FROM tbl_custom WHERE (column_name1=5 OR column_name1=6) AND column_name2=20
 > 建议同时使用AND和OR时，用括号标识出计算的优先级
 * IN操作符：SELECT column_name1 FROM tbl_custom WHERE column_name1 IN ('a','b','c') ORDER BY column_name1;
+
+####MySQL的安装
+1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
+2. 设置my.ini文件
+![my.ini示例](./image/my_ini.PNG)
+3. 安装MySQL服务
+> 注意：以管理员权限运行cmd
+> 输入mysqld --install MySQL
+> 输入mysqld --remove MySQL可以删除MySQL服务
+4. 初始化data数据，下载下来的5.7.17版本的MySQL解压以后没有data文件夹，因此需要初始化data数据
+> 输入mysqld  --initialize-insecure
+> 在mysql的解压目录中会出现data文件夹
+5. 启动MySQL服务
+> 输入net start MySQL
+> 输入net stop MySQL可以停止MySQl服务
+> mysqladmin -u root -p password shutdown也可以停止MySQL服务
+6. 登录
+> 输入mysql -u root
+7. 修改root用户的密码
+> set password for root@localhost = password("admin");
+8. 创建用户
+> create user 'platform_admin'@'localhost' identified by 'weieyuan';
+9. 赋予权限
+> grant all no *.* to 'platfrom_admin'@'localhost';

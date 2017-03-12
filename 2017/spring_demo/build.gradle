@@ -18,8 +18,9 @@ repositories{
 
 // 依赖的jar包
 dependencies{
-	compile 'org.springframework:spring-webmvc:4.3.4.RELEASE'
+	compile 'org.springframework:spring-webmvc:4.3.7.RELEASE'
 	compile 'javax.servlet:servlet-api:2.5'
 	compile 'log4j:log4j:1.2.17'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6' //用于让Spring注册MappingJackson2HttpMessageConverter
+	compile 'org.springframework.data:spring-data-jpa:1.11.1.RELEASE'
 }
