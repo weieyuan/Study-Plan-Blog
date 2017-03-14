@@ -4,6 +4,7 @@
 > 即使不在yml文件中显示配置，mongoDB也会有自己的默认配置。
 > mongoDB的配置项有很多，可以根据需要来配置。
 3. 定义一个模型类
+> mongoDB会将ZombieModel映射到名称为zombieModel的集合中，如果需要修改集合的名称，需要加上@Document(collection="customName")
 
 ```
 public class ZombieModel {
