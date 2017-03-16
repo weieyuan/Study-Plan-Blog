@@ -84,5 +84,5 @@ public class BbitApplicationTests {
 * org.springframework.data.mongodb.core.MongoClientFactoryBean用于配置MongoDB
 * com.mongodb.DB表示摸个具体数据库的逻辑视图
 * org.springframework.data.mongodb.MongoDbFactory用于创建DB实例
-* org.springframework.data.mongodb.core.MongoTemplate是Spring MongoDB提供的用于和数据库交互的类(提供操作数据库的API)
+* org.springframework.data.mongodb.core.MongoTemplate是Spring MongoDB提供的用于和数据库交互的类(提供操作数据库的API：增、删、改、查)
 
