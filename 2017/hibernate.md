@@ -90,8 +90,8 @@ public class SpringDataJpaConfig
 ```
 
 3. 初始化数据库的脚本
-> 这一步可选，可以在Hibernate创建数据库表后执行一些初始化操作，例如向表中插入默认数据
-> 将初始化的脚本放置在classpath下
+> 这一步可选，可以在Hibernate创建数据库表后执行一些初始化操作，例如向表中插入默认数据。
+> 通过设置javax.persistence.schema-generation.scripts.create-target的值来实现，将初始化的脚本放置在classpath下
 
 4. 数据库配置文件
 > 将数据库的配置信息放置到config.properties文件中
