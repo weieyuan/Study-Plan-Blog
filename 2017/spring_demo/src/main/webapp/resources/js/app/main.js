@@ -189,13 +189,22 @@ define(function (require, exports, module) {
 
         var _initBody4 = function (strPanelId) {
             var strHtml = '\
-        <div class="panel panel-default">\
-            <textarea id="typeHere"></textarea>\
-        </div>';
+            <div class="panel panel-default" style="background-color: rgb(245, 245, 245);">\
+                <div class="panel-body">\
+                    <input class="form-control" placeholder="请输入标题" style="margin-bottom: 10px;">\
+                    <textarea class="form-control" rows="3" placeholder="请输入摘要" style="resize:none; margin-bottom: 10px;"></textarea>\
+                    <textarea id="typeHere" placeholder="请输入正文"></textarea>\
+                    <p style="text-align:right;margin: 10px 0 0 0;">\
+                        <button type="button" class="btn btn-info">保存</button>\
+                    </p>\
+                </div>\
+            </div>';
+
             $("#" + strPanelId).append(strHtml);
             tinymce.init({
                 selector: "#typeHere",
-                height: 400
+                height: 400,
+                plugins: ["placeholder"]
             });
         };
 
