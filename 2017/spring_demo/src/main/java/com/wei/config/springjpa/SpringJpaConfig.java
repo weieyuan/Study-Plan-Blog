@@ -1,12 +1,16 @@
 package com.wei.config.springjpa;
 
+import java.util.Properties;
+
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -16,33 +20,44 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableJpaRepositories("com.wei")
 @EnableTransactionManagement
+@PropertySource("classpath:dataconfig.properties")
 public class SpringJpaConfig {
+
+	@Autowired
+	private Environment env;
 
 	@Bean
 	public DataSource dataSource() {
-
-		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		return builder.setType(EmbeddedDatabaseType.HSQL).build();
+		BasicDataSource oBasicDataSource = new BasicDataSource();
+		oBasicDataSource.setDriverClassName(env.getProperty("MySQL.driverClassName"));
+		oBasicDataSource.setUrl(env.getProperty("MySQL.url"));
+		oBasicDataSource.setUsername(env.getProperty("MySQL.userName"));
+		oBasicDataSource.setPassword(env.getProperty("MySQL.password"));
+		return oBasicDataSource;
 	}
 
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setGenerateDdl(true);
-
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("com.acme.domain");
+		factory.setPackagesToScan("com.wei");
 		factory.setDataSource(dataSource());
+		Properties props = new Properties();
+		props.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
+		props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+		props.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+		props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+		props.put("javax.persistence.sql-load-script-source", env.getProperty("hibernate.init.sql"));
+		factory.setJpaProperties(props);
 		return factory;
 	}
 
 	@Bean
 	public PlatformTransactionManager transactionManager() {
-
 		JpaTransactionManager txManager = new JpaTransactionManager();
-		txManager.setEntityManagerFactory(entityManagerFactory());
+		txManager.setEntityManagerFactory(entityManagerFactory().getObject());
 		return txManager;
 	}
 

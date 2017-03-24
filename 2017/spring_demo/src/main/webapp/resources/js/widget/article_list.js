@@ -13,7 +13,7 @@ define(['jquery','widget/utils'], function($, Utils){
         this.init = function(options){
             $.extend(m_Options, options);
             var strHtml = '\
-        <div class="row article_list" id="article_list"></div>';
+            <div class="row article_list" id="article_list"></div>';
             $("#" + m_Options.containerId).append(strHtml);
         };
 
@@ -37,19 +37,19 @@ define(['jquery','widget/utils'], function($, Utils){
 
         var _generateArticleHtml = function(article, index){
             var strHtml = '\
-        <div class="col-md-12">\
-            <div class="thumbnail">\
-                <img class="img-rounded" alt="ssssss" src="resources/image/blog{3}.png" style="width:100%; height: 300px;">\
-                <div class="caption">\
-                    <h3>{0}</h3>\
-                    <p>{1}</p>\
-                    <p style="text-align: right">\
-                        <button type="button" class="btn btn-info" read_more article_id="{2}">Read More</button>\
-                        <button type="button" class="btn btn-info" edit article_id="{2}">Edit</button>\
-                    </p>\
+            <div class="col-md-12">\
+                <div class="thumbnail">\
+                    <img class="img-rounded" alt="ssssss" src="resources/image/blog{3}.png" style="width:100%; height: 300px;">\
+                    <div class="caption">\
+                        <h3>{0}</h3>\
+                        <p>{1}</p>\
+                        <p style="text-align: right">\
+                            <button type="button" class="btn btn-info" read_more article_id="{2}">Read More</button>\
+                            <button type="button" class="btn btn-info" edit article_id="{2}">Edit</button>\
+                        </p>\
+                    </div>\
                 </div>\
-            </div>\
-        </div>';
+            </div>';
             strHtml = Utils.format(strHtml, article.title, article.content, article.id, index % 4);
             return strHtml;
         };

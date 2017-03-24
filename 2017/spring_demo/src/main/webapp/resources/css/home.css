@@ -1,17 +1,1 @@
-body {
-  min-height: 2000px;
-  padding-top: 70px;
- /* background-image: url(../image/background1.jpg);
-  background-size: auto;*/
-}
-/*
-.excerpt .meta .posttime {
-    background: url(../images/ico_time.png) no-repeat left center;
-}
-.excerpt .meta .viewnum {
-    background: url(../images/ico_eye.png) no-repeat left center;
-}
-.excerpt .meta .commentnum {
-    background: url(../images/ico-chat.png) no-repeat left center;
-}
-*/ 
+body{min-height:2000px;padding-top:70px}body .list_article{margin-top:10px}

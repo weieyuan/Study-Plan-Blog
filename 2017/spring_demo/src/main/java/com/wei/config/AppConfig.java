@@ -2,14 +2,11 @@ package com.wei.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
 
-import com.wei.config.springjpa.SpringJpaConfig;
-
 @Configuration
-@Import({ SpringJpaConfig.class })
+// @Import({ SpringJpaConfig.class })
 // import xml configruration
 @ImportResource("classpath:/com/wei/config/config.xml")
 // import source(.properties)

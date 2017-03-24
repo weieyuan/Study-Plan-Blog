@@ -1,3 +1,3 @@
 cd /d %~dp0
-gradle clean
-gradle eclipse
+call clean.bat
+call eclipse.bat

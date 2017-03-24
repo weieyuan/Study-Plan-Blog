@@ -1,8 +1,10 @@
-var BlogList = function() {
+define(['jquery'], function($) {
 
-	this.init = function(strParentId) {
+	var BlogList = function() {
 
-		var strHtml = '\
+		this.init = function(strParentId) {
+
+			var strHtml = '\
 		<article class="excerpt">\
 	  		<header>\
 	  			<a class="cat" href="#">Spring_Demo<i></i></a>\
@@ -31,7 +33,11 @@ var BlogList = function() {
 	  			<a class="more-link gotoArchive" rel="nofollow" href="/Archives/Index/1">继续阅读 »</a>\
 	  		</fotter>\
   	 	</article>';
-		$("#" + strParentId).append(strHtml);
+			$("#" + strParentId).append(strHtml);
+		};
+
 	};
 
-};
+	return BlogList;
+
+});

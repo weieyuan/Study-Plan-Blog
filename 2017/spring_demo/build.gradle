@@ -34,4 +34,7 @@ dependencies{
 	compile 'log4j:log4j:1.2.17'
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6' //用于让Spring注册MappingJackson2HttpMessageConverter
 	compile 'org.springframework.data:spring-data-jpa:1.11.1.RELEASE'
+	compile 'org.hibernate:hibernate-core:5.2.8.Final'
+	compile 'commons-dbcp:commons-dbcp:1.4'
+	compile 'mysql:mysql-connector-java:6.0.6'
 }
