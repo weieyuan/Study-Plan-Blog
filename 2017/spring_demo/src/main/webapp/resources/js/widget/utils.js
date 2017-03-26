@@ -1,7 +1,7 @@
 define(['jquery'], function($) {
 
 	var Utils = {};
-	Utils.postJosn = function(url, params, oAfterOk, oAfterPok) {
+	Utils.postJson = function(url, params, oAfterOk, oAfterPok) {
 
 		$.ajax({
 			url: url,
@@ -24,6 +24,17 @@ define(['jquery'], function($) {
 		});
 	};
 	
+	Utils.format = function(strSrc){
+		if(arguments.length <= 1){
+			return strSrc;
+		}
+		for(var i = 1; i < arguments.length; i++){
+			var reg = new RegExp('\\{'+ (i -1) + '\\}', 'g');
+			strSrc = strSrc.replace(reg, arguments[i]);
+		}
+		return strSrc;
+	};
+
 	return Utils;
 
 });

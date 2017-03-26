@@ -50,7 +50,7 @@ define(['jquery','widget/utils'], function($, Utils){
                     </div>\
                 </div>\
             </div>';
-            strHtml = Utils.format(strHtml, article.title, article.content, article.id, index % 4);
+            strHtml = Utils.format(strHtml, article.title, article.summary, article.id, index % 4);
             return strHtml;
         };
 

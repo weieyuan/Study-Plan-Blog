@@ -1,11 +1,12 @@
 define(function(require, exports, module) {
     var $ = require('jquery');
+    require('bootstrapFileInput');
+    require('tinymce');
     var ArticleList = require('widget/article_list');
     var Utils = require('widget/utils');
     var BlogList = require('app/bloglist');
+    var AddArticle = require('app/add_article')
 
-    require('bootstrapFileInput');
-    require('tinymce');
 
     var AppMain = function() {
 
@@ -15,9 +16,9 @@ define(function(require, exports, module) {
             _initHead();
             _initSummaryPanel(strPanelId);
             _initFileUpload(strPanelId);
-            _initBlogList(strPanelId);
+            // _initBlogList(strPanelId);
             _initButton(strPanelId);
-            _initCustomerPanel(strPanelId);
+            // _initCustomerPanel(strPanelId);
             _initArticleList(strPanelId);
             _initEditArticlePanel(strPanelId);
         };
@@ -61,7 +62,7 @@ define(function(require, exports, module) {
             $("body").prepend(strHtml);
         };
 
-        var _initSummaryPanel = function(strPanelId){
+        var _initSummaryPanel = function(strPanelId) {
             var strHtml = '\
             <div class="panel panel-default">\
                 <div class="panel-body">\
@@ -71,7 +72,7 @@ define(function(require, exports, module) {
             $("#" + strPanelId).append(strHtml);
         };
 
-        var _initFileUpload = function(strPanelId){
+        var _initFileUpload = function(strPanelId) {
             var strHtml = '\
             <div class="" style="margin-bottom: 10px">\
                 <input id="file-1" name="kartik-input-701[]" type="file" multiple=true class="file-loading">\
@@ -99,7 +100,7 @@ define(function(require, exports, module) {
             </div>';
             $("#" + strPanelId).append(strHtml);
             $("#button_success").click(function() {
-                Utils.postJosn("/spring_demo/getCustomerInfo", {}, function(data) {
+                Utils.postJson("/spring_demo/getCustomerInfo", {}, function(data) {
                     _renderGridData(data);
                 }, function() {
 
@@ -111,13 +112,13 @@ define(function(require, exports, module) {
                     if (i == 1) {
                         arrArticle.push({
                             title: "Spring",
-                            content: "Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring",
+                            summary: "Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring Study Spring",
                             id: i
                         });
                     } else {
                         arrArticle.push({
                             title: "Spring",
-                            content: "Spring Cloud provides tools for developers to quickly build some of the common patterns in distributed systems (e.g. configuration management, service discovery, circuit breakers, intelligent routing, micro-proxy, control bus, one-time tokens, global locks, leadership election, distributed sessions, cluster state). Coordination of distributed systems leads to boiler plate patterns, and using Spring Cloud developers can quickly stand up services and applications that implement those patterns. They will work well in any distributed environment, including the developer's own laptop, bare metal data centres, and managed platforms such as Cloud Foundry.",
+                            summary: "Spring Cloud provides tools for developers to quickly build some of the common patterns in distributed systems (e.g. configuration management, service discovery, circuit breakers, intelligent routing, micro-proxy, control bus, one-time tokens, global locks, leadership election, distributed sessions, cluster state). Coordination of distributed systems leads to boiler plate patterns, and using Spring Cloud developers can quickly stand up services and applications that implement those patterns. They will work well in any distributed environment, including the developer's own laptop, bare metal data centres, and managed platforms such as Cloud Foundry.",
                             id: i
                         });
                     }
@@ -130,7 +131,7 @@ define(function(require, exports, module) {
             });
         };
 
-        var _initCustomerPanel = function(strPanelId){
+        var _initCustomerPanel = function(strPanelId) {
             var strHtml = '<div id="customer_list"></div>';
             $("#" + strPanelId).append(strHtml);
         };
@@ -164,37 +165,37 @@ define(function(require, exports, module) {
         };
 
         var _initArticleList = function(strPanelId) {
+              //初始化
             var strHtml = '\
             <div class="panel panel-default" id="articles_container"></div>';
             $("#" + strPanelId).append(strHtml);
-            oArticleList = new ArticleList();
-            oArticleList.init({
-                containerId: "articles_container",
-                clickReadMore: function(articleId) {
-                    console.log(articleId);
+            //获取数据
+            Utils.postJson("/spring_demo/getBlogs", {}, function(data) {
+                if (data.length) {
+                    //有数据
+                    oArticleList = new ArticleList();
+                    oArticleList.init({
+                        containerId: "articles_container",
+                        clickReadMore: function(articleId) {
+                            console.log(articleId);
+                        }
+                    });
+                    oArticleList.drawArticleList(data);
+                } else {
+                    //无数据
+                    var strHtml = '\
+                    <div class="alert alert-info no_margin" role="alert">\
+                        This is no blog! </div>';
+                    $("#articles_container" ).append(strHtml);
                 }
+            }, function() {
+
             });
         };
 
         var _initEditArticlePanel = function(strPanelId) {
-            var strHtml = '\
-            <div class="panel panel-default" style="background-color: rgb(245, 245, 245);">\
-                <div class="panel-body">\
-                    <input class="form-control" placeholder="请输入标题" style="margin-bottom: 10px;">\
-                    <textarea class="form-control" rows="3" placeholder="请输入摘要" style="resize:none; margin-bottom: 10px;"></textarea>\
-                    <textarea id="typeHere" placeholder="请输入正文"></textarea>\
-                    <p style="text-align:right;margin: 10px 0 0 0;">\
-                        <button type="button" class="btn btn-info">保存</button>\
-                    </p>\
-                </div>\
-            </div>';
-
-            $("#" + strPanelId).append(strHtml);
-            tinymce.init({
-                selector: "#typeHere",
-                height: 400,
-                plugins: ["placeholder"]
-            });
+            var oAddArticle = new AddArticle();
+            oAddArticle.init(strPanelId);
         };
 
     };

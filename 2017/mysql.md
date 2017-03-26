@@ -49,6 +49,24 @@ ___
 * AND和OR组合使用：SELECT column_name1,column_name2 FROM tbl_custom WHERE (column_name1=5 OR column_name1=6) AND column_name2=20
 > 建议同时使用AND和OR时，用括号标识出计算的优先级
 * IN操作符：SELECT column_name1 FROM tbl_custom WHERE column_name1 IN ('a','b','c') ORDER BY column_name1;
+* NOT操作符，否定它之后所跟的任何条件
+> SELECT column_name1 FROM tbl_custom WHERE column_name1 NOT IN ('A','B','C');
+
+**用通配符进行过滤**
+* %号通配符，%表示任何字符出现任意次数
+* _通配符，_匹配单个字符，不能多也不能少：SELECT column_name1 FROM tbl_custom WHERE column_name1 LIKE '_ SS XX';
+> 注意：统配符的搜索效率低，耗时长，不要过度使用统配符；当通配符位于搜索模式的开始处时，搜索起来是最慢的。
+
+**使用正则表达式进行搜索**
+* REGEXP: SELECT column_name1 FROM tbl_custom WHERE column_name1 REGEXP '1000';匹配column_name1中包含文本1000的所有行。
+> 如果想区分大小写，可以使用BINARY关键字：SELECT column_name1 FROM tbl_custom WHERE column_name1 REGEXP BINARY 'aBC';
+* 使用OR条件：SELECT column_name1 FROM tbl_custom WHERE column_name1 REGEXP '1000|2000';
+* 匹配几个字符之一：[123];匹配除某些字符之外的字符[^123]
+> REGEXP和LIKE的区别是：LIKE匹配整个串，REGEXP匹配子串
+
+
+
+
 
 ####MySQL的安装
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包

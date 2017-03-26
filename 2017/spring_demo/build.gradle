@@ -29,12 +29,24 @@ repositories{
 
 // 依赖的jar包
 dependencies{
+	//spring
 	compile 'org.springframework:spring-webmvc:4.3.7.RELEASE'
+	//servlet
 	compile 'javax.servlet:servlet-api:2.5'
+	//log
 	compile 'log4j:log4j:1.2.17'
+	//messageConvert:json
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.8.6' //用于让Spring注册MappingJackson2HttpMessageConverter
+	//Spring data jpa 
 	compile 'org.springframework.data:spring-data-jpa:1.11.1.RELEASE'
+	//hibernate
 	compile 'org.hibernate:hibernate-core:5.2.8.Final'
+	//BasicDataSource
 	compile 'commons-dbcp:commons-dbcp:1.4'
+	//Mysql driver
 	compile 'mysql:mysql-connector-java:6.0.6'
+	//lombok
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compile 'org.projectlombok:lombok:1.16.16'
+	
 }
