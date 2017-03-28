@@ -22,6 +22,45 @@ session.close();
 5. 在JPA的概念中EntiryManager等价于Session
 6. 在JPA的概念中EntityTransaction等价于Transaction
 
+####Hibernate注解
+1. @Type:告知Hibernate这个Column的数据类型
+> @Type(type="text")
+2. 枚举映射：@Enumerated，映射的策略由两种ORDINAL和STRING
+> @Enumerated(EnumType.ORDINAL)//NULL(For null value),枚举的ordinal
+> @Enumerated(EnumeType.STRING)//NULL(For null value),枚举的name
+3. @MapKeyEnumerated:用于Map对象并且Map的Key是枚举
+4. @Convert
+>  @Convert(converter = PeriodStringConverter.class)
+```
+@Converter
+public class PeriodStringConverter
+        implements AttributeConverter<Period, String> {
+
+    @Override
+    public String convertToDatabaseColumn(Period attribute) {
+        return attribute.toString();
+    }
+
+    @Override
+    public Period convertToEntityAttribute(String dbData) {
+        return Period.parse( dbData );
+    }
+}
+```
+5. 日期/时间映射：@Temporal，可以将Java Date/Time类隐身为Entiry Properties
+> DATE:年月日
+> TIME:时分秒
+> TIMESTAMP:年月日时分秒(包含纳秒)
+```
+@Temporal(TemporalType.DATE)
+private Date timestamp;
+```
+6. java8的Date/Time和SQL Type之间包含隐形的映射关系，不需要使用@Temporal的注解
+> DATE ---> java.time.LocalDate
+> TIME ---> java.time.LocalTime
+> TIMESTAMP ---> java.time.LocalDateTime
+
+
 ####Spring data JPA+Hibernate+MySQL使用
 1. 引入jar包
 > org.springframework.data:spring-data-jpa:1.11.1.RELEASE; Spring data jpa的jar包
