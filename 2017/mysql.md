@@ -64,6 +64,24 @@ ___
 * 匹配几个字符之一：[123];匹配除某些字符之外的字符[^123]
 > REGEXP和LIKE的区别是：LIKE匹配整个串，REGEXP匹配子串
 
+**计算字段**
+* 字段拼接：Concat,把多个串拼接为一个长串。
+> SELECT Concat(column_name1,'(',column_name2,')') FROM tbl_custom;
+> 输入示例：column_name1(column_name2)
+* 去掉空格，RTrim()/LTrim()/Trim()
+* 别名，使用AS来指定别名
+> SELECT Concat(column_name1,'(',column_name2,')') AS column1_cloumn2 FROM tbl_custom;
+* 算术计算
+> MySQL支持+，-，*，/的计算
+> SELECT quantity,price,quantiry*price AS total_price FROM tbl_custom
+
+**数据处理函数**
+* 文本处理函数
+> Left()/Length()/Locate()/Lower()/LTrim()/Right()/RTrim()/Sundex()/SubString()/Upper()
+* 日期和时间处理函数
+> AddDate()/AddTime()/CurDate()/CurTime()/Date()/Day()/Hour()/Minute()/Month()/Now()/Second()/Time()/Year()...
+* 数值处理函数
+> Abs()/Cos()/Exp()/Mod()/Pi()/Rand()/Sin()/Sqrt()/Tan()
 
 
 
