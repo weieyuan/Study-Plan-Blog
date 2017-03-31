@@ -31,6 +31,26 @@ session.close();
 3. @MapKeyEnumerated:用于Map对象并且Map的Key是枚举
 4. @Convert
 >  @Convert(converter = PeriodStringConverter.class)
+5. @Embeddable:描述一个类可以被嵌入；@Embedded:描述嵌入了某个类
+```
+@Entity
+public class Person {
+
+    @Id
+    private Integer id;
+
+    @Embedded
+    private Name name;
+
+    ...
+}
+@Embeddable
+public class Name{
+	private String firstName;
+	
+	private String lastName;
+}
+```
 ```
 @Converter
 public class PeriodStringConverter
