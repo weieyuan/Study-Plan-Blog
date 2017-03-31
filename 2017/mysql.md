@@ -83,7 +83,18 @@ ___
 * 数值处理函数
 > Abs()/Cos()/Exp()/Mod()/Pi()/Rand()/Sin()/Sqrt()/Tan()
 
-
+**汇总数据**
+* 聚集函数
+> AVG()/COUNT()/MAX()/MIN()/SUM()
+* AVG():返回符合条件的行中某列的平均值
+> SELECT AVG(column_name1) AS avg_column FROM tbl_custom WHERE colum_name2 = 'a';
+* COUNT():返回符合条件的行的总数;COUNT(*)对表中的行的数目进行统计，不管表列中的值是否为空(NULL)还是非空，COUNT(column_name)对特定的列中具有值得行进行行数统计，不包括该列值为空(NULL)的行
+> SELECT COUNT(*) AS count FROM tbl_custom WHERE coumn_name2 = 'a';
+> SELECT COUNT(column_name1) AS count FROM tbl_custom WHERE coumn_name2 = 'a';
+* MAX()/MIN():统计某列的最大/小值，不包含NULL值，即可以应用在数值列上也可用于非数值列上。
+* SUM():统计某列的总和，不包含NULL值，也可以用于统计计算总和
+> SELECT SUM(privice * quantity) AS total_price FROM tbl_custom;
+* 聚集不同值的列，可以使用DISTINCT来限定列名。
 
 
 ####MySQL的安装
