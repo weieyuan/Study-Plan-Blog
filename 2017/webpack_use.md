@@ -1,7 +1,9 @@
 #### Use Webpack ####
 ___
 1.前置条件：本机安装了node.js
+
 2.在某个目录下新建一个文件夹。例如D:\study\webpack_demo，该目录也是项目的根目录
+
 3.在项目根目录下执行：npm init
 > 会引导用户在项目的根目录下生成package.json
 
