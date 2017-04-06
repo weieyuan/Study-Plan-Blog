@@ -17,7 +17,7 @@ var Test = function(){
             <div class="container">\
                 <div class="navbar-header">\
                     <a class="navbar-brand" style="padding: 0" href="#">\
-                        <img alt="Wei Blog" src="../image/brand2.png">\
+                        <img alt="Wei Blog" src="../image/brand2.png" height="50">\
                     </a>\
                 </div>\
                 <div class="collapse navbar-collapse">\
