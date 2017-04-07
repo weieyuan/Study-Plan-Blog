@@ -1,33 +1,73 @@
 /**
  * Created by Administrator on 2017/4/7.
  */
-define([], function(){
+define([], function() {
 
     var Mock = {};
-    Mock.getBlogs = function(limit, iPageIndex, oAfterCallback){
+
+    var blogs = [];
+
+    (function() {
+
+        for (var i = 1; i <= 50; i++) {
+            var oBlog = {
+                id: i,
+                title: "Blog Title " + i,
+                summary: "Blog Summary " + i,
+                viewCount: i,
+                detail: {
+                    content: "Blog Content " + i
+                }
+            };
+            blogs.push(oBlog);
+        }
+
+    })();
+
+    Mock.getBlogs = function(limit, iPageIndex, oAfterCallback) {
         var res = {
             pages: 5,
-            blogs:[]
+            blogs: []
         };
-        for(var i=0; i < limit; i++){
-            var oBlog = {
-                title: "Title New" + (iPageIndex - 1) * limit + i,
-                summary: "Summary New " + (iPageIndex - 1) * limit + i,
-                viewCount: (iPageIndex - 1) * limit + i,
-                id: (iPageIndex - 1) * limit + i
-            };
-            res.blogs.push(oBlog);
+
+        res.pages = Math.ceil(blogs.length / limit);
+
+        var iMin = (iPageIndex - 1) * limit;
+        var iMax = Math.min(iPageIndex * limit, blogs.length);
+
+        for(var i = iMin; i < iMax; i++){
+            res.blogs.push(blogs[i]);
         }
+
         oAfterCallback(res);
     };
 
-    Mock.getBlogContent = function(blogId, oAfterCallback){
+    Mock.getBlogContent = function(blogId, oAfterCallback) {
         var res = {
-            title: "Blog Demo " + blogId,
-            summary: "Blog Summary" + blogId,
-            content: "Blog Content " + blogId
+            id: undefined,
+            title: undefined,
+            summary: undefined,
+            viewCount: undefined,
+            detail: {
+                content: undefined
+            }
         };
+
+        for(var i=0, len=blogs.length; i < len; i++){
+            if(blogs[i].id == blogId){
+                Object.assign(res, blogs[i]);
+                break;
+            }
+        }
+
         oAfterCallback(res);
+    };
+
+    Mock.addBlog = function(blog, oAfterCallback) {
+        blog.id = blogs.length + 1;
+        blog.viewCount = 0;
+        blogs.push(blog);
+        oAfterCallback(true);
     };
 
     return Mock;
