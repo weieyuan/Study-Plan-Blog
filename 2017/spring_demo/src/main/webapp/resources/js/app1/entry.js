@@ -1,0 +1,25 @@
+/**
+ * Created by Administrator on 2017/4/7.
+ */
+require.config({
+    baseUrl: "../js",
+    paths: {
+        jquery: 'lib/jquery/jquery-2.1.4',
+        bootstrap: 'lib/bootstrap-3.3.7/js/bootstrap.min',
+        less: 'lib/less-2.3.1/js/less.min',
+        bootstrapFileInput: 'lib/bootstrap-fileinput-4.3.8/js/fileinput.min',
+        tinymce: 'lib/tinymce/js/tinymce/tinymce.min',
+        widget: 'widget',
+        app1: 'app1'
+    },
+    shim: {
+        'bootstrap':{
+            deps:['jquery']
+        }
+    }
+});
+
+require(["app1/test","bootstrap", "less"], function(Test){
+    var oTest = new Test();
+    oTest.init();
+});
