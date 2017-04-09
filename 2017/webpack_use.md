@@ -85,9 +85,9 @@ module.exports = {
 }
 ```
 
-9.执行编译，在项目根目录下执行.node_modeuls\.bin\webpack
+9.执行编译，在项目根目录下执行.node_modeuls\\.bin\webpack
 > 该命令默认在项目根目录下查找webpack.config.js配置文件
-> 也可以自己指定配置文件：.node_modeuls\.bin\webpack --config webpack.config.js
+> 也可以自己指定配置文件：.node_modeuls\\.bin\webpack --config webpack.config.js
 
 9.1.通过npm命令来执行build
 > 在package.json的scripts标签中增加: "build": "webpack"
