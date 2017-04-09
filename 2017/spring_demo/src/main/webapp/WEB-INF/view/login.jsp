@@ -41,7 +41,7 @@
       var userName = $("#inputUsername").val();
       var password = $("#inputPassword").val();
       //这里可以对用户名和密码进行校验
-      if($("#remember").isChecked()){
+      if($("#remember").prop("checked") === true){
         //这里可以把用户名和密码存到cookie中
       }
       else{

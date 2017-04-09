@@ -1,0 +1,36 @@
+.custom_prompt{
+	position: fixed;
+	bottom: 41px;
+	right: 0;
+	margin: 0;
+
+	animation-name: fade-in, fade-out;/*动画名称*/ 
+	animation-delay: 0s, 4.0s;  
+    animation-duration: 2.0s, 2.0s;/*动画持续时间*/  
+
+    -webkit-animation-name: fade-in, fade-out;/*动画名称*/ 
+	-webkit-animation-delay: 0s, 4.0s;  
+    -webkit-animation-duration: 2.0s, 2.0s;/*动画持续时间*/ 
+}
+
+@keyframes fade-in {  
+    0% {opacity: 0;}/*初始状态 透明度为0*/  
+    50% {opacity: 0.5;}/*过渡状态 透明度为0.5*/  
+    100% {opacity: 1;}/*结束状态 透明度为1*/  
+}  
+@-webkit-keyframes fade-in {/*针对webkit内核*/  
+    0% {opacity: 0;}  
+    50% {opacity: 0.5;}  
+    100% {opacity: 1;}  
+}
+
+@keyframes fade-out {  
+    0% {opacity: 1;}/*初始状态 透明度为1*/  
+    50% {opacity: 0.5;}/*过渡状态 透明度为0.5*/  
+    100% {opacity: 0;}/*结束状态 透明度为0*/  
+}
+@-webkit-keyframes fade-out {  
+    0% {opacity: 1;}/*初始状态 透明度为1*/  
+    50% {opacity: 0.5;}/*过渡状态 透明度为0.5*/  
+    100% {opacity: 0;}/*结束状态 透明度为0*/  
+}  

@@ -49,6 +49,7 @@ public class SpringJpaConfig {
 		props.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
 		props.put("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
 		props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+		props.put("hibernate.jdbc.time_zone", env.getProperty("timeZone"));
 		props.put("javax.persistence.sql-load-script-source", env.getProperty("hibernate.init.sql"));
 		factory.setJpaProperties(props);
 		return factory;

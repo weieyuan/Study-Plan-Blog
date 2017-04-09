@@ -11,4 +11,8 @@ public class BlogDetailRepositoryService {
 	@Autowired
 	private IBlogDetailRepository iBlogDetailRepository;
 
+	public void updateBlogContent(Long id, String content) {
+		this.iBlogDetailRepository.updateBlogContent(id, content);
+	}
+
 }

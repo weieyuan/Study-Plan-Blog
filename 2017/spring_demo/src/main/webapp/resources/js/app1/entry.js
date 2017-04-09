@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/4/7.
  */
 require.config({
-    baseUrl: "../js",
+    baseUrl: BASE_URL + "js",
     paths: {
         jquery: 'lib/jquery/jquery-2.1.4',
         bootstrap: 'lib/bootstrap-3.3.7/js/bootstrap.min',

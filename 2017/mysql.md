@@ -32,7 +32,8 @@ ___
 * 指定排序方向：SELECT column_name1,column_name2 FROM tbl_custom ORDER BY column_name1 DESC,column_name2;
  先按column_name1降序排序，在column_name1相同的数据中按照column_name2排序
 > DESC只作用于直接位于其前面的列
-* ORDER BY和LIMIT组合使用：SELECT column_name1 FROM tbl_custom ORDER BY column_name1 LIMIT 1;
+* ORDER BY和
+* 组合使用：SELECT column_name1 FROM tbl_custom ORDER BY column_name1 LIMIT 1;
 > LIMIT需要位于ORDER BY之后
 
 **数据过滤**

@@ -42,9 +42,12 @@ define(["jquery", "widget/utils"], function($, Utils){
         </div>';
             $("#" + m_Options.containerId).append(strHtml);
 
+            if(m_Options.pages <= 1){
+                $("#next").addClass("disabled");
+            }
+
             $("#previous").click(function(){
                 if(curPage <= 1){
-                    console.error("error: previous");
                     return;
                 }
                 curPage -= 1;
@@ -59,7 +62,6 @@ define(["jquery", "widget/utils"], function($, Utils){
 
             $("#next").click(function(){
                 if(curPage >= m_Options.pages){
-                    console.error("error: next");
                     return;
                 }
                 curPage += 1;
@@ -72,7 +74,20 @@ define(["jquery", "widget/utils"], function($, Utils){
                 });
             });
 
-            this.drawBlogs(m_Options.blogs);
+            if(m_Options.blogs.length === 0){
+                strHtml = '\
+                <div class="panel panel-warning">\
+                    <h3 style="text-align: center;">\
+                        Your are so lazy!\
+                        <br />\
+                        There is no blog.\
+                    </h3>\
+                </div>';
+                $("#blog_list").append(strHtml);
+            }
+            else{
+                this.drawBlogs(m_Options.blogs);
+            }
         };
 
         this.drawBlogs = function(blogs){

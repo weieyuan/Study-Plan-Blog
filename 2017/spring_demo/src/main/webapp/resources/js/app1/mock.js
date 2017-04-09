@@ -63,10 +63,27 @@ define([], function() {
         oAfterCallback(res);
     };
 
+    Mock.updateBlog = function(blog, oAfterCallback){
+        for(var i = 0, len = blogs.length; i < len; i++){
+            if(blogs[i].id === blog.id){
+                Object.assign(blogs[i], {
+                    title: blog.title,
+                    summary: blog.summary
+                });
+                Object.assign(blogs[i].detail, {
+                    content: blog.detail.content
+                });
+                oAfterCallback(true);
+                return;
+            }
+        }
+        oAfterCallback(false);
+    };
+
     Mock.addBlog = function(blog, oAfterCallback) {
         blog.id = blogs.length + 1;
         blog.viewCount = 0;
-        blogs.push(blog);
+        blogs.unshift(blog);
         oAfterCallback(true);
     };
 

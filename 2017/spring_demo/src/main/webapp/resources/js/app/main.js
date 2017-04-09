@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     var $ = require('jquery');
     require('bootstrapFileInput');
     require('tinymce');
-    var ArticleList = require('widget/article_list');
+    var ArticleList = require('app/article_list');
     var Utils = require('widget/utils');
     var BlogList = require('app/bloglist');
     var AddArticle = require('app/add_article')
