@@ -33,6 +33,16 @@ public class SpringJpaConfig {
 		oBasicDataSource.setUrl(env.getProperty("MySQL.url"));
 		oBasicDataSource.setUsername(env.getProperty("MySQL.userName"));
 		oBasicDataSource.setPassword(env.getProperty("MySQL.password"));
+		oBasicDataSource.setInitialSize(Integer.valueOf(env.getProperty("MySQL.initialSize")));
+		oBasicDataSource.setMaxActive(Integer.valueOf(env.getProperty("MySQL.maxTotal")));
+		oBasicDataSource.setMaxIdle(Integer.valueOf(env.getProperty("MySQL.maxIdle")));
+		oBasicDataSource.setMinIdle(Integer.valueOf(env.getProperty("MySQL.minIdle")));
+		oBasicDataSource.setNumTestsPerEvictionRun(Integer.valueOf(env.getProperty("MySQL.numTestsPerEvictionRun")));
+		oBasicDataSource.setValidationQuery(env.getProperty("MySQL.validationQuery"));
+		oBasicDataSource.setValidationQueryTimeout(Integer.valueOf(env.getProperty("MySQL.validationQueryTimeout")));
+		oBasicDataSource.setTestOnBorrow(Boolean.valueOf(env.getProperty("MySQL.testOnBorrow")));
+		oBasicDataSource.setTestWhileIdle(Boolean.valueOf(env.getProperty("MySQL.testWhileIdle")));
+		oBasicDataSource.setTimeBetweenEvictionRunsMillis(Integer.valueOf(env.getProperty("MySQL.timeBetweenEvictionRunsMillis")));
 		return oBasicDataSource;
 	}
 
