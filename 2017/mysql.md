@@ -97,6 +97,12 @@ ___
 > SELECT SUM(privice * quantity) AS total_price FROM tbl_custom;
 * 聚集不同值的列，可以使用DISTINCT来限定列名。
 
+**分组数据**
+* GROUP BY
+> GROUP BY语句必须出现在WHERE子句之后，ORDER BY之前
+> SELECT column_name1, COUNT(*) FROM tbl_custom WHERE column_name2 = 'a' ORDER BY column_name1;
+* 过滤分组
+
 
 ####MySQL的安装
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
