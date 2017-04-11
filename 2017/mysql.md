@@ -101,7 +101,8 @@ ___
 * GROUP BY
 > GROUP BY语句必须出现在WHERE子句之后，ORDER BY之前
 > SELECT column_name1, COUNT(*) FROM tbl_custom WHERE column_name2 = 'a' ORDER BY column_name1;
-* 过滤分组
+* 过滤分组：HAVING
+> WHERE是过滤行
 
 
 ####MySQL的安装
