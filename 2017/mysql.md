@@ -1,11 +1,11 @@
-#MySQL知识点#
+# MySQL知识点 #
 ___
-####基本概念####
+#### 基本概念 ####
 * 数据库是保存有组织的数据容器；表是一种结构化数据结构。
 * 模式：描述数据库和表的布局及特征的信息。
 * 主键：一列或一组列，能够唯一区分表中的每一行。
 
-####MySQL命令####
+#### MySQL命令 ####
 **SHOW命令**
 * 在mysql命令行中输入HELP SHOW可以显示所有的SHOW命令
 * 切换数据库：USE mydatabase;
@@ -117,7 +117,7 @@ LIMIT
 ```
 
 
-####MySQL的安装
+#### MySQL的安装 ####
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
 2. 设置my.ini文件
 ![my.ini示例](./image/my_ini.PNG)
