@@ -1,11 +1,11 @@
-#MySQL知识点
+#MySQL知识点#
 ___
-####基本概念
+####基本概念####
 * 数据库是保存有组织的数据容器；表是一种结构化数据结构。
 * 模式：描述数据库和表的布局及特征的信息。
 * 主键：一列或一组列，能够唯一区分表中的每一行。
 
-####MySQL命令
+####MySQL命令####
 **SHOW命令**
 * 在mysql命令行中输入HELP SHOW可以显示所有的SHOW命令
 * 切换数据库：USE mydatabase;
@@ -101,8 +101,20 @@ ___
 * GROUP BY
 > GROUP BY语句必须出现在WHERE子句之后，ORDER BY之前
 > SELECT column_name1, COUNT(*) FROM tbl_custom WHERE column_name2 = 'a' ORDER BY column_name1;
+> 使用WITH ROLLUP,可以获取组的信息和所有组的汇总信息：SELECT column_name1, COUNT(*) as num WHERE column_name2 = 'a' ORDER BY column_name1 WITH ROLLUP
 * 过滤分组：HAVING
-> WHERE是过滤行
+> WHERE是过滤行，HAVING是过滤组
+> SELECT deviceType, COUNT(*) AS num FROM node GROUP BY deviceType HAVING num > 2;
+* SQL语句中关键字的顺序
+```
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+LIMIT
+```
 
 
 ####MySQL的安装
