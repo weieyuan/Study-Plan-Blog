@@ -23,3 +23,6 @@ server:
 * @PathVariable/@RequestParam
 * @GetMapping等价于@RequestMapping中设置请求方式为GET请求
 * @PostMapping等价于@RequestMapping中设置请求方式为POST请求
+* 默认情况下静态资源的路径匹配模式是'/**'上，但是可以修改静态资源的路径匹配模式和静态资源的路径
+> srping.mvc.static-path-pattern=/resources/**
+> spring.resources.static-locations=/static/
