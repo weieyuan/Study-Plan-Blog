@@ -48,3 +48,6 @@ public void doAfterReturing(Object object){
 ```
 * 异常处理
 > @ControllerAdvice @ExceptionHandler
+* 单元测试
+> @RunWith(SpringRunner.class) @SpringBootTest
+> web中的controller中的接口测试：@AutoConfigureMockMvc MockMvc
