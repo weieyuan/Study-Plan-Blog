@@ -116,6 +116,13 @@ ORDER BY
 LIMIT
 ```
 
+**使用子查询**
+* 查询中嵌套查询
+* 子查询进行过滤
+> SELECT custom_column1 FROM custom_tbl1 WHERE custom_column2 IN (SELECT column2 FROM custom_tbl2)
+* 作为计算字段使用子查询
+> SELECT custom_column1, (SELECT COUNT(\*) FROM custom_tb2 WHERE custom_tb2.id = custom_tbl1.custom_id) FROM custom_tbl1
+
 
 #### MySQL的安装 ####
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
