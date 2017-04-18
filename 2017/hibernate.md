@@ -1,4 +1,4 @@
-####Hibernate
+#### Hibernate ####
 1. Mapping File
 ```
 <class name="com.wei.Event" table="Events">
@@ -22,7 +22,7 @@ session.close();
 5. 在JPA的概念中EntiryManager等价于Session
 6. 在JPA的概念中EntityTransaction等价于Transaction
 
-####Hibernate注解
+#### Hibernate注解 ####
 1. @Type:告知Hibernate这个Column的数据类型
 > @Type(type="text")
 2. 枚举映射：@Enumerated，映射的策略由两种ORDINAL和STRING
@@ -81,7 +81,7 @@ private Date timestamp;
 > TIMESTAMP ---> java.time.LocalDateTime
 
 
-####Spring data JPA+Hibernate+MySQL使用
+#### Spring data JPA+Hibernate+MySQL使用 ####
 1. 引入jar包
 > org.springframework.data:spring-data-jpa:1.11.1.RELEASE; Spring data jpa的jar包
 > org.hibernate:hibernate-core:5.2.8.Final; Hibernate的相关jar包，由于我们使用Hibernate作为JPA的实现，因此需要引入Hibernate
