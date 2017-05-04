@@ -123,6 +123,12 @@ LIMIT
 * 作为计算字段使用子查询
 > SELECT custom_column1, (SELECT COUNT(\*) FROM custom_tb2 WHERE custom_tb2.id = custom_tbl1.custom_id) FROM custom_tbl1
 
+**联结表**
+* 外键：为某表中的一列，它包含了另一表的主键值，定义了两个表之间的关系。
+> SELECT vend_name,prod_name FROM vender,product WHERE vender.vend_id = product.vend_id
+* 内部联结：等值联结，基于两个表之间的相等测试，也称为内部联结。
+> SELECT vend_name,pord_name FROM vender INNER JOIN product ON vender.id=product.vend_id
+
 
 #### MySQL的安装 ####
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
