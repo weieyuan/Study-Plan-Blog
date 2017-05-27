@@ -129,6 +129,10 @@ LIMIT
 * 内部联结：等值联结，基于两个表之间的相等测试，也称为内部联结。
 > SELECT vend_name,pord_name FROM vender INNER JOIN product ON vender.id=product.vend_id
 
+**创建高级联结**
+* 自联结
+> SELECT p1.prod_id,p1.prod_name FROM products AS p1, products AS p2 WHERE p1.vend_id = p2.vend_id AND p2.prod_id = 'DENTR'
+
 
 #### MySQL的安装 ####
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
