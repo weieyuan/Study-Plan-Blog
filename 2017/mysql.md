@@ -132,6 +132,19 @@ LIMIT
 **创建高级联结**
 * 自联结
 > SELECT p1.prod_id,p1.prod_name FROM products AS p1, products AS p2 WHERE p1.vend_id = p2.vend_id AND p2.prod_id = 'DENTR'
+* 外联结：内联结是查询出所有关联的行，外联结中还查询出来没有关联的行。
+> RIGHT OUTER JOIN: 包含右表的所有行
+> LEFT OUTER JOIN: 包含左表的所有行
+> SELECT customer.cust_id,orders.order_num FROM customers RIGHT OUTER JOIN orders ON orders.cust_id = customers.cust_id
+
+**创建组合查询**
+* 组合查询：执行多个查询，并且将查询结果作为单个查询结果集返回。
+* 使用UNION的条件：
+	* 必须有两条或以上的select语句
+	* 每个查询必须包含相同的列
+	* 列数据的类型必须兼容
+* 使用UNION会默认消除重复的行；UNION ALL会包含重复的行。
+* 组合查询中只能使用一次ORDER BY，并且ORDER BY只能出现在最后一个select语句中，ORDER BY会对所有的查询结果进行排序。
 
 
 #### MySQL的安装 ####
