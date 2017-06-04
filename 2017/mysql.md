@@ -170,7 +170,7 @@ LIMIT
 	* 首先进行全文本搜索，找到所有匹配行
 	* 其次，MySQL检查这些匹配的行并选择所有有用的词(怎么判读有用的词？？？)
 	* 再其次，MySQL会再次进行全文本搜索，这次不仅使用原来的条件，而且还使用所有有用的词
-> SELECT note_text FROM productnotes WHERE Math(note_text) Against('heavy' WITH QUERY EXPANSION);
+> SELECT note_text FROM productnotes WHERE Math(note_text) Against('heavy' WITH QUERY EXPANSION );
 * 布尔文本搜索，可以提供如下功能
 	* 要匹配的词
 	* 要排斥的词
