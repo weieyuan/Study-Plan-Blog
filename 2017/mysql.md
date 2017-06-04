@@ -146,6 +146,48 @@ LIMIT
 * 使用UNION会默认消除重复的行；UNION ALL会包含重复的行。
 * 组合查询中只能使用一次ORDER BY，并且ORDER BY只能出现在最后一个select语句中，ORDER BY会对所有的查询结果进行排序。
 
+**全文本搜索**
+* MyISAM支持全文本搜索，而InnoDB不支持
+* 使用LINKE，正则表达式搜索的缺陷是：
+	* 性能，因为需要匹配所有行
+	* 很难明确控制匹配项
+	* 搜索出来的结果排序不够智能化
+* MySQL会创建指定列中各个词的索引，这样使用全文本搜索时，性能更好
+* 启动全文本搜索支持
+> CREATE TABLE productnotes(
+> note_id int NOT NULL AUTO_INCREMENT,
+> prod_id char(10) NOT NULL,
+> note_date datetime NOT NULL,
+> note_text text NULL,
+> PRIMARY KEY(note_id),
+> **FULLTEXT(note_text)**
+> )ENGINE=MyISAM;
+> FULLTEXT(note_text)会对note_text进行索引
+* 进行全文本搜索
+> SELECT note_text FROM productnotes WHERE Match(note_text) Against('rabbit');
+> Match()指定需要被搜索的列；Against()指定要使用的搜索的列
+* 使用查询扩展，作用是放宽搜索结果范围，原理
+	* 首先进行全文本搜索，找到所有匹配行
+	* 其次，MySQL检查这些匹配的行并选择所有有用的词(怎么判读有用的词？？？)
+	* 再其次，MySQL会再次进行全文本搜索，这次不仅使用原来的条件，而且还使用所有有用的词
+> SELECT note_text FROM productnotes WHERE Math(note_text) Against('heavy' WITH QUERY EXPANSION);
+* 布尔文本搜索，可以提供如下功能
+	* 要匹配的词
+	* 要排斥的词
+	* 排列提示（哪些词等级更高）
+	* 表达式分组
+	* 另外一些内容
+> SELECT note_text FROM productnotes WHERE Math(note_text) Against('heavy' IN BOOLEAN MODE);
+* 文本搜索的使用说明
+	* 短词被忽略且从索引中排除，短词定义为哪些具有3个及少于3个字符的词
+	* MySQL带有一个内建的非用词列表，这些词在索引全文本数据时总是被忽略
+	* MySQL规定了一条50%的规则，如果一个词出现在50%以上的行中，那么这个词会被作为一个非用词
+	* 如果表中的行数少于3行，则全文搜索不返回结果
+	* 忽略词中的单引号，don't索引为dont
+
+
+	
+
 
 #### MySQL的安装 ####
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
