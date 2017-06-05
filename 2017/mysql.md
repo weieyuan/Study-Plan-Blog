@@ -184,9 +184,16 @@ LIMIT
 	* MySQL规定了一条50%的规则，如果一个词出现在50%以上的行中，那么这个词会被作为一个非用词
 	* 如果表中的行数少于3行，则全文搜索不返回结果
 	* 忽略词中的单引号，don't索引为dont
-
-
-	
+**插入数据**
+* 插入单行数据
+对于自增长的主键可以省略,对于可以为NULL或者给定了默认值的列也是可以省略的
+> INSERT INTO custom_tbl(column_1,column_2,column_3,column_4) VALUES(1,2,3,4)
+* 插入多行数据
+	 * 使用多条INSERT语句，每条INSERT语句插入一行数据
+	 * 如果插入的列一样，可以使用如下方式：INSERT INTO custom_tbl(column_1,column_2,column_3,column_4) VALUES(1,2,3,4),VALUES(5,6,7,8)
+* 插入检索出的数据
+从一个表中检索出数据插入到另一张表中
+> INSERT INTO custom_tbl(column_1,column_2,column_3,column_4) SELECT(column_5,column_6,column_7,column_8) FROM custom_tbl1;
 
 
 #### MySQL的安装 ####
