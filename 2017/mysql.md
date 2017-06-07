@@ -194,7 +194,19 @@ LIMIT
 * 插入检索出的数据
 从一个表中检索出数据插入到另一张表中
 > INSERT INTO custom_tbl(column_1,column_2,column_3,column_4) SELECT(column_5,column_6,column_7,column_8) FROM custom_tbl1;
-
+**更新和删除数据**
+* 更新
+更新单行
+> UPDATE customers SET column1 = 'a', column2 = 'b' WHERE id = 10;
+更新所有行
+> UPDATE customers SET column1 = 'a', column2 = 'b';
+* 删除
+删除一行
+> DELETE FROM customers WHERE id = 10;
+删除所有行
+> DELETE FROM customers;
+DELETE删除的是表的内容，而不是表本身。如果想从表中删除所有的行，使用TRUNCATE TABLE，它完成相同的工作，但是速度更快，TRUNCATE实际上是删除原来的表，并重新创建一个表。
+如果想删除表使用DROP TABLE
 
 #### MySQL的安装 ####
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
