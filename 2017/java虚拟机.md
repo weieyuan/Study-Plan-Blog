@@ -130,6 +130,20 @@ Serial收集器的多线程版本，使用多线程进行垃圾收集。
 Serial收集器的老年代版本
 使用标记-整理算法
 
+* Parallel Old收集器
+Parellel Scavenge收集器的老年代版本
+使用多线程和标志-整理算法
+
+* CMS(Concurrent Mark Sweep)收集器
+以获取最短停顿时间为目的的收集器
+优点：并发、低停顿
+四个阶段：初始标记、并发标记、重新标记、并发清除
+	* 初始标记，"Stop the world"，仅仅标记下GC Roots能够直接关联到的对象，速度很快
+	* 并发标记，GC Roots Tracing，和用户线程一起运行
+	* 重新标记，"Stop the wrold"，修正并发标记期间因用户程序运行导致标记产生变动的那一部分对象的标记
+	* 并发清除，内存回收，和用户线程一起运行
+原理示意图：
+![xxx](./image/java_vm_cms.png)
 
 ####类文件结构####
 * .java--->.class(java虚拟机)--->机器码(操作系统)
