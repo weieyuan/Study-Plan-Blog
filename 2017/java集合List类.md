@@ -14,3 +14,5 @@ private static class Node<E>{
   }
 }
 ```
+**2.HashMap**
+* 允许key和value为null，和HashTable相比是非线程安全的
