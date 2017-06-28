@@ -1,18 +1,17 @@
-* web攻击 *
-
-** CSRF **
+## web攻击 ##
+#### CSRF ####
 * CSRF(cross site request forgery)跨域请求伪造。应用的场景是用户访问可信任的网站A，这个时候浏览器的cookie中记录了用户的session，这个时候用户访问
 危险网站B,危险网站B中可以通过cookie获取到用户的session，然后从B网站给A网站发请求，伪造了用户请求。
 * 防御
   * 校验HTTP消息头中的Referer，它记录了该HTTP请求的来源地址，通常请求应该是来自于同一个域名
   * 添加token校验，后台将token保存在session中，前台请求的时候带上token值，后台通过校验token值来验证请求是否合法
 
-**ClickJacking**
+#### ClickJacking ####
 * ClickJacking(点击劫持)，利用欺骗手段"覆写"了点击事情，常用的方式是使用iframe嵌套，劫持点击事件。
 * 防御
   * 在http消息头中设置X-Frame-Options: "DENY"，可以防止当前页面被iframe嵌套
 
-**安全相关的HTTP响应头 **
+#### 安全相关的HTTP响应头 ####
 * 资源网址[](https://imququ.com/post/web-security-and-response-header.html)
 * Strict-Transport-Security
 HTTP Strict Transport Security,简称HSTS,要求浏览器总是通过HTTPS来访问。
