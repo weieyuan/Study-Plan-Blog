@@ -13,7 +13,7 @@
 
 #### 安全相关的HTTP响应头 ####
 * 资源网址
-![资源](https://imququ.com/post/web-security-and-response-header.html)
+[https://imququ.com/post/web-security-and-response-header.html](https://imququ.com/post/web-security-and-response-header.html)
 * Strict-Transport-Security
 HTTP Strict Transport Security,简称HSTS,要求浏览器总是通过HTTPS来访问。
 strict-transport-security: max-age=16070400; includeSubDomains
