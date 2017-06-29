@@ -14,7 +14,8 @@ private static class Node<E>{
   }
 }
 ```
-**2.HashMap**
+## Map ##
+**HashMap**
 * 允许key和value为null，和HashTable相比是非线程安全的
 * 内部采用数组来存放数据Node<K,V>[] table，put方法中通过K的hash值来计算出对象在table数组中的下标，通过链表来存放相同hash值的对象
 ```
@@ -47,6 +48,31 @@ static class Entry<K, V> extends HashMap.Node<K,V>{
 
 ```
 * LinkedHashMap继承于HashMap，但是并没有覆写put方法，HashMap中每个节点的结构是HashMap.Node，而LinkedHashMap中每个节点的结构是LinkedHashMap.Entry，实现的原理是LinkedHashMap中覆写了newNode的方法。
+
+**HashTable**
+* Key和Value均不能为null
+* HashTable是线程安全的，如果不需要线程安全，那么推荐使用HashMap，如果需要高并发线程安全，那么推荐使用ConcurrentHashMap
+* HashTable的线程安全是通过添加synchronized关键字来实现的
+
+**TreeMap**
+* 内部使用一颗红黑数来存储数据
+* 数据是有序的
+  * 根据key的比较来排序，因此要求key是实现了Comparable接口
+  * 在TreeMap的构造函数中显示传入Comparator类
+
+## Set ##
+**HashSet**
+* 内部使用HashMap来存储数据，add方法的实现
+```
+private static final Object PRESENT = new Object();
+
+...
+
+public boolean add(E e){
+  return map.put(e, PRESENT) == null;
+}
+
+```
 
 
 
