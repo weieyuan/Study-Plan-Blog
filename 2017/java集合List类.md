@@ -1,5 +1,11 @@
 ## List ##
-**1.LinkedList**
+**ArrayList**
+* 允许添加null值。
+* 和vector是等价的，但是vector是线程安全的。
+* 内部使用Object[] elementData来存储数据
+
+
+**LinkedList**
 * LinkedList中的Node节点的结构
 ```
 private static class Node<E>{
@@ -59,6 +65,24 @@ static class Entry<K, V> extends HashMap.Node<K,V>{
 * 数据是有序的
   * 根据key的比较来排序，因此要求key是实现了Comparable接口
   * 在TreeMap的构造函数中显示传入Comparator类
+* 内部存储数据的结构是：
+```
+static final class Entry<K,V> implements Map.Entry<K,V>{
+  K key;
+  V value;
+  Entry<K,V> left;
+  Entry<K,V> right;
+  Entry<K,V> parent;
+  boolean color = BLCAK;
+  
+  Entry(K key, V value, Entry<K,V> parent){
+    this.key = key;
+    this.value = value;
+    this.parent = parent;
+  }
+}
+
+```
 
 ## Set ##
 **HashSet**
