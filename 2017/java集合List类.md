@@ -4,7 +4,6 @@
 * 和vector是等价的，但是vector是线程安全的。
 * 内部使用Object[] elementData来存储数据
 
-
 **LinkedList**
 * LinkedList中的Node节点的结构
 ```
@@ -20,6 +19,12 @@ private static class Node<E>{
   }
 }
 ```
+
+**Vector**
+* 线程安全
+* 使用Object[] elementData来存储数据
+* 如果不提供capacityIncrement参数，那么每次会把size增加一倍
+
 ## Map ##
 **HashMap**
 * 允许key和value为null，和HashTable相比是非线程安全的
