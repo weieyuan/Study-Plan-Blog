@@ -213,3 +213,37 @@ G1收集器的运作过程：
 类索引用于确定类的全限定名，父类索引用于确定父类的全限定名，接口索引集合用于描述这个类实现了哪些接口。
 类索引、父类索引、接口索引集合按照顺序排列在访问标志后，类索引和父类索引各自指向一个类型为CONSTANT_Class_info的类描述符常量。
 接口索引集合中的第一个u2数据为接口计数器，表示索引表的容量
+
+* 字段表集合
+字段表用于描述接口或者类中的声明的变量。字段包括类级变量和类实例变量。
+字段包含的信息：字段作用域(private/public/protected)、实例变量还是类变量(static)、可变性(final)、并发可见性(volatile)、可否被序列化(transient)、数据类型(基本类型、对象、数组)、字段名称。
+字段表集合描述：
+	* u2 fields_count
+	* 每个字段表的结构
+
+ 每个字段表的结构：
+	* u2 access_flags
+	* u2 name_index
+	* u2 descriptor_index
+	* u2 attributes_count
+	* attribute_info
+	
+ name_index和descriptor_index都是对常量池的引用，分别代表字段的简单名称和方法/字段的描述符，简单名称是指没有类型和参数修饰的方法或者字段名称，描述符描述了字段的数据类型、方法的参数列表和返回值
+ 数据类型描述：
+	* B byte
+	* C char
+	* D double
+	* F float
+	* I int
+	* J long
+	* S short
+	* Z boolean
+	* V void
+	* L 对象类型，例如Ljava/lang/Object
+
+ 对于数组类型，每一个维度将使用一个前置的"["字符来描述，String[][]的描述是[[java/lang/String
+ 方法的描述符，按照先参数列表后返回值的顺序描述，参数列表按照参数的严格顺序放在一组小括号()之中，int indexOf(char[] source, int soruceCount, char[] target, int targetOffset)的描述信息是([CI[I)I
+ 字段表集合中不会列出从超类和父类中继承过来的字段
+
+
+
