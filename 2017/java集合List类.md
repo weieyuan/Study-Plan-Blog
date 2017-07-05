@@ -88,13 +88,18 @@ static final class Entry<K,V> implements Map.Entry<K,V>{
 }
 
 ```
-
 **EnumMap**
 * key必须为某一类型的枚举
 * key不能为null，value可以为null
 * 迭代器的顺序是和key.ordinal()的顺序保持一致
 * 内部使用Object[] vals来存储value，value的索引就是key.ordinal()
 * 使用K[] keyUniverse来存储所有的枚举值
+
+** IdentityHashMap **
+* key的相等判断条件是k1==k2
+* 允许key和value为null
+* 使用Object[] table来存储数据，table[i]存储key，table[i+1]存储value
+
 
 ## Set ##
 **HashSet**
