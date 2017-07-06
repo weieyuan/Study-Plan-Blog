@@ -115,5 +115,13 @@ public boolean add(E e){
 
 ```
 
+**TreeSet**
+* 内部使用TreeMap来存储数据
+
+## Queue ##
+**ArrayDeque**
+* 使用Object[] elements来储存数据
+* 作为堆栈使用时性能优于Stack;作为队列使用时性能优于LinkedList
+
 
 
