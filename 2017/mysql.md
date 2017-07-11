@@ -254,8 +254,11 @@ CREATE TABLE orderitems
 引擎是可以混用的
 * 更新表
 使用ALTER TABLE来更改表的结构。
+
 添加列：ALTER TABLE vendors ADD vend_phone CHAR(20);
+
 删除列：ALTER TABLE vendors DROP COLUMN vend_phone;
+
 定义外键：
 ALTER TABLE orderitems
 ADD CONSTRAINT fk_orderitems_orders
@@ -264,6 +267,9 @@ FOREIGN KEY(order_num) REFERENCES orders(order_num);
 DROP TABLE customers;
 * 重命名表
 RENAME TABLE customer TO customers;
+
+**视图**
+视图可以认为是一张虚拟的表
 
 #### MySQL的安装 ####
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
