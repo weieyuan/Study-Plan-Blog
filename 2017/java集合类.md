@@ -88,13 +88,18 @@ static final class Entry<K,V> implements Map.Entry<K,V>{
 }
 
 ```
-
 **EnumMap**
 * key必须为某一类型的枚举
 * key不能为null，value可以为null
 * 迭代器的顺序是和key.ordinal()的顺序保持一致
 * 内部使用Object[] vals来存储value，value的索引就是key.ordinal()
 * 使用K[] keyUniverse来存储所有的枚举值
+
+** IdentityHashMap **
+* key的相等判断条件是k1==k2
+* 允许key和value为null
+* 使用Object[] table来存储数据，table[i]存储key，table[i+1]存储value
+
 
 ## Set ##
 **HashSet**
@@ -110,5 +115,20 @@ public boolean add(E e){
 
 ```
 
+**TreeSet**
+* 内部使用TreeMap来存储数据
+
+## Queue ##
+**ArrayDeque**
+* 使用Object[] elements来储存数据
+* 作为堆栈使用时性能优于Stack;作为队列使用时性能优于LinkedList
+
+**PriorityQueue**
+* 使用Object[] queue来存储数据
+* 数据是有序的，按照元素的Comparable来排序，或者Comparator来排序
+* 不允许null元素
+* 非线程安全，线程安全请使用PriorityBolckingQueue
+* 队列的头是排序最小的元素
+* 该队列的iterator()迭代器并不能保证以特定的顺序来遍历队列，如果需要以特定的顺序遍历队列，考虑使用Arrays.sort(pq.toAttay())
 
 

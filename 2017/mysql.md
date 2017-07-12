@@ -184,6 +184,7 @@ LIMIT
 	* MySQL规定了一条50%的规则，如果一个词出现在50%以上的行中，那么这个词会被作为一个非用词
 	* 如果表中的行数少于3行，则全文搜索不返回结果
 	* 忽略词中的单引号，don't索引为dont
+	
 **插入数据**
 * 插入单行数据
 对于自增长的主键可以省略,对于可以为NULL或者给定了默认值的列也是可以省略的
@@ -194,6 +195,7 @@ LIMIT
 * 插入检索出的数据
 从一个表中检索出数据插入到另一张表中
 > INSERT INTO custom_tbl(column_1,column_2,column_3,column_4) SELECT(column_5,column_6,column_7,column_8) FROM custom_tbl1;
+
 **更新和删除数据**
 * 更新
 更新单行
@@ -207,6 +209,68 @@ LIMIT
 > DELETE FROM customers;
 DELETE删除的是表的内容，而不是表本身。如果想从表中删除所有的行，使用TRUNCATE TABLE，它完成相同的工作，但是速度更快，TRUNCATE实际上是删除原来的表，并重新创建一个表。
 如果想删除表使用DROP TABLE
+
+**创建和操纵表**
+* 表的创建
+```
+CREATE TABLE customers 
+(
+ cust_id int NOT NULL AUTO_INCREMENT,
+ cust_name char(50) NOT NULL,
+ PRIMARY KEY(cust_id)
+)ENGINE=InnoDB;
+```
+NULL值表示没有值或者缺值，表示插入数据时，可以不用给该列指定值。
+* 主键
+主键值必须唯一，表中的每个行必须具有唯一的主键值，主键可以是单列，也可以是多列的组合。
+```
+CREATE TABLE orderitems
+(
+ order_num int NOT NULL,
+ order_item int NOT NULL,
+ prod_id char(10) NOT NULL,
+ PRIMARY KEY(order_num,order_item)
+)
+```
+主键可以在创建表的时候定义，也可以在创建表之后定义。
+主键列不能为NULL
+* AUTO_INCREMENT
+每个表只允许一个AUTO_INCREMENT列，并且它必须被索引(例如成为主键)
+使用SELECT last_insert_id()可以获取最后一次AUTO_INCREMENT的值
+* 设置默认值
+```
+CREATE TABLE orderitems
+(
+ order_num int NOT NULL,
+ order_item int NOT NULL,
+ prod_id char(10) NOT NULL DEFAULT '',
+ PRIMARY KEY(order_num,order_item)
+)
+```
+* 引擎对比
+	* InnoDB,支持事务处理引擎，不支持全文本搜索
+	* MEMORY数据存储在内存，速度很快
+	* MyISAM性能极高，支持全文本搜索，但是不支持事务处理
+引擎是可以混用的
+* 更新表
+使用ALTER TABLE来更改表的结构。
+
+添加列：ALTER TABLE vendors ADD vend_phone CHAR(20);
+
+删除列：ALTER TABLE vendors DROP COLUMN vend_phone;
+
+定义外键：
+ALTER TABLE orderitems
+ADD CONSTRAINT fk_orderitems_orders
+FOREIGN KEY(order_num) REFERENCES orders(order_num);
+* 删除表
+DROP TABLE customers;
+* 重命名表
+RENAME TABLE customer TO customers;
+
+**视图**
+* 视图可以认为是一张虚拟的表
+
 
 #### MySQL的安装 ####
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
