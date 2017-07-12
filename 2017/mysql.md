@@ -271,6 +271,7 @@ RENAME TABLE customer TO customers;
 **视图**
 * 视图可以认为是一张虚拟的表
 
+
 #### MySQL的安装 ####
 1. 从oracle官网上下载Community版本的MySQL Community Server的安装zip包
 2. 设置my.ini文件
