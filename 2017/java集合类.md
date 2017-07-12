@@ -123,5 +123,12 @@ public boolean add(E e){
 * 使用Object[] elements来储存数据
 * 作为堆栈使用时性能优于Stack;作为队列使用时性能优于LinkedList
 
+**PriorityQueue**
+* 使用Object[] queue来存储数据
+* 数据是有序的，按照元素的Comparable来排序，或者Comparator来排序
+* 不允许null元素
+* 非线程安全，线程安全请使用PriorityBolckingQueue
+* 队列的头是排序最小的元素
+* 该队列的iterator()迭代器并不能保证以特定的顺序来遍历队列，如果需要以特定的顺序遍历队列，考虑使用Arrays.sort(pq.toAttay())
 
 
