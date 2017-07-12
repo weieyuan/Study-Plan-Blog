@@ -245,5 +245,58 @@ G1收集器的运作过程：
  方法的描述符，按照先参数列表后返回值的顺序描述，参数列表按照参数的严格顺序放在一组小括号()之中，int indexOf(char[] source, int soruceCount, char[] target, int targetOffset)的描述信息是([CI[I)I
  字段表集合中不会列出从超类和父类中继承过来的字段
 
+* 方法表集合
+方法表的结构和字段表的结构一样。
+access_flags标志中没有volatile、transient但是增加了synchronized、native、strictfp、abstract
+方法体的java代码，编译成字节码后，存放在方法属性集合的"Code"属性中
+
+* 属性表集合
+每个属性，它的名称需要从常量池中引用一个CONSTANT_Utf8_info类型的常量来表示，属性值的结构则是完全自定义的，只需要通过一个u4的长度属性区说明属性值所占用的位数。
+Code属性表的结构：
+	* u2 attribute_name_index 1
+	> 常量值固定为Code
+	* u4 attribute_length 1
+	* u2 max_stack 1
+	> 代表操作数栈深度的最大值，虚拟机运行的时候需要根据这个值来分配栈帧中的操作栈深度
+	* u2 max_locals 1
+	> 代表局部变量表所需要的存储空间，单位是Slot，对于不超过32位的数据类型，占用1个Slot，对于64位的数据，占用2个Slot
+	> 方法参数(包括实例方法中的this),显示异常处理器参数，方法体中定义的局部变量都需要使用局部变量表来存放
+	> 局部变量表中的Slot是可以重复使用的
+	* u4 code_length 1
+	> 实际上java虚拟机规定一个方法的字节码指令不能超过65535，也就是它实际上只使用了u2的长度
+	* u1 code code_length
+	> 存放编译生成的字节码指令
+	> 虚拟机读取到字节码指令时，能够知道该字节码代表的是啥指令，并且可以知道这条指令后面是否需要跟参数，以及参数应该如何理解
+	> u1一共可以描述256条指令
+	* u2 exception_table_length 1
+	* exception_info exception_table exception_table_length
+	* u2 attribute_count 1
+	* attribute_info attributes attributes_count
+
+ 异常表的结构：
+所表示的含义是，当字节码在第start_pc行到第end_pc行之间出现了类型为catch_type或者其子类的异常，则转到第handler_pc行继续处理，当catch_type为0时，表示任意异常都需要跳转到handler_pc处进行处理
+	* u2 start_pc 1
+	* u2 end_pc 1
+	* u2 handler_pc 1
+	* u2 catch_type 1
+
+ Exceptions属性
+该属性的作用是列举出了方法中可能抛出的受检查异常，也就是方法描述时在throws后面所列举的异常
+ LineNumberTable属性
+用于描述java源代码行号与字节码行号之间的对应关系。可以在javac中使用-g:none或-g:line选项来取消或要求生成这项信息，如果选择不生成，那么当抛出异常时，堆栈中不会显示出错的行号，并且在调试程序时，无法按照源码的行号来设置断点。
+ LocalVariableTable属性
+用于描述栈帧中局部变量表中的变量和java源码中定义的变量之间的关系。
+start_pc和length分别描述了这个局部变量的生命周期开始的字节码偏移量及其作用覆盖的范围，也就是描述了变量的作用域
+	* u2 start_pc 1
+	* u2 length 1
+	* u2 name_index 1
+	> 局部变量名称
+	* u2 descriptor_index 1
+	> 变量的描述符
+	* u2 index 1
+	> 局部变量表中Slot的位置
+
+
+
 
 
