@@ -17,6 +17,35 @@ var vm = new Vue({
 #### 指令 ####
 以v-开头，作用于HTML元素上面，可以将指令看作特殊的HTML特性
 * v-model，可以在表单元素上创建双向数据绑定
+```
+复选框如果是一个为逻辑值，如果是多个则绑定到同一个数组：
+<div id="app">
+  <p>单个复选框：</p>
+  <input type="checkbox" id="checkbox" v-model="checked">
+  <label for="checkbox">{{ checked }}</label>
+    
+  <p>多个复选框：</p>
+  <input type="checkbox" id="runoob" value="Runoob" v-model="checkedNames">
+  <label for="runoob">Runoob</label>
+  <input type="checkbox" id="google" value="Google" v-model="checkedNames">
+  <label for="google">Google</label>
+  <input type="checkbox" id="taobao" value="Taobao" v-model="checkedNames">
+  <label for="taobao">taobao</label>
+  <br>
+  <span>选择的值为: {{ checkedNames }}</span>
+</div>
+ 
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    checked : false,
+    checkedNames: []
+  }
+})
+</script>
+
+```
 * v-if，通过表达式的真假来删除或者插入元素
 * v-show，和v-if类似，但是它是设置元素的css样式来控制元素是否显示
 * v-else，配合v-if指令使用
@@ -26,6 +55,16 @@ var vm = new Vue({
 
 #### 修饰符 ####
 * 以半角.指明的特殊后缀，用于说明一个指令以特殊方式绑定。v-on:submit.prevent，对于触发的事件调用event.preventDefault()
+.stop
+.prevent
+.capture
+.self //只有事件在该元素本身(而不是子元素)触发时触发回调
+.once 
+.enter
+.tab
+.delete
+.space
+...
 
 #### 过滤器 ####
 * 例子，
