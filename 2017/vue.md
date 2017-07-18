@@ -55,15 +55,34 @@ new Vue({
 
 #### 修饰符 ####
 * 以半角.指明的特殊后缀，用于说明一个指令以特殊方式绑定。v-on:submit.prevent，对于触发的事件调用event.preventDefault()
+
 .stop
+
 .prevent
+
 .capture
+
 .self //只有事件在该元素本身(而不是子元素)触发时触发回调
+
 .once 
+
 .enter
+
 .tab
+
 .delete
+
 .space
+
+* v-model中的修饰符
+
+.lazy //v-model在input事件中同步输入框的值与数据，添加lazy的修饰符，可以转变在change事件中同步
+
+.number //自动将用户的输入值转变为数字
+
+.trim //自动过滤用户输入的首尾空格
+
+
 ...
 
 #### 过滤器 ####
@@ -90,5 +109,36 @@ new Vue({
  
  #### 计算属性 ####
  * 在构造实例的参数的computed属性中添加
+ 
+ #### 组件 ####
+ * 全局组件
+ 注册全局组件：
+ Vue.component('my-component', {
+    //配置项
+ });
+ 
+ * 局部组件
+ 在实例中创建组件:
+ var Child = {
+  template: '<div>A Custom Component</div>'
+ };
+ new Vue({
+  el: "#app",
+  components: {
+    'my-component': Child
+  }
+ });
+ 
+ * prop
+ 子组件显示地用props来声明它期望获取到的数据
+ Vue.component('my-component', {
+  props: ['message'],
+  template: '<span>{{message}}</span>'
+ });
+<my-component message='hello'></my-component>
+
+* 动态prop
+通过v-bind来绑定动态属性
+
 
 
