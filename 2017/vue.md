@@ -131,6 +131,7 @@ new Vue({
  
  * prop
  子组件显示地用props来声明它期望获取到的数据
+ 
  Vue.component('my-component', {
   props: ['message'],
   template: '<span>{{message}}</span>'
@@ -139,6 +140,12 @@ new Vue({
 
 * 动态prop
 通过v-bind来绑定动态属性
+
+* 自定义事件
+使用v-on监听事件
+使用v-emit触发事件
+
+
 
 
 
