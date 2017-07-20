@@ -25,6 +25,9 @@ private static class Node<E>{
 * 使用Object[] elementData来存储数据
 * 如果不提供capacityIncrement参数，那么每次会把size增加一倍
 
+**Stack**
+* 继承于Vector，线程安全
+
 ## Map ##
 **HashMap**
 * 允许key和value为null，和HashTable相比是非线程安全的
