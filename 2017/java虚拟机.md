@@ -296,7 +296,48 @@ start_pc和length分别描述了这个局部变量的生命周期开始的字节
 	* u2 index 1
 	> 局部变量表中Slot的位置
 
+* 字节码指令
+指令由一个字节长度的操作码和其后零或者多个操作数构成
 
+* 指令的类型
+	* 加载和存储指令
+		* 局部变量加载到操作数栈：load指令
+		* 将数值从操作数栈存储到局部变量表：store指令
+		* 常量加载到操作数栈：push、ldc、const指令
+		* 扩充局部变量表的访问索引：wide
+	* 运算指令
+		* 加法：add
+		* 减法：sub
+		* 乘法：mul
+		* 除法：div
+		* 求余：rem
+		* 取反：neg
+		* 位移：shl、shr
+		* 按位或：or
+		* 按位与：and
+		* 按位异或：xor
+		* 自增：inc
+		* 比较：cmp
+	* 类型转换指令
+		* 宽化类型转换直接支持，即小范围类型向大范围类型转换
+		* 窄化类型转换，必须显示地使用转换指令，大范围向小范围转换
+	* 对象创建和访问指令
+		* 创建类实例：new
+		* 创建数组：newarray
+		* 访问类字段：getfield putfield getstatic putstatic
+		* 数组元素加载到操作数栈：aload
+		* 操作数栈的值存储到数组元素中：astore
+		* 数组长度：arraylength
+		* 检查类实例类型：instanceof checkcast
+	* 操作数栈管理指令
+		* 出栈：pop pop2
+		* 复制并入栈：dup dup2 dup_x1 dup2_x1 dup_x2 dup2_x2
+		* 栈顶两个数值交换：swap
+	* 控制转移指令
+	* 方法调用和返回指令
+	* 异常处理指令
+		* 显示抛出异常：athrow
+		* 运行时异常：例如除数为0
 
 
 
