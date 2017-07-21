@@ -114,16 +114,33 @@ new Vue({
  * 在构造实例的参数的computed属性中添加
  计算属性所对应的方法将作为该属性的getter方法
  计算属性是基于它的依赖进行缓存的，只有它的依赖值发生了变更，计算属性才会重新计算，只要它的依赖值不发生变更，多次调用该属性的getter方法将返回之前的缓存值，相比较而言，method调用总会执行其方法
+ 计算属性默认只有getter方法，也可以提供setter方法
+ ```
+ computed: {
+  fullName: {
+    get: function(){
+      return this.firtsName + ' ' + this.lastName;
+    },
+    set: function(newValue){
+      var names = newValue.split(' ')
+      this.firstName = names[0]
+      this.lastName = names[names.length - 1]
+    }
+  }
+ }
+ ```
  
  #### 组件 ####
  * 全局组件
  注册全局组件：
+ ```
  Vue.component('my-component', {
     //配置项
  });
- 
+ ```
  * 局部组件
  在实例中创建组件:
+ ```
  var Child = {
   template: '<div>A Custom Component</div>'
  };
@@ -133,16 +150,16 @@ new Vue({
     'my-component': Child
   }
  });
- 
+ ```
  * prop
  子组件显示地用props来声明它期望获取到的数据
- 
+ ```
  Vue.component('my-component', {
   props: ['message'],
   template: '<span>{{message}}</span>'
  });
 <my-component message='hello'></my-component>
-
+```
 * 动态prop
 通过v-bind来绑定动态属性
 
