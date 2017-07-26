@@ -253,13 +253,16 @@ data: {
   * splice
   * sort
   * reverse
+ 
  如下方法会返回一个新的数组，不会修改原有的数组
   * filter
   * concat
   * slice
+ 
  对于会改变原数组的api，vue能够检测到并会触发视图更新。vue不能检测如下变动的数组：
   * 利用索引修改一个值，vm.items[indexOfItem] = newValue
   * 修改数组的长度，vm.items.length = newLength
+ 
  第一种问题的解决方式
  ```
  // Vue.set
