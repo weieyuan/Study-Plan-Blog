@@ -47,12 +47,82 @@ new Vue({
 </script>
 
 ```
-* v-if，通过表达式的真假来删除或者插入元素
+* v-if，通过表达式的真假来删除或者插入元素，v-if如果想同时控制一组元素，可以使用template元素来包装这一组元素，并且最终渲染的结果不会包含template元素
+```
+<template v-if='ok'>
+  <h1>Title</h1>
+  <p>Paragraph 1</p>
+</template>
+```
 * v-show，和v-if类似，但是它是设置元素的css样式来控制元素是否显示
 * v-else，配合v-if指令使用
-* v-for,列表循环
+* v-for,数组循环或者对象属性迭代，可以使用template元素包装一组元素作为循环对象来渲染
+```
+<ul id="example-1">
+  <li v-for="item in items">
+    {{ item.message }}
+  </li>
+</ul>
+///////////
+<ul id="example-2">
+  <li v-for="(item, index) in items">
+    {{ parentMessage }} - {{ index }} - {{ item.message }}
+  </li>
+</ul>
+//////////
+<ul id="repeat-object" class="demo">
+  <li v-for="value in object">
+    {{ value }}
+  </li>
+</ul>
+new Vue({
+  el: '#repeat-object',
+  data: {
+    object: {
+      firstName: 'John',
+      lastName: 'Doe',
+      age: 30
+    }
+  }
+})
+```
 * v-bind,后面带一个参数，用冒号隔开，这个参数通常是HTML元素的特性，例如v-bind:class，可以简写为:
 * v-on,用于监听DOM事件，有两种方式，一种是指向方法的引用，一种是使用内联语句。指向方法引用时，将方法定义到methods属性中。可以简写为@
+在内联语句中访问原生的DOM事件时，可以用特殊变量$event把它传入方法中：
+```
+<button v-on:click="warn('Form cannot be submitted yet.', $event)">
+  Submit
+</button>
+```
+* v-bind绑定样式，v-bind:class='Obj'，Obj可以是json对象也可以是数组。
+```
+<div class="static"
+     v-bind:class="{ active: isActive, 'text-danger': hasError }">
+</div>
+data: {
+  isActive: true,
+  hasError: false
+}
+/////////////
+<div v-bind:class="[activeClass, errorClass]">
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+```
+* v-bind绑定内联样式，v-bind:style='Obj', Obj可以是json对象也可以是数组
+```
+<div v-bind:style="styleObject"></div>
+data: {
+  styleObject: {
+    color: 'red',
+    fontSize: '13px'
+  }
+}
+////////
+<div v-bind:style="[baseStyles, overridingStyles]">
+
+```
 
 #### 修饰符 ####
 * 以半角.指明的特殊后缀，用于说明一个指令以特殊方式绑定。v-on:submit.prevent，对于触发的事件调用event.preventDefault()
@@ -176,6 +246,33 @@ new Vue({
 * 属性
 使用v-bind来绑定属性值
 
+#### 知识点 ####
+* 操作数组的api中，如下方法会改变原有的数组
+  * push/pop
+  * shift/unshift
+  * splice
+  * sort
+  * reverse
+ 如下方法会返回一个新的数组，不会修改原有的数组
+  * filter
+  * concat
+  * slice
+ 对于会改变原数组的api，vue能够检测到并会触发视图更新。vue不能检测如下变动的数组：
+  * 利用索引修改一个值，vm.items[indexOfItem] = newValue
+  * 修改数组的长度，vm.items.length = newLength
+ 第一种问题的解决方式
+ ```
+ // Vue.set
+Vue.set(example1.items, indexOfItem, newValue)
+
+// Array.prototype.splice
+example1.items.splice(indexOfItem, 1, newValue)
+ ```
+ 第二种问题的解决方式
+ ```
+ example1.items.splice(newLength)
+ ```
+ 
 
 
 
