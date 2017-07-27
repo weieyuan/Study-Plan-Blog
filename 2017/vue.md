@@ -253,7 +253,38 @@ data: {
 <my-component message='hello'></my-component>
 ```
 * 动态prop
+```
+<div id="example13">
+    <mycomponent v-bind:message="parentMsg"></mycomponent>
+</div>
+var vm14 = new Vue({
+            el: "#example13",
+            data: {
+                parentMsg: "parentMsg test"
+            },
+            components: {
+                mycomponent: {
+                    props: ["message"],
+                    template: "<span>{{message}}</span>"
+                }
+            }
+});
+```
 通过v-bind来绑定动态属性
+* vue定义组件的时候，data属性必须是一个函数，这个作用主要是为了确保每个组件对象的data属性是独立的，不是共享的
+```
+Vue.component("my-component", {
+  template: "<span>{{message}}</span>",
+  data: function(){
+    return {
+      message: "Hello"
+    }
+  }
+});
+```
+* 父子组件之间通信，可以简单总结为props down,events up,父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息
+父组件可以在使用子组件的地方直接用v-on来监听子组件触发的事件
+可以使用.native来监听原生事件，例如v-on:click.native
 
 * 自定义事件
 使用v-on监听事件
