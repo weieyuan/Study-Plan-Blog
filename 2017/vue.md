@@ -18,6 +18,28 @@ var vm = new Vue({
 以v-开头，作用于HTML元素上面，可以将指令看作特殊的HTML特性
 指令的职责就是当表达式的值发生改变时，将某些行为应用到dom上
 * v-model，可以在表单元素上创建双向数据绑定
+  * input框绑定输入文本
+  * textarea绑定输入的多行文本
+  * 单个checkbox，绑定逻辑值
+  * 多个checkbox，绑定到一个数组，数组中的值为所勾选的input元素的value值
+  * 单选radio，绑定到所勾选的input元素的value值
+  * 下拉框单选，绑定到所选择的option元素的value值
+  * 多选option，绑定到一个数组，数组中的值是所选中的option元素的value值
+  * v-model默认绑定到静态属性上了，我们可以使用v-bind指令，绑定到动态属性上
+  ```
+  <input
+  type="checkbox"
+  v-model="toggle"
+  v-bind:true-value="a"
+  v-bind:false-value="b"
+ >
+
+<input type="radio" v-model="pick" v-bind:value="a">
+<select v-model="selected">
+    <!-- 内联对象字面量 -->
+  <option v-bind:value="{ number: 123 }">123</option>
+</select>
+  ```
 ```
 复选框如果是一个为逻辑值，如果是多个则绑定到同一个数组：
 <div id="app">
