@@ -3,6 +3,7 @@ ___
 #### 总体概览 ####
 * ViewModel是vue的核心，它是一个vue实例，用于处理从Model到View的数据绑定，从View到Model的事情监听。
 * 通过Vue构造函数来创建Vue的实例
+
 ```
 var vm = new Vue({
   //参数
@@ -11,6 +12,7 @@ var vm = new Vue({
 
 })
 ```
+
  每个Vue实例都会代理data对象中的所有属性。
  Vue的实例也提供了一些实例的属性和方法，这些属性和方法以$开头，以便于代理的data属性区分。例如vm.$data = xxxx,vm.$el=document.getElementById(ssss)
 
@@ -26,21 +28,20 @@ var vm = new Vue({
   * 下拉框单选，绑定到所选择的option元素的value值
   * 多选option，绑定到一个数组，数组中的值是所选中的option元素的value值
   * v-model默认绑定到静态属性上了，我们可以使用v-bind指令，绑定到动态属性上
+  
   ```
   <input
   type="checkbox"
   v-model="toggle"
   v-bind:true-value="a"
   v-bind:false-value="b"
- >
+  >
 
-<input type="radio" v-model="pick" v-bind:value="a">
-<select v-model="selected">
+ <input type="radio" v-model="pick" v-bind:value="a">
+ <select v-model="selected">
     <!-- 内联对象字面量 -->
   <option v-bind:value="{ number: 123 }">123</option>
-</select>
-  ```
-```
+ </select>
 复选框如果是一个为逻辑值，如果是多个则绑定到同一个数组：
 <div id="app">
   <p>单个复选框：</p>
@@ -67,18 +68,21 @@ new Vue({
   }
 })
 </script>
-
 ```
+
 * v-if，通过表达式的真假来删除或者插入元素，v-if如果想同时控制一组元素，可以使用template元素来包装这一组元素，并且最终渲染的结果不会包含template元素
+
 ```
 <template v-if='ok'>
   <h1>Title</h1>
   <p>Paragraph 1</p>
 </template>
 ```
+
 * v-show，和v-if类似，但是它是设置元素的css样式来控制元素是否显示
 * v-else，配合v-if指令使用
 * v-for,数组循环或者对象属性迭代，可以使用template元素包装一组元素作为循环对象来渲染
+
 ```
 <ul id="example-1">
   <li v-for="item in items">
@@ -108,15 +112,19 @@ new Vue({
   }
 })
 ```
+
 * v-bind,后面带一个参数，用冒号隔开，这个参数通常是HTML元素的特性，例如v-bind:class，可以简写为:
 * v-on,用于监听DOM事件，有两种方式，一种是指向方法的引用，一种是使用内联语句。指向方法引用时，将方法定义到methods属性中。可以简写为@
 在内联语句中访问原生的DOM事件时，可以用特殊变量$event把它传入方法中：
+
 ```
 <button v-on:click="warn('Form cannot be submitted yet.', $event)">
   Submit
 </button>
 ```
+
 * v-bind绑定样式，v-bind:class='Obj'，Obj可以是json对象也可以是数组。
+
 ```
 <div class="static"
      v-bind:class="{ active: isActive, 'text-danger': hasError }">
@@ -132,6 +140,7 @@ data: {
   errorClass: 'text-danger'
 }
 ```
+
 * v-bind绑定内联样式，v-bind:style='Obj', Obj可以是json对象也可以是数组
 ```
 <div v-bind:style="styleObject"></div>
