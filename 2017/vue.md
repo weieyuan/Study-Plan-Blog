@@ -29,7 +29,7 @@ var vm = new Vue({
   * 多选option，绑定到一个数组，数组中的值是所选中的option元素的value值
   * v-model默认绑定到静态属性上了，我们可以使用v-bind指令，绑定到动态属性上
   
-  ```
+```
   <input
   type="checkbox"
   v-model="toggle"
@@ -142,6 +142,7 @@ data: {
 ```
 
 * v-bind绑定内联样式，v-bind:style='Obj', Obj可以是json对象也可以是数组
+
 ```
 <div v-bind:style="styleObject"></div>
 data: {
@@ -152,7 +153,6 @@ data: {
 }
 ////////
 <div v-bind:style="[baseStyles, overridingStyles]">
-
 ```
 
 #### 修饰符 ####
@@ -184,13 +184,11 @@ data: {
 
 .trim //自动过滤用户输入的首尾空格
 
-
-...
-
 #### 过滤器 ####
 * 例子
 过滤器的作用是用于常见的文本格式化，可以使用在两个地方：{{}}插值和v-bind表达式
 过滤器函数总接受表达式的值作为第一个参数
+
 ```
   <div id="app">{{message | capitalize}}</div>
   <script>
@@ -216,6 +214,7 @@ data: {
  计算属性所对应的方法将作为该属性的getter方法
  计算属性是基于它的依赖进行缓存的，只有它的依赖值发生了变更，计算属性才会重新计算，只要它的依赖值不发生变更，多次调用该属性的getter方法将返回之前的缓存值，相比较而言，method调用总会执行其方法
  计算属性默认只有getter方法，也可以提供setter方法
+ 
  ```
  computed: {
   fullName: {
@@ -230,10 +229,11 @@ data: {
   }
  }
  ```
- 
+
  #### 组件 ####
  * 全局组件
  注册全局组件：
+ 
  ```
  Vue.component('my-component', {
     //配置项
@@ -241,6 +241,7 @@ data: {
  ```
  * 局部组件
  在实例中创建组件:
+ 
  ```
  var Child = {
   template: '<div>A Custom Component</div>'
@@ -252,8 +253,10 @@ data: {
   }
  });
  ```
+ 
  * prop
  子组件显示地用props来声明它期望获取到的数据
+ 
  ```
  Vue.component('my-component', {
   props: ['message'],
@@ -261,7 +264,9 @@ data: {
  });
 <my-component message='hello'></my-component>
 ```
+
 * 动态prop
+
 ```
 <div id="example13">
     <mycomponent v-bind:message="parentMsg"></mycomponent>
@@ -279,8 +284,11 @@ var vm14 = new Vue({
             }
 });
 ```
+
 通过v-bind来绑定动态属性
+
 * vue定义组件的时候，data属性必须是一个函数，这个作用主要是为了确保每个组件对象的data属性是独立的，不是共享的
+
 ```
 Vue.component("my-component", {
   template: "<span>{{message}}</span>",
@@ -291,6 +299,7 @@ Vue.component("my-component", {
   }
 });
 ```
+
 * 父子组件之间通信，可以简单总结为props down,events up,父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息
 父组件可以在使用子组件的地方直接用v-on来监听子组件触发的事件
 可以使用.native来监听原生事件，例如v-on:click.native
@@ -326,17 +335,25 @@ Vue.component("my-component", {
   * 修改数组的长度，vm.items.length = newLength
  
  第一种问题的解决方式
- ```
+```
  // Vue.set
 Vue.set(example1.items, indexOfItem, newValue)
 
 // Array.prototype.splice
 example1.items.splice(indexOfItem, 1, newValue)
- ```
+```
  第二种问题的解决方式
- ```
+```
  example1.items.splice(newLength)
- ```
+```
+
+* Vue对象在实例化的时候，只能监听已经定义好的属性，但是可以通过如下的方式将响应属性添加到对象上
+```
+//全局方式
+Vue.set(vm.obj, key, value)
+//局部方式
+this.$set(this.obj, key, value)
+```
  
 
 
