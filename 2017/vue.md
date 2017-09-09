@@ -335,17 +335,20 @@ Vue.component("my-component", {
   * 修改数组的长度，vm.items.length = newLength
  
  第一种问题的解决方式
-```
- // Vue.set
-Vue.set(example1.items, indexOfItem, newValue)
+	
+	```
+	 // Vue.set
+	Vue.set(example1.items, indexOfItem, newValue)
+	
+	// Array.prototype.splice
+	example1.items.splice(indexOfItem, 1, newValue)
+	```
 
-// Array.prototype.splice
-example1.items.splice(indexOfItem, 1, newValue)
-```
  第二种问题的解决方式
-```
- example1.items.splice(newLength)
-```
+	
+	```
+	 example1.items.splice(newLength)
+	```
 
 * Vue对象在实例化的时候，只能监听已经定义好的属性，但是可以通过如下的方式将响应属性添加到对象上
 ```
