@@ -13,8 +13,9 @@ var vm = new Vue({
 })
 ```
 
- 每个Vue实例都会代理data对象中的所有属性。
- Vue的实例也提供了一些实例的属性和方法，这些属性和方法以$开头，以便于代理的data属性区分。例如vm.$data = xxxx,vm.$el=document.getElementById(ssss)
+
+每个Vue实例都会代理data对象中的所有属性。
+Vue的实例也提供了一些实例的属性和方法，这些属性和方法以$开头，以便于代理的data属性区分。例如vm.$data = xxxx,vm.$el=document.getElementById(ssss)
 
 #### 指令 ####
 以v-开头，作用于HTML元素上面，可以将指令看作特殊的HTML特性
@@ -210,11 +211,12 @@ data: {
  {{message | filterA("arg1", arg2)}},message是filterA的第一个参数，"arg1"是第二个参数，arg2表达式求值之后是第三个参数
  
  #### 计算属性 ####
- * 在构造实例的参数的computed属性中添加
- 计算属性所对应的方法将作为该属性的getter方法
- 计算属性是基于它的依赖进行缓存的，只有它的依赖值发生了变更，计算属性才会重新计算，只要它的依赖值不发生变更，多次调用该属性的getter方法将返回之前的缓存值，相比较而言，method调用总会执行其方法
- 计算属性默认只有getter方法，也可以提供setter方法
+* 在构造实例的参数的computed属性中添加
+计算属性所对应的方法将作为该属性的getter方法
+计算属性是基于它的依赖进行缓存的，只有它的依赖值发生了变更，计算属性才会重新计算，只要它的依赖值不发生变更，多次调用该属性的getter方法将返回之前的缓存值，相比较而言，method调用总会执行其方法
+计算属性默认只有getter方法，也可以提供setter方法
  
+
  ```
  computed: {
   fullName: {
@@ -256,49 +258,49 @@ data: {
  
  * prop
  子组件显示地用props来声明它期望获取到的数据
- 
- ```
- Vue.component('my-component', {
-  props: ['message'],
-  template: '<span>{{message}}</span>'
- });
-<my-component message='hello'></my-component>
-```
+
+	 ```
+	 Vue.component('my-component', {
+	  props: ['message'],
+	  template: '<span>{{message}}</span>'
+	 });
+	<my-component message='hello'></my-component>
+	```
 
 * 动态prop
 
-```
-<div id="example13">
-    <mycomponent v-bind:message="parentMsg"></mycomponent>
-</div>
-var vm14 = new Vue({
-            el: "#example13",
-            data: {
-                parentMsg: "parentMsg test"
-            },
-            components: {
-                mycomponent: {
-                    props: ["message"],
-                    template: "<span>{{message}}</span>"
-                }
-            }
-});
-```
+	```
+	<div id="example13">
+	    <mycomponent v-bind:message="parentMsg"></mycomponent>
+	</div>
+	var vm14 = new Vue({
+	            el: "#example13",
+	            data: {
+	                parentMsg: "parentMsg test"
+	            },
+	            components: {
+	                mycomponent: {
+	                    props: ["message"],
+	                    template: "<span>{{message}}</span>"
+	                }
+	            }
+	});
+	```
 
 通过v-bind来绑定动态属性
 
 * vue定义组件的时候，data属性必须是一个函数，这个作用主要是为了确保每个组件对象的data属性是独立的，不是共享的
 
-```
-Vue.component("my-component", {
-  template: "<span>{{message}}</span>",
-  data: function(){
-    return {
-      message: "Hello"
-    }
-  }
-});
-```
+	```
+	Vue.component("my-component", {
+	  template: "<span>{{message}}</span>",
+	  data: function(){
+	    return {
+	      message: "Hello"
+	    }
+	  }
+	});
+	```
 
 * 父子组件之间通信，可以简单总结为props down,events up,父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息
 父组件可以在使用子组件的地方直接用v-on来监听子组件触发的事件
@@ -307,6 +309,7 @@ Vue.component("my-component", {
 * 自定义事件
 使用v-on监听事件
 使用v-emit触发事件
+
 
 #### 模板语法 ####
 ##### 插值 #####
@@ -351,13 +354,19 @@ Vue.component("my-component", {
 	```
 
 * Vue对象在实例化的时候，只能监听已经定义好的属性，但是可以通过如下的方式将响应属性添加到对象上
-```
-//全局方式
-Vue.set(vm.obj, key, value)
-//局部方式
-this.$set(this.obj, key, value)
-```
- 
+
+	```
+	//全局方式
+	Vue.set(vm.obj, key, value)
+	//局部方式
+	this.$set(this.obj, key, value)
+	```
+
+* global bus event
+通过一个Vue对像(bus)来发布和监听事件。
+监听事件：bus.$on("event", function(){})
+取消监听事件：bus.$off("event")
+发布事件：bus.$emit("event")
 
 
 
