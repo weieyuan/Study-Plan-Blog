@@ -20,3 +20,46 @@ String.prototype.match()，类似于exec方法，找到匹配项，该方法会�
 #### es6
 **箭头函数**
 箭头函数中的this，是在箭头函数执行时，在作用域链中一层一层往上找到最近的this，箭头函数自己是没有this的值
+
+**import/export语法**
+```
+//export
+//1
+export var firstName = "";
+export var lastName = "";
+
+//2
+var firstName = "";
+var lastName = "";
+export {firstName, lastName};
+
+//3
+export default function add(){
+}
+
+//4
+var m = 1;
+export default m;
+```
+
+```
+//import
+//circle.js
+export function area(radius){
+}
+export function circumference(radius){
+}
+
+//main.js中引用
+import {area, circumference} from './circle';
+import * as circle from './circle';
+
+//circle.js
+export function area(radius){
+}
+export function circumference(radius){
+}
+export default {area, circumference}
+
+import XXXX from "./circle"
+```
