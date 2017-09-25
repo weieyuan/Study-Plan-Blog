@@ -50,8 +50,118 @@ npm uninstall vue-cli --no-save //Package will not be removed from your package.
 npm run xxx
 ```
 
+#### vue-router
+* vue中使用vue-router
+
+```
+//声明使用
+Vue.use(VueRouter);
+//在根组件中注册router属性
+const app = new Vue({
+	router
+});
+```
+* 基本用法
+
+```
+<router-link to='/foo'></router-link>
+<router-view><router-view>
+
+...
+
+var Foo = {template: '<div>foo</div>'}
+const routes = [
+	{path: '/foo', component: Foo}
+];
+const router = new VueRouter({
+	routes
+});
+
+```
+* 动态路由
+
+```
+const User = {template: "<div>$route.params.id</div>"}; //通过params可以取到参数
+
+const router = new VueRouter({
+	routes: [
+		{path: "/user/:id", component: User}
+	]
+});
+
+```
+* 编程式导航
+
+```
+//通过path匹配
+router.push("home");
+router.push({path: "name"});
+
+//通过名称
+router.push({name: "user", params: {user: 123}});
+router.push({name: "user", query: {user: 123}});
+```
+* 重定向/别名
+
+```
+const router = new VueRouter({
+	routes: [
+		{
+			path: "/a"
+			redirect: "/b"
+			alias: "/c"
+		}
+	]
+	
+});
+```
+* 导航钩子
+
+全局钩子
+```
+router.beforeEach(function(to, from, next){
+
+});
+next()//放行
+next(false)//不放行，中断当前导航，url地址重置到from路由的地址
+next({path: '/login'})//跳转到login的路由
+```
+路由独享钩子
+
+```
+const router = new VueRouter({
+	routes: [
+		{
+			path: '/login',
+			component: Login,
+			beforeEnter: function(to, from, next){
+				
+			}
+		}
+	]
+});
+```
+组件钩子
+
+```
+const Foo = {
+	template: "<div>xxx</div>",
+	beforeRouteEnter: function(to, from, next){
+		//不能访问this
+	},
+	beforeRouteUpdate: function(to, from, next){
+
+	},
+	beforeRouteLeave: function(to, from, next){
+	
+	}
+}
+```
+
+
 #### vuex
-1. vue中使用vuex
+* vue中使用vuex
+
 ```
 //声明使用
 Vue.use(Vuex)
@@ -63,7 +173,8 @@ const app = new Vue({
 });
 
 ```
-2. Store的getter属性
+* Store的getter属性
+
 getters属性会暴露为store.getters对象
 ```
 const store = new Vuex.Store({
@@ -80,7 +191,8 @@ const store = new Vuex.Store({
 	}
 })
 ```
-3. Mutations
+* Mutations
+
 ```
 const store = new Vuex.Store({
 	state: {
@@ -99,7 +211,8 @@ const store = new Vuex.Store({
 store.commit("increment");
 store.commit("increment", 10);
 ```
-4. Actions
+* Actions
+
 actions提交mutation，action可以包含任意的异步操作
 ```
 const store = new Vuex.Store({
@@ -127,7 +240,8 @@ const store = new Vuex.Store({
 store.dispatch("increment");
 store.dispatch("increment", 10);
 ```
-3. map辅助函数
+* map辅助函数
+
 用于简化代码
 mapState辅助函数
 ```
@@ -176,4 +290,26 @@ computed: {
 		add: 'increment' //映射this.add()为this.$store.dispatch('increment')
 	})
 }
+```
+
+* 模块划分
+
+每个模块中可以定义state，mutations，getters，actions
+```
+const modeulA = {
+	state: {},
+	getter: {
+		doubleCount(state){}//state为模块中定义的state变量，不是全局的state
+	},
+	mutations:{
+		increment(state){}
+	},
+	actions: {}
+}
+
+const store = new Vue.Store({
+	modules: {
+		a:moduleA
+	}
+});
 ```
