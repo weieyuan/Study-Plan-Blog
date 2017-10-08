@@ -46,8 +46,74 @@ public void log()
 public void doAfterReturing(Object object){
 }
 ```
-* 异常处理
-> @ControllerAdvice @ExceptionHandler
 * 单元测试
 > @RunWith(SpringRunner.class) @SpringBootTest
 > web中的controller中的接口测试：@AutoConfigureMockMvc MockMvc
+
+#### spring boot中定义controller的异常处理
+* 异常处理
+> @ControllerAdvice @ExceptionHandler
+```
+@ControllerAdvice
+public class ControllerExceptionHandler {
+	
+	@ExceptionHandler(Exception.class)
+	@ResponseBody
+	public Map<String, Object> handle(Exception oMyException){
+		Map<String, Object> info = new HashMap<String, Object>();
+		...
+		return info;
+	}
+
+}
+```
+
+#### spring boot中支持跨域请求
+* 在contoller类或者controller中的方法上添加@CrossOrigin的注解
+```
+
+@Controller
+public class StudentController {
+	public void insertStudents(Student oStudent){
+		
+	}
+	
+	@RequestMapping(value="/getStudentInfo", method=RequestMethod.POST)
+	@ResponseBody
+	@CrossOrigin(methods={RequestMethod.POST}, origins="*")
+	public List<Map<String, Object>> getStudentInfo(@RequestBody List<Long> ids, HttpServletResponse response){
+		List<Map<String, Object>> students = new ArrayList<Map<String, Object>>();
+		for(Long id : ids){
+			Map<String, Object> student = new HashMap<String, Object>();
+			student.put("id", id);
+			student.put("name", UUID.randomUUID().toString());
+			students.add(student);
+		}
+		return students;
+	}
+}
+```
+
+* 通过java配置类来全局配置
+```
+@Configuration
+public class MyConfiguration {
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurerAdapter() {
+			public void addCorsMappings(CorsRegistry registry) {
+
+				registry.addMapping("/**").allowedOrigins("*").allowedMethods("POST", "GET");
+			}
+		};
+
+	}
+}
+```
+
+* 通过application.yml/properties文件来配置
+```
+endpoints.cors.allowed-origins=*
+endpoints.cors.allowed-methods=GET,POST
+```
