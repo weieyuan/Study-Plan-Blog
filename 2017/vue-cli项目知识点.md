@@ -1,5 +1,5 @@
 #### vue-cli搭建项目
-1. 安全vue-cli
+1. 安装vue-cli
 ```
 npm install -g vue-cli
 ```
@@ -91,6 +91,7 @@ const app = new Vue({
 	router
 });
 ```
+
 * 基本用法
 
 ```
@@ -99,6 +100,7 @@ const app = new Vue({
 
 ...
 
+
 var Foo = {template: '<div>foo</div>'}
 const routes = [
 	{path: '/foo', component: Foo}
@@ -106,8 +108,8 @@ const routes = [
 const router = new VueRouter({
 	routes
 });
-
 ```
+
 * 动态路由
 
 ```
@@ -118,8 +120,8 @@ const router = new VueRouter({
 		{path: "/user/:id", component: User}
 	]
 });
-
 ```
+
 * 编程式导航
 
 ```
@@ -131,6 +133,7 @@ router.push({path: "name"});
 router.push({name: "user", params: {user: 123}});
 router.push({name: "user", query: {user: 123}});
 ```
+
 * 重定向/别名
 
 ```
@@ -145,9 +148,11 @@ const router = new VueRouter({
 	
 });
 ```
+
 * 导航钩子
 
 全局钩子
+
 ```
 router.beforeEach(function(to, from, next){
 
@@ -156,6 +161,7 @@ next()//放行
 next(false)//不放行，中断当前导航，url地址重置到from路由的地址
 next({path: '/login'})//跳转到login的路由
 ```
+
 路由独享钩子
 
 ```
@@ -171,6 +177,7 @@ const router = new VueRouter({
 	]
 });
 ```
+
 组件钩子
 
 ```
@@ -188,7 +195,6 @@ const Foo = {
 }
 ```
 
-
 #### vuex
 * vue中使用vuex
 
@@ -203,9 +209,11 @@ const app = new Vue({
 });
 
 ```
+
 * Store的getter属性
 
 getters属性会暴露为store.getters对象
+
 ```
 const store = new Vuex.Store({
 	state: {
@@ -221,6 +229,7 @@ const store = new Vuex.Store({
 	}
 })
 ```
+
 * Mutations
 
 ```
@@ -241,9 +250,11 @@ const store = new Vuex.Store({
 store.commit("increment");
 store.commit("increment", 10);
 ```
+
 * Actions
 
 actions提交mutation，action可以包含任意的异步操作
+
 ```
 const store = new Vuex.Store({
 	state: {
@@ -270,10 +281,12 @@ const store = new Vuex.Store({
 store.dispatch("increment");
 store.dispatch("increment", 10);
 ```
+
 * map辅助函数
 
 用于简化代码
 mapState辅助函数
+
 ```
 import {mapState} from 'vuex';
 computed: {
@@ -287,7 +300,9 @@ computed: {
 	})
 }
 ```
+
 mapGetter辅助函数
+
 ```
 import {mapGetter} from 'vuex';
 computed: {
@@ -309,7 +324,9 @@ computed: {
 	})
 }
 ```
+
 mapActions辅助函数
+
 ```
 import {mapActions} from 'vuex';
 computed: {
@@ -325,6 +342,7 @@ computed: {
 * 模块划分
 
 每个模块中可以定义state，mutations，getters，actions
+
 ```
 const modeulA = {
 	state: {},
@@ -347,11 +365,13 @@ const store = new Vue.Store({
 #### 发布vue组件到npm
 
 * 使用vue-cli创建vue工程
+
 ```
 vue init webpack-simple demo
 ```
 
 * 在src目录下正常编写vue组件，例如编写了NBButton.vue的组件
+
 ```
 <template>
 <div class="main">
@@ -386,6 +406,7 @@ export default {
 ```
 
 * 在src目录下新建index.js，引入NBButton，再导出
+
 ```
 import NBButton from './NBButton.vue';
 
@@ -395,6 +416,7 @@ export default NBButton;
 * 修改webpack.config.js文件，主要有两点要关注：
 	* 修改entry入口点
 	* 修改oupt标签中的内容
+
 ```
 entry: './src/index.js',
 output: {
@@ -411,6 +433,7 @@ output: {
 * 修改package.json，主要有两点：
 	* name，这个是发布到npm仓库后包的名称，注意不要和npm上已有的包重名
 	* 修改main的属性，执行上一步中生成的目标文件
+
 ```
 "name": "n-b-button",
 "description": "A Vue.js project",
@@ -424,6 +447,7 @@ output: {
 * 使用
 	* 按照包：npm install n-b-button --save-dev
 	* 引入NBButton组件，即可使用
+
 ```
 import NBButton from "n-b-button"
 ```

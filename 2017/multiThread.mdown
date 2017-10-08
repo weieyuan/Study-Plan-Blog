@@ -83,6 +83,7 @@ ___
 * Fork/Join框架涉及到的类：
 ForkJoinTask: 任务描述类，有两个抽象子类，RecursiveTask用于描述有结果返回的任务，RecursiveAction用于描述无结果返回的任务，在使用时，根据需要继承这两个类，需要实现compute方法，在compute方法中需要对任务进行判断，如果任务比较大需要将任务分割为小任务，否则直接执行任务。可以通过invoke/invokeAll将拆分的子任务提交给线程池，或者调用fork、join方法
 ForkJoinPool：任务执行的线程池，继承于AbstractExecutorService类。建议使用ForkJoinPool.commonPool()方法来获取ForkJoinPool对象，因为这个线程池是预定义好的，可以达到公用的目的。execute方法用于提交没有返回值的任务，submit用于提交有返回值的任务。
+
 ```
 ///compute方法实现
 protected Integer compute()
@@ -125,6 +126,7 @@ ThreadLocal类似于一个管理类，其中最重要的两个api是：
 T get()//设置变量
 void set(T)//获取变量
 在get/set方法中通过Thread.currentThread()取得当前线程对象，线程对象中有ThreadLocalMap这个属性，T对象就是保存在ThreadLocalMap对象中的。
+
 ```
 //set
  public void set(T value) {

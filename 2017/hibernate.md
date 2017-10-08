@@ -1,5 +1,6 @@
 #### Hibernate ####
-1. Mapping File
+1.Mapping File
+
 ```
 <class name="com.wei.Event" table="Events">
 	//Hibernate use the property named by id element to uniquely //identify rows	
@@ -8,8 +9,10 @@
 	<property name="date" type="timestamp" column="EVENT_DATE"/>
 </class>
 ```
-2. Hiberenate的默认配置文件是hibernate.cfg.xml
-3. SessionFactory是Session的工厂类，Session可以理解为一系列的任务的集合。Session会包装java.sql.Connection同时充当org.hibernate.Transaction的工厂类
+
+2.Hiberenate的默认配置文件是hibernate.cfg.xml
+3.SessionFactory是Session的工厂类，Session可以理解为一系列的任务的集合。Session会包装java.sql.Connection同时充当org.hibernate.Transaction的工厂类
+
 ```
 //一般的使用方法
 Session session = sessionFactory.openSession();
@@ -18,9 +21,10 @@ session.beginTransaction();
 session.getTransaction().commit();
 session.close();
 ```
-4. 在JPA的概念中EntityManagerFactory等价于SessionFactory
-5. 在JPA的概念中EntiryManager等价于Session
-6. 在JPA的概念中EntityTransaction等价于Transaction
+
+4.在JPA的概念中EntityManagerFactory等价于SessionFactory
+5.在JPA的概念中EntiryManager等价于Session
+6.在JPA的概念中EntityTransaction等价于Transaction
 
 #### Hibernate注解 ####
 1. @Type:告知Hibernate这个Column的数据类型
@@ -32,6 +36,7 @@ session.close();
 4. @Convert
 >  @Convert(converter = PeriodStringConverter.class)
 5. @Embeddable:描述一个类可以被嵌入；@Embedded:描述嵌入了某个类
+
 ```
 @Entity
 public class Person {
@@ -67,19 +72,21 @@ public class PeriodStringConverter
     }
 }
 ```
-5. 日期/时间映射：@Temporal，可以将Java Date/Time类隐身为Entiry Properties
+
+6.日期/时间映射：@Temporal，可以将Java Date/Time类隐身为Entiry Properties
 > DATE:年月日
 > TIME:时分秒
 > TIMESTAMP:年月日时分秒(包含纳秒)
+
 ```
 @Temporal(TemporalType.DATE)
 private Date timestamp;
 ```
-6. java8的Date/Time和SQL Type之间包含隐形的映射关系，不需要使用@Temporal的注解
+
+7.java8的Date/Time和SQL Type之间包含隐形的映射关系，不需要使用@Temporal的注解
 > DATE ---> java.time.LocalDate
 > TIME ---> java.time.LocalTime
 > TIMESTAMP ---> java.time.LocalDateTime
-
 
 #### Spring data JPA+Hibernate+MySQL使用 ####
 1. 引入jar包

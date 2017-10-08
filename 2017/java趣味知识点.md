@@ -7,6 +7,7 @@ Timer：任务管理、调度
 
 #### StringJoiner ####
 用特定的分隔符连接字符串，并且可以加上前后缀
+
 ```
 public StringJoiner(CharSequence delimiter, CharSequence prefix, CharSqeuence suffix){
 
@@ -17,6 +18,7 @@ public StringJoiner(CharSequence delimiter, CharSequence prefix, CharSqeuence su
 可以通过META-INF/services目录下的配置文件来加载类。
 META-INF的目录需要放置到源码目录下
 配置文件中的实现类需要要有无参构造函数
+
 ```
 配置文件：META-INF\services\com.wei.serviceloader.IService，文件内容：
 com.wei.serviceloader.ServiceImpl1

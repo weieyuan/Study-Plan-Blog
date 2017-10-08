@@ -214,6 +214,7 @@ data: {
  计算属性所对应的方法将作为该属性的getter方法
  计算属性是基于它的依赖进行缓存的，只有它的依赖值发生了变更，计算属性才会重新计算，只要它的依赖值不发生变更，多次调用该属性的getter方法将返回之前的缓存值，相比较而言，method调用总会执行其方法
  计算属性默认只有getter方法，也可以提供setter方法
+
 ```
  computed: {
   fullName: {
@@ -232,6 +233,7 @@ data: {
 #### 组件 ####
 * 全局组件
 注册全局组件：
+
 ```
  Vue.component('my-component', {
     //配置项
@@ -239,6 +241,7 @@ data: {
  ```
  * 局部组件
  在实例中创建组件:
+
 ```
  var Child = {
   template: '<div>A Custom Component</div>'
@@ -253,6 +256,7 @@ data: {
  
  * prop
  子组件显示地用props来声明它期望获取到的数据
+
 ```
  Vue.component('my-component', {
   props: ['message'],
@@ -262,6 +266,7 @@ data: {
 ```
 
 * 动态prop
+
 ```
 <div id="example13">
     <mycomponent v-bind:message="parentMsg"></mycomponent>
@@ -279,9 +284,11 @@ var vm14 = new Vue({
     }
 });
 ```
+
 通过v-bind来绑定动态属性
 
 * vue定义组件的时候，data属性必须是一个函数，这个作用主要是为了确保每个组件对象的data属性是独立的，不是共享的
+
 ```
 Vue.component("my-component", {
   template: "<span>{{message}}</span>",
@@ -343,6 +350,7 @@ Vue.component("my-component", {
 	```
 
 * Vue对象在实例化的时候，只能监听已经定义好的属性，但是可以通过如下的方式将响应属性添加到对象上
+
 ```
 //全局方式
 Vue.set(vm.obj, key, value)

@@ -29,13 +29,16 @@ server:
 * @Valid BindingResult
 * @Aspect @Before @After @PointCut
 * Aop在web应用中的使用
-> 获取Request对象
+获取Request对象
+
 ```
 ServletRequestAttributes attributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
 HttpServletRequest request = attributes.getRequest();
 ```
-> 在通知中获取切点的信息，使用JoinPoint对象
-> 在通知中获取方法的返回信息，使用@AfterReturning(returning="object", pointcut="log()")
+
+在通知中获取切点的信息，使用JoinPoint对象
+在通知中获取方法的返回信息，使用@AfterReturning(returning="object", pointcut="log()")
+
 ```
 @PointCut("executing()")
 public void log()
@@ -46,13 +49,15 @@ public void log()
 public void doAfterReturing(Object object){
 }
 ```
+
 * 单元测试
 > @RunWith(SpringRunner.class) @SpringBootTest
 > web中的controller中的接口测试：@AutoConfigureMockMvc MockMvc
 
 #### spring boot中定义controller的异常处理
 * 异常处理
-> @ControllerAdvice @ExceptionHandler
+@ControllerAdvice @ExceptionHandler
+
 ```
 @ControllerAdvice
 public class ControllerExceptionHandler {
@@ -70,8 +75,8 @@ public class ControllerExceptionHandler {
 
 #### spring boot中支持跨域请求
 * 在contoller类或者controller中的方法上添加@CrossOrigin的注解
-```
 
+```
 @Controller
 public class StudentController {
 	public void insertStudents(Student oStudent){
@@ -95,6 +100,7 @@ public class StudentController {
 ```
 
 * 通过java配置类来全局配置
+
 ```
 @Configuration
 public class MyConfiguration {
@@ -113,6 +119,7 @@ public class MyConfiguration {
 ```
 
 * 通过application.yml/properties文件来配置
+
 ```
 endpoints.cors.allowed-origins=*
 endpoints.cors.allowed-methods=GET,POST
