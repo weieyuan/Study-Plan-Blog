@@ -21,6 +21,11 @@ npm install
 npm list -g --depth 0
 ```
 
+查看全局下是否安装了某个包
+```
+npm list packageName -g
+```
+
 当前目录下安装的插件
 ```
 npm ls
@@ -39,10 +44,10 @@ cnpm -v
 
 卸载
 ```
-npm uninstall vue-cli
-npm uninstall vue-cli -S // --save: Package will be removed from your dependencies.
-npm uninstall vue-cli -D //--save-dev: Package will be removed from your devDependencies.
-npm uninstall vue-cli --no-save //Package will not be removed from your package.json file.
+npm uninstall -g vue-cli //卸载全局安装包
+npm uninstall --save vue-cli // --save: Package will be removed from your dependencies.
+npm uninstall --save-dev vue-cli //--save-dev: Package will be removed from your devDependencies.
+npm uninstall vue-cli //Package will not be removed from your package.json file.
 ```
 
 更新
@@ -452,3 +457,63 @@ output: {
 import NBButton from "n-b-button"
 ```
 
+#### vue中使用jquery
+1.安装jquery
+
+```
+npm install jquery --save-dev
+```
+
+2.修改webpack.base.conf.js文件
+
+```
+const webpack = require("webpack")
+...
+
+//增加插件
+plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: "jquery",
+      $: "jquery"
+    })
+  ]
+
+``` 
+
+#### vue中使用bootstrap
+1.安装bootstrap
+
+```
+npm install bootstrap --save-dev
+```
+
+2.引入样式文件和核心的js文件
+
+```
+//在入口的main.js文件中引入
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/js/bootstrap.js'
+```
+
+#### vue中使用less
+1.安装less-loader和less
+
+```
+npm install less-loader less --save-dev
+```
+
+2.在webpack的配置文件中设置less文件的加载规则
+> 注意：在用vue-cli中生成的工程中，less的文件的加载规则已经在webpack.dev.conf.js/webpack.prod.conf.js中配置好了，不需要再手动配置，这里只是示例怎样配置less的加载规则
+
+```
+{
+    test: /\.less$/,
+    use: [{
+        loader: "style-loader" // creates style nodes from JS strings
+    }, {
+        loader: "css-loader" // translates CSS into CommonJS
+    }, {
+        loader: "less-loader" // compiles Less to CSS
+    }]
+}
+```
