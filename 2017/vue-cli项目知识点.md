@@ -517,3 +517,80 @@ npm install less-loader less --save-dev
     }]
 }
 ```
+
+#### vue中实现前后台ajax通信
+1.安装vue-resource
+
+```
+npm install vue-resource --save-dev
+```
+
+2.声明使用
+在项目的入口文件中声明使用
+
+```
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+Vue.use(VueResource);
+```
+
+3.使用
+
+```
+//全局使用
+Vue.http.get("/someUrl", [body], [options]).then(successCallback, failCallback);
+Vue.http.post("/someUrl", [body], [options]).then(successCallback, failCallback);
+
+//在组件内部使用
+this.$http.get("/someUrl", [body], [options]).then(successCallback, failCallback);
+this.$http.post("/someUrl", [body], [options]).then(successCallback, failCallback);
+
+//使用实例
+this.$http.post("/getStudentInfo", [1,2,3]).then((response) => {
+	var result = response.body;//后台返回的数据
+}, (response) => {
+
+})
+```
+
+#### vue实现跨域访问
+1.安装http-proxy-middleware(基于vue-cli创建的webpack的工程已经默认安装)
+
+```
+npm install http-proxy-middleware --save-dev
+```
+
+2.修改config/index.js文件中的代理配置
+
+```
+//以/app开头的请求都使用代理，
+//target表示代理的路径(protocol+host)
+///app/getStudentInfo的请求url对应的真实url是http://127.0.0.1:8080/getStudentInfo
+proxyTable: {
+      "/app/*": {
+        target: "http://127.0.0.1:8080",
+        changeOrigin: true,
+        //pathRewrite: function(path, req){
+        //  return path.replace("/app", "");
+        //},
+        pathRewrite: {
+          '^/app': '' ///app将会被替换为空字符串
+        }
+      }
+    },
+```
+
+3.build/dev-server.js中配置了代理
+
+```
+var proxyMiddleware = require('http-proxy-middleware')
+var proxyTable = config.dev.proxyTable
+
+Object.keys(proxyTable).forEach(function (context) {
+  var options = proxyTable[context]
+  if (typeof options === 'string') {
+    options = { target: options }
+  }
+  app.use(proxyMiddleware(options.filter || context, options))
+})
+```
