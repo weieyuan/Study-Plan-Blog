@@ -1,3 +1,5 @@
+### 项目工程/构建
+
 #### vue-cli搭建项目
 1. 安装vue-cli
 ```
@@ -60,6 +62,21 @@ npm update 包的名称
 npm run xxx
 ```
 
+查看配置
+```
+npm config list
+```
+
+设置配置
+```
+npm set key value [-g]
+```
+
+删除配置
+```
+npm config delete key
+```
+
 发布npm包
 ```
 //0. 关注package.json中的内容
@@ -83,6 +100,151 @@ npm publish
 npm version <update_type> //update_type的取值为"patch","minor","major"
 //4. 撤销发布过的某个包
 npm unpublish packagename@version
+```
+
+#### 发布vue组件到npm
+
+* 使用vue-cli创建vue工程
+
+```
+vue init webpack-simple demo
+```
+
+* 在src目录下正常编写vue组件，例如编写了NBButton.vue的组件
+
+```
+<template>
+<div class="main">
+  <button @click="onBtnClick">{{label}}</button>
+</div>
+</template>
+
+<script>
+export default {
+  name: 'NBButton',
+  props: ['label'],
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    onBtnClick: function(){
+      console.log("onBtnClick");
+      this.$emit("onBtnClick");
+    }
+  }
+}
+</script>
+
+<style scoped>
+.main{
+  background-color: red;
+}
+</style>
+
+```
+
+* 在src目录下新建index.js，引入NBButton，再导出
+
+```
+import NBButton from './NBButton.vue';
+
+export default NBButton;
+```
+
+* 修改webpack.config.js文件，主要有两点要关注：
+	* 修改entry入口点
+	* 修改oupt标签中的内容
+
+```
+entry: './src/index.js',
+output: {
+	path: path.resolve(__dirname, './dist'),
+	publicPath: '/dist/',
+	filename: 'n-b-button.js',
+	library: "NBButton", //_entry_return返回的变量
+	libraryTarget: "umd" //定义了library怎样暴露出来
+},
+```
+
+* 执行npm run build，此时会在dist目录下生成目标文件
+
+* 修改package.json，主要有两点：
+	* name，这个是发布到npm仓库后包的名称，注意不要和npm上已有的包重名
+	* 修改main的属性，执行上一步中生成的目标文件
+
+```
+"name": "n-b-button",
+"description": "A Vue.js project",
+"version": "1.0.2",
+"author": "weieyuan",
+"main": "./dist/n-b-button.js",
+```
+ 
+* 按照npm发布包的流程发布包
+
+* 使用
+	* 按照包：npm install n-b-button --save-dev
+	* 引入NBButton组件，即可使用
+
+```
+import NBButton from "n-b-button"
+
+```
+
+### vue/vue-router/vuex
+
+#### vue
+
+* mixins
+
+作用：扩展组件的选项。
+
+选项合并的规则
+1. 同名钩子函数将混合为一个数组，都将被调用，混合对象的钩子在组件自身的钩子之前调用
+2. 值为对象的选项，例如methods、components、directives等将被混合为同一个对象，当键名冲突时，取组件对象的键值对
+
+使用
+
+```
+//局部使用
+var mixin = {
+	methods: {
+		a(){
+		
+		},
+		b(){
+		
+		}
+	}
+};
+
+var vm = new Vue({
+	mixins: [mixin],
+	methods: {
+		a(){
+
+		},
+		c(){
+		
+		}
+	}
+});
+
+
+//全局使用，选项将会混入所有之后创建的Vue实例
+Vue.mixin({
+	methods: {
+		a(){
+		
+		},
+		b(){
+		
+		}
+	}
+});
+
 ```
 
 #### vue-router
@@ -367,95 +529,7 @@ const store = new Vue.Store({
 });
 ```
 
-#### 发布vue组件到npm
-
-* 使用vue-cli创建vue工程
-
-```
-vue init webpack-simple demo
-```
-
-* 在src目录下正常编写vue组件，例如编写了NBButton.vue的组件
-
-```
-<template>
-<div class="main">
-  <button @click="onBtnClick">{{label}}</button>
-</div>
-</template>
-
-<script>
-export default {
-  name: 'NBButton',
-  props: ['label'],
-  data () {
-    return {
-
-    }
-  },
-  methods: {
-    onBtnClick: function(){
-      console.log("onBtnClick");
-      this.$emit("onBtnClick");
-    }
-  }
-}
-</script>
-
-<style scoped>
-.main{
-  background-color: red;
-}
-</style>
-
-```
-
-* 在src目录下新建index.js，引入NBButton，再导出
-
-```
-import NBButton from './NBButton.vue';
-
-export default NBButton;
-```
-
-* 修改webpack.config.js文件，主要有两点要关注：
-	* 修改entry入口点
-	* 修改oupt标签中的内容
-
-```
-entry: './src/index.js',
-output: {
-	path: path.resolve(__dirname, './dist'),
-	publicPath: '/dist/',
-	filename: 'n-b-button.js',
-	library: "NBButton", //_entry_return返回的变量
-	libraryTarget: "umd" //定义了library怎样暴露出来
-},
-```
-
-* 执行npm run build，此时会在dist目录下生成目标文件
-
-* 修改package.json，主要有两点：
-	* name，这个是发布到npm仓库后包的名称，注意不要和npm上已有的包重名
-	* 修改main的属性，执行上一步中生成的目标文件
-
-```
-"name": "n-b-button",
-"description": "A Vue.js project",
-"version": "1.0.2",
-"author": "weieyuan",
-"main": "./dist/n-b-button.js",
-```
- 
-* 按照npm发布包的流程发布包
-
-* 使用
-	* 按照包：npm install n-b-button --save-dev
-	* 引入NBButton组件，即可使用
-
-```
-import NBButton from "n-b-button"
-```
+### vue中使用第三方库
 
 #### vue中使用jquery
 1.安装jquery
@@ -516,6 +590,20 @@ npm install less-loader less --save-dev
         loader: "less-loader" // compiles Less to CSS
     }]
 }
+```
+
+3.vue的组件中编写样式
+
+```
+//注意：在2017.2.5版本的webstorm中，需要加上type="text/less",否则不能正确识别less样式
+<style scoped lang="less" type="text/less">
+  .content {
+    background-color: #ebebeb;
+    .main-container {
+      padding-top: 35px;
+    }
+  }
+</style>
 ```
 
 #### vue中实现前后台ajax通信
