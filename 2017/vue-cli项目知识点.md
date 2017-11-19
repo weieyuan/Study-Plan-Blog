@@ -77,6 +77,23 @@ npm set key value [-g]
 npm config delete key
 ```
 
+设置网络代理
+```
+//如果用户名，密码中有特色字符，需要进行转义
+//可以使用node中自带的转义api
+//node
+//encodeURIComponent("xxxx")
+npm config set proxy http://username:password@server:port/
+npm config set https-proxy http://username:password@server:port/
+
+```
+
+清除缓存
+```
+//--force表示强制清除
+npm cache clean --force 
+```
+
 发布npm包
 ```
 //0. 关注package.json中的内容

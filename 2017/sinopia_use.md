@@ -31,11 +31,25 @@ packages:
 //配置监听端口
 listen:
   - 0.0.0.0:8091
+
+//如果有代理可以设置
+http_proxy: http://userName:password@server:port
+https_proxy: http://userName:password@server:port
 ```
 
 * 修改完config.yaml文件后重新运行sinopia
 
 * 访问http://localhost:8091/
+
+* 可以选择使用pm2的进程管理工具来管理sinopia
+
+```
+//安装
+npm install -g pm2
+
+//启动sinopia
+pm2 start 'which sinopia'
+```
 
 #### sinopia服务器使用
 
