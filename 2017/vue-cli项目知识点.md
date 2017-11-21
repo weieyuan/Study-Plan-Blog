@@ -651,7 +651,7 @@ this.$http.get("/someUrl", [body], [options]).then(successCallback, failCallback
 this.$http.post("/someUrl", [body], [options]).then(successCallback, failCallback);
 
 //使用实例
-this.$http.post("/getStudentInfo", [1,2,3]).then((response) => {
+this.$http.post("/getStudentInfo", [1,2,3], {emulateJSON: true}).then((response) => {
 	var result = response.body;//后台返回的数据
 }, (response) => {
 
