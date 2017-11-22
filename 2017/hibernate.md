@@ -26,6 +26,52 @@ session.close();
 5.在JPA的概念中EntiryManager等价于Session
 6.在JPA的概念中EntityTransaction等价于Transaction
 
+#### Hibernate概念
+1.**配置对象**
+它代表了Hibernate所需要的一个配置或属性文件(hibernate.properties/hibernate.cfg.xml)，配置对象提供了两种基础组件：
+* 数据库的连接
+* 类映射设置
+
+最小配置文件示例：
+
+```
+<hibernate-configuration>
+	<session-factory>
+	<property name="hibernate.dialect">
+		org.hibernate.dialect.MySQLDialect
+	</property>
+	<property name="hibernate.connection.driver_class">
+		com.mysql.jdbc.Driver
+	</property>
+	<property name="hibernate.connection.url">
+		jdbc:mysql://localhost:3306/test
+	</property>
+	<property name="hibernate.connection.username">
+		root
+	</property>
+	<property name="hibernate.connection.password">
+		root123
+	</property>
+	</session-factory>
+</hibernate-configuration>
+```
+
+2.**SessionFactory**
+配置对象被用于创造一个SessionFactory对象，SessionFactory是一个线程安全对象并由应用程序的所有线程所使用
+
+3.**Session对象**
+一个会话被用于与数据库的物理连接，被设计为每次实例化都需要和数据库进行交互，按需创建和销毁
+
+4.**Transaction对象**
+一个事物代表了与数据库工作的一个单元
+
+5.**Query对象**
+使用SQL或者Hibernate查询语言在数据库中检索数据并创建对象。一个查询实例被用于连结查询参数、限制查询返回的结果数量、并最终执行查询
+
+6.**Criteria对象**
+面向规则查询对象来检索对象
+
+
 #### Hibernate注解 ####
 1. @Type:告知Hibernate这个Column的数据类型
 > @Type(type="text")
