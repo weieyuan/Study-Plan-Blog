@@ -43,6 +43,15 @@ p:nth-child(2) {
 </section>
 ```
 
+**clientX/pageX/offsetX/screenX**
+clientX/clientY: 鼠标相对于浏览器可视区域的x,y坐标
+
+pageX/pageY: 类似于clientX/clientY，但是使用文档坐标而不是窗口坐标
+
+screenX/screenY: 鼠标相对于用户显示器左上角的x,y坐标
+
+offsetX/offsetY：鼠标相对于最近的relative、absolute元素的x,y坐标
+
 #### es6
 **箭头函数**
 箭头函数中的this，是在箭头函数执行时，在作用域链中一层一层往上找到最近的this，箭头函数自己是没有this的值
@@ -187,4 +196,6 @@ res.end()//结束处理
 res.json()//返回json数据
 res.send()
 
-
+#### nodejs
+1.process是nodejs中的一个全局变量，它提供了当前运行的nodejs进程的信息
+2.process.env返回包含用户环境变量的一个对象
