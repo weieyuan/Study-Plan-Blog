@@ -49,6 +49,18 @@ npm install -g pm2
 
 //启动sinopia
 pm2 start 'which sinopia'
+
+//展示所有进程的状态
+pm2 list
+
+//停止进程
+pm2 stop all/processId
+
+//重启进程
+pm2 restart all/processId
+
+//删除进程
+pm2 delete all/processId
 ```
 
 #### sinopia服务器使用
