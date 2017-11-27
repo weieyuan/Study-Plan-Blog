@@ -130,6 +130,14 @@ app.get("/", function(req, res){}, function(req. res){});
 app.post("/index", functioin(req, res){});
 ```
 
+**支持JSON格式的参数交互**
+
+```
+var bodyParser = require("body-parser");
+
+app.use(bodyParser.json()); //for parsing application/json
+```
+
 **静态文件**
 例如css,image,js文件等，express内置了static的中间件来服务静态文件
 
