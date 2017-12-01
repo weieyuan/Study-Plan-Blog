@@ -339,11 +339,11 @@ const router = new VueRouter({
 
 ```
 router.beforeEach(function(to, from, next){
-
+	next()//放行
+	next(false)//不放行，中断当前导航，url地址重置到from路由的地址
+	next({path: '/login'})//跳转到login的路由
 });
-next()//放行
-next(false)//不放行，中断当前导航，url地址重置到from路由的地址
-next({path: '/login'})//跳转到login的路由
+
 ```
 
 路由独享钩子
@@ -526,17 +526,23 @@ computed: {
 * 模块划分
 
 每个模块中可以定义state，mutations，getters，actions
+默认情况下，模块内部的action,mutations，getters是定义在全局命名空间的，这样使得多个模块能够对同一个mutation或者action作出响应
+
 
 ```
 const modeulA = {
 	state: {},
 	getter: {
-		doubleCount(state){}//state为模块中定义的state变量，不是全局的state
+		doubleCount(state,getter,rootState){}//state为模块中定义的state变量，不是全局的state,rootState为根节点状态
 	},
 	mutations:{
-		increment(state){}
+		increment(state){}//state为模块中定义的state变量
 	},
-	actions: {}
+	actions: {
+		increment({state,commit,rootState}){//state为局部状态，rootState为根节点状态
+
+		}
+	}
 }
 
 const store = new Vue.Store({
