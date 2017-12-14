@@ -1,4 +1,4 @@
-#### Hibernate ####
+#### Hibernate
 1.Mapping File
 
 ```
@@ -26,7 +26,7 @@ session.close();
 5.在JPA的概念中EntiryManager等价于Session
 6.在JPA的概念中EntityTransaction等价于Transaction
 
-#### Hibernate概念
+##### Hibernate概念
 1.**配置对象**
 它代表了Hibernate所需要的一个配置或属性文件(hibernate.properties/hibernate.cfg.xml)，配置对象提供了两种基础组件：
 * 数据库的连接
@@ -71,8 +71,16 @@ session.close();
 6.**Criteria对象**
 面向规则查询对象来检索对象
 
+7.数据类型映射
+HibernateType(org.hibernate.type)和Java Type之间有一个默认的映射关系，如果需要显示定义类型映射关系，可以通过@org.hibernate.annotations.Type(type="xxx")来指定，xxx可以是HibernateType全名或者BasicTypeRegistry Key
 
-#### Hibernate注解 ####
+```
+@org.hibernate.annotation.Type(type="true_false")
+private boolean b;
+```
+
+
+##### Hibernate注解
 1. @Type:告知Hibernate这个Column的数据类型
 > @Type(type="text")
 2. 枚举映射：@Enumerated，映射的策略由两种ORDINAL和STRING

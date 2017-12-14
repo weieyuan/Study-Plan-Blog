@@ -8,6 +8,10 @@ npm install -g vue-cli
 2. 使用工程模板来创建项目
 ```
 vue init webpack vue-demo
+//如果因为网络原因导致，下载不下来webpack的模块，那么可以从git上下载vuejs-template/webpack的zip包，然后解压到本机，执行如下命令：
+//模板路径是template的上一层
+vue init 模板的路径 vue-demo
+
 ```
 3. 安装插件
 ```

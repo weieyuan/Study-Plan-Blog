@@ -55,3 +55,15 @@ public class SomeClient{
 属性之间可以使用And/Or/Between/LessThan/GreaterThan/Link来连接或者限制
 IngoreCase可以忽略属性的大小写
 OrderBy用于排序，Asc(升序)Desc(降序)
+
+属性解析规矩：
+
+```
+findByAddressZipCode
+1.将AddressZipCode作为属性，看看实体类中是否有这个属性，如果有，则命中，否则进行下一步
+2.从右往左，按照驼峰式命名将属性切割为AddressZip和Code，然后查看实体类中是否有AddressZip并且AddressZip中是否有Code属性，如果有，则命中，否则进行下一步
+3.继续按照驼峰式命名法切割(将属性切割为Address和ZipCode)，按照2中的规则解析
+4.非常特殊的情况下可以自定义分割点，例如findByAddress_ZipCode，会强制从_处分割，但是不推荐使用
+```
+
+查询中可以自动识别Pageable和Sort参数

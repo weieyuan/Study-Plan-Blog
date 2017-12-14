@@ -93,7 +93,15 @@ logging:
 ```
 
 #### 测试
-测试注解
+测试注解(推荐使用)
+```
+@RunWith(SpringRunner.class)
+@SpringBootTest(properties={"spring.profiles.active=dev"}, 
+webEnvironment=SpringBootTest.WebEnvironment.DEFINED_PORT) //properties可以定义参数，类似于通过命名行传递参数，DEFINED_PORT确保SpringBoot应用启动的时候使用固定的端口号，也就是配置文件中定好的端口号
+
+```
+
+测试注解(不推荐使用)
 
 ```
 @RunWith(SpringJUnit4ClassRunner.class) //开启Spring集成测试
@@ -109,6 +117,21 @@ logging:
 public class Test{
 
 }
+```
+
+测试http的接口
+
+```
+//测试post接口
+Object obj = new Object(); //需要传递的参数
+
+RestTemplate template = new RestTemplate();
+HttpHeaders header = new HttpHeaders();
+header.setContentType(MediaType.APPLICATION_JSON); //声明以json的格式传递数据
+HttpEntity<Card> entity = new HttpEntity<Card>(obj, header);
+
+String url = "http://localhost:8089/card/add";
+String strRes = template.postForObject(url, entity, String.class);
 ```
 
 #### Groovy与Spring Boot CLI
