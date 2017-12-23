@@ -207,3 +207,54 @@ res.send()
 #### nodejs
 1.process是nodejs中的一个全局变量，它提供了当前运行的nodejs进程的信息
 2.process.env返回包含用户环境变量的一个对象
+
+#### Promise的使用
+Promise可以将异步操作以同步的方式表达出来。
+Promise的两种应用方式:
+
+```
+//1.依次打印a和b
+new Promise(function(resolve,reject){
+	setTimeout(function(){
+		resolve("a");
+	}, 1000);
+}).then(function(res){
+	console.log(res);
+	return "b";
+}).then(function(res){ //上一个then中的回调函数的返回值会传递进来
+	console.log(res);
+});
+
+//2.依次打印a和c
+new Promise(function(resolve,reject){
+	setTimeout(function(){
+		resolve("a");
+	}, 1000);
+}).then(function(res){
+	console.log(res);
+	var p = new Promise(function(resolve,reject){
+		resolve("c");
+	});
+	return p;
+}).then(function(res){ //上一个then中的回调函数的返回值是Promise对象p，这个then中的回调会在p的状态发            					   //生变化的时候调用
+	console.log(res);
+});
+```
+
+Promise.all方法可以将多个Promise的对象包装成一个新的Promise对象：
+
+```
+//当p1，p2，p3都变成fulfilled时，p的状态就会变成fulfilled，同时会将p1、p2、p3的返回值组成一个数组传递给p的回调函数
+//当p1，p2，p3中有一个变成rejected时，p的状态就会变成rejected，并且会将第一个rejected的返回值传递给p的回调函数
+var p1 = new Promise(function(resolve, reject){});
+var p2 = new Promise(function(resolve, reject){});
+var p3 = new Promise(function(resolve, reject){});
+
+var p = Promise.all([p1,p2,p3]);
+
+p.then(function(res){
+
+},function(res){
+
+});
+```
