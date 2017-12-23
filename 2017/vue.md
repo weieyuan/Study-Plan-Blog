@@ -399,6 +399,27 @@ created: () => {}
 vm.$watch("a", () => {})
 ```
 
+样式绑定class，可以绑定字符串、数组、json对象
+绑定style时，可以绑定json对象、数组
 
+在组件上使用class/style时，样式将会应用到组件的根元素上。
 
+v-for语句既可以遍历数组也可以遍历对象：
+
+```
+//a = []
+<div v-for="item in a"></div>
+//b={a: "A", b:"B"}
+<div v-for="value in b"></div>
+<div v-for="(value,key,index) in b"></div>
+```
+
+数组对象的监听，改变数组对象的方法或者将新的数组赋值给数组对象，vue都能监测到，如下两种方式，vue不能监听到：
+1.通过索引修改数组值，items[index]=newValue
+2.修改数组长度，items.length=newLenght
+对应的解决方式
+1.Vue.set(items,index,newValue)
+2.items.splice(newLength)
+
+在2.2.0+的版本中，在组件上使用v-for时，key是必须的
 
