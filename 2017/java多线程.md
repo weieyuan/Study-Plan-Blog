@@ -244,3 +244,55 @@ Blocked：阻塞状态
 每个锁对象都有两个队列，一个是就绪队列，用于放置将要获取锁的线程；一个是阻塞队列，用于放置被阻塞的线程。
 
 线程的sleep方法并不会释放锁。
+
+线程通过管道流进行通信：补充详细信息？？？
+字节流：PipedInputStream/PipedOutputStream
+字符流：PipedReader/PipedWriter
+
+join方法：
+用于等待线程的销毁，当线程执行完毕终结时，会自动调用notifyAll方法。
+join(int millis)，等待确定的时间。
+join方法内部使用wait来实现等待，当从join方法唤醒时需要重新竞争获取锁对象。
+如果在join的过程中，该线程被中断，则会进入中断异常分支。
+join和sleep方法的区别是，join获取锁后会释放锁，sleep不会释放锁。
+
+ThreadLocal用于保存线程私有的变量，用法：
+
+```
+//定义公共变量，实际使用中将T替换为具体的类
+public static ThreadLocal<T> LOCAL = new ThreadLocal<T>();
+
+//在线程1中
+T t = LOCAL.get();
+LOCAL.set(xxx);
+
+//在线程2中
+T t = LOCAL.get();
+LOCAL.set(xxx);
+
+//给每个线程调用get时赋默认值，可以继承ThreadLocal类，覆写initialValue方法
+public class CustomThreadLocal extends ThreadLocal<T>{
+	protected T initialValue(){
+		return xxx;
+	}
+}
+```
+
+InheritableThreadLocal子线程可以继承父线程的值
+
+#### Lock的使用
+Lock(ReentrantLock)类可以实现更加灵活的同步，功能类似于synchronized关键字。
+通过Lock对象可以创建多个Condition对象，Condition对象的await()/signal()/singalAll()方法等价于Object中的wait()/notify()/notifyAll()方法。
+
+公平锁/非公平锁，在创建锁对象时传入boolean变量，表示是否使用公平锁。如果是公平锁按照FIFO的方式来分配锁，否则随机分配锁。
+
+Api说明：
+
+```
+int getHoldCount():查询当前线程保持此锁的个数
+int getQueueLength():返回正等待获取此锁的线程估计数
+int getWaitQueueLength(Condition condition):返回等待condition条件的线程数
+boolean hasQueuedThread(Thread thread):指定的线程是否在等待获取锁
+boolean hasQueuedThreads():是否有线程正在等待获取锁
+boolean hasWaiters(Condition condition)：是否有线程在等待获取condition条件
+```
