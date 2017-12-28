@@ -286,7 +286,7 @@ Lock(ReentrantLock)类可以实现更加灵活的同步，功能类似于synchro
 
 公平锁/非公平锁，在创建锁对象时传入boolean变量，表示是否使用公平锁。如果是公平锁按照FIFO的方式来分配锁，否则随机分配锁。
 
-Api说明：
+Lock Api说明：
 
 ```
 int getHoldCount():查询当前线程保持此锁的个数
@@ -295,4 +295,144 @@ int getWaitQueueLength(Condition condition):返回等待condition条件的线程
 boolean hasQueuedThread(Thread thread):指定的线程是否在等待获取锁
 boolean hasQueuedThreads():是否有线程正在等待获取锁
 boolean hasWaiters(Condition condition)：是否有线程在等待获取condition条件
+boolean isFair()：是否是公平锁
+boolean isHeldByCurrentThread():当前线程是否持有锁
+boolean isLocked():锁对象是否被线程获取
+void lockInterruptibly()
+boolean tryLock()
 ```
+
+Condition Api说明：
+
+```
+void awaitUninterruptibly()
+void awaitUntil(Date deadline)
+```
+
+ReentrantReadWriteLock，拥有一个读锁、一个写锁，读与读不互斥，读与写互斥，写与写互斥。
+
+#### 定时器Timer
+Timer类的主要作用是设置计划任务
+TimerTask类用于封装任务
+在实例化Timer的对象时，Timer实例中会启动一个新的线程(TimerThread)，所有的任务都在这个线程中执行，Timer的内部有一个队列用于存储所有的任务。
+
+Timer API:
+
+```
+//下一次任务的执行开始时间是上一次任务开始时间+周期(在没有延时的情况下)
+//下一次任务的执行开始时间是上一次任务结束时(在有延时的情况下)
+void schedule(TimerTask task, ...) 
+void scheduleAtFixedRate(TimerTask task, ...)
+void cancle()//将任务队列中的所有任务清空，并且线程被销毁
+```
+
+TimerTask API:
+
+```
+void cancle()//将该任务从任务队列中清除
+```
+
+#### 单例模式与多线程
+单例的实现：立即加载模式，在调用方法前实例已经被创建
+
+```
+private static MyObject myObject = new MyObject();
+
+public static MyObject getInstance(){
+	return myObject;
+}
+```
+
+单例的实现：延迟加载，在调用方法时实例才被创建
+
+```
+//双重检查模式
+private static MyObject myObject;
+
+public static MyObject getInstance(){
+	if(myObject == null){
+		synchronized(MyObject.class){
+			if(myObject == null){
+				myObject = new MyObject();
+			}
+		}
+	}
+	return myObjcet;
+}
+```
+
+单例的实现：静态内部类实现单例
+
+```
+public class MyObject{
+
+	private static class InnerClass{
+		private static MyObject myObject = new MyObject();
+	}
+
+	public static MyObject getInstance(){
+	
+		return InnerClass.myObject;
+
+	}
+
+}
+```
+
+单例与序列化和反序列化？？？
+
+```
+public class MyObject implements Serializable{
+
+	private static class InnerClass{
+		private static MyObject myObject = new MyObject();
+	}
+
+	public static MyObject getInstance(){
+	
+		return InnerClass.myObject;
+
+	}
+
+	protected Object readResolve throws ObjectStreamException {
+		return InnerClass.myObject;
+	}
+
+}
+```
+
+单例模式：使用静态代码块实现
+
+```
+public class MyObject{
+
+	private static MyObject myObjcet;
+
+	static{
+		myObjcet = new MyObject();
+	}
+
+	public static MyObject getInstance(){
+	
+		return myObjcet;
+
+	}
+
+}
+```
+
+单例模式：使用枚举实现单例
+
+```
+public enum MyObject {
+	Instance;
+	
+	public void doSth(){}	
+}
+//调用
+MyObject.Instance.doSth();
+```
+
+#### 拾遗增补
+线程的状态：
+补充线程状态的转换图？？？
