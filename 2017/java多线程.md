@@ -436,3 +436,15 @@ MyObject.Instance.doSth();
 #### 拾遗增补
 线程的状态：
 补充线程状态的转换图？？？
+
+线程组，方便统一管理线程。
+当线程组中断时，线程组中的线程都被中断
+
+SimpleDateFormat是非线程安全的
+
+线程异常处理：
+
+```
+static void setDefaultUncaughtExceptionHandler(UncaughtExceptionHandler eh)//静态方法 优先级低
+void setUncaughtExceptionHandler(UncaughtExceptionHandler eh)//实例方法 优先级高
+```
