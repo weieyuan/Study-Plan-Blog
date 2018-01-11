@@ -463,3 +463,17 @@ v-model的修饰符：
 .number:将输入转换为数值类型
 .trim：去掉用户输入的首尾空白
 ```
+
+使用v-on来监听自定义事件；使用.native修饰符可以监听原生事件(v-on.native)
+
+数据的双向绑定，使用.sync修饰prop属性时，当子组件修改这个属性后，这个变化也会同步到父组件中所绑定的值。
+
+v-once可以将渲染结果缓存起来：
+
+```
+Vue.component("terms-of-service", {
+	template:"<div v-noce><h1>xxxxx</h1></div>"
+
+});
+```
+

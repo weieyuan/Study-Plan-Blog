@@ -67,3 +67,160 @@ findByAddressZipCode
 ```
 
 查询中可以自动识别Pageable和Sort参数
+
+限制查询的结果的数量：
+
+```
+User findFirstOrderByNameAsc()
+User findTopOrderByNameAsc()
+
+List<User> findTop10OrderByNameAsc()
+List<User> queryFirst10OrderByNameAsc()
+```
+
+可以自定义接口和实现类，来扩展repository的功能
+
+可以自定义基础实现类，来影响所有的repository
+
+#### JPA Repositories
+使用@Query
+
+```
+@Query("select u from user u where u.emailAddress = ?1")
+User findByEmailAddress(String emailAddress)
+
+@Query("select u from User u where u.firstname like %?1")
+List<User> findByFirstnameEndsWith(String firstname)
+```
+
+Using Sort
+
+```
+@Query("select u from User u where u.lastName like ?1%")
+List<User> findByAndSort(String lastName, Sort sort)
+
+@Query("select u.id, LENGTH(u.firstname) as fn_len from User u where u.lastname like ?1%")
+List<Object[]> findByAsArrayAndSort(String lastName, Sort sort)
+
+//使用
+repo.findByAndSort("abc", new Sort("firstname"));
+repo.findByAsArrayAndSort("bolton", new Sort("fn_len"))
+```
+
+Using named params
+
+```
+@Query("select u from user where u.firstname=:firstname or u.lastname=:lastname")
+User findByLastnameorFirstname(@Param("lastname") String lastname, @Param("firstname") String firstname)
+```
+
+Modifying queries
+
+```
+@Modifying
+@Query("update User u set u.firstname = ?1 where u.lastname = ?2")
+int setFixedFirstnameFor(String firstname, String lastname)
+
+//deleteByRoleId本质上是先执行query然后执行delete，这种方式中生命周期的回调会被执行，例如@PreRemove
+//deleteInBulkByRoleId这个只会执行一次数据库的查询，生命周期的回调不会被执行
+//
+@Modifying
+@Query("delett from User u where user.role.id = ?1")
+void deleteInBulkByRoleId(long roleId)
+
+void deleteByRoleId(long roleId)
+```
+
+Projections，有时候可能只需要查询对象中的某些属性：
+
+```
+class Person{
+	String firstname;
+	String lastname;
+	Address address;
+	
+	static class Address{
+		
+		String zipCode;
+		String city;
+		String street;	
+	}
+
+}
+
+//注意属性要和Person中的属性对应上
+interface NamesOnly{
+	String getFirstname();
+	String getLastname();
+}
+
+//使用
+Collection<NamesOnly> findByLastname(String lastname)
+
+//接口中可以嵌套接口
+interface NamesOnly{
+	String getFirstname();
+	String getLastname();
+	AddressSummary getAddress();
+	
+	interface AddressSummary{
+		String getCity();
+	}
+}
+
+//接口中还可以有逻辑处理
+interface NamesOnly{
+	String getFirstname();
+	String getLastname();
+
+	default String getFullName(){
+		return getFirstname.concat(" ").concat(getLastname());
+	}
+}
+
+//也可以使用类，但是不会生成代理，并且不能有嵌套
+class NamesOnly{
+	
+	private String firstname;
+	private String lastname;
+
+	NamesOnly(String firstname, String lastname){
+		this.firstname = firstname;
+		this.lastname = lastname;
+	}
+
+	String getFirstname(){
+		return this.firstname;
+	}
+
+	String getLastname(){
+		return this.lastname;
+	}
+
+}
+
+//动态投影
+Collection<T> findByLastname(String lastname, Class<T> type);
+
+```
+
+Transactionality
+
+CRUD方法默认情况下是添加了事务的，对于读操作，事务被配置为readOnly=true，其它的操作被配置为普通的事务。可以参考SimpleJapRepository类，这个类是CrudRepository接口的默认实现。
+
+可以在方法上面加上@Transactional的注解，让这个方法在一个事务中运行
+
+查询方法上添加@Transactional的注解：
+
+```
+@Transactional(readOnly=true)
+public interface UserRepository extends JpaRepository<User, Long>{
+
+	@Modifying
+	@Transactional
+	@Query("delete from User u where u.active = false")
+	void deleteInactiveUsers();
+}
+```
+
+建议在仅仅是查询的接口上配置readOnly=true，因为底层的实现逻辑，例如JDBC或者Spring Jpa会做一些性能的优化
