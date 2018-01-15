@@ -391,6 +391,81 @@ el被新创建的vm.$el替换，并挂载到实例上去之后调用该钩子
 * destroyed
 实例销毁后调用，调用后，vue实例指示的所有东西都会被解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
 
+#### 自定义指令
+指令的定义：
+
+```
+//全局指令
+Vue.directive("focus", {
+	inserted: function(el){
+		el.focus();
+	}
+
+})
+
+//局部指令
+directives: {
+	focus: function(el){
+		el.focus();
+	}
+}
+
+//使用
+<input v-focus>
+```
+
+钩子函数
+1.bind:只调用一次，指令第一次绑定到元素时调用
+2.inserted:被绑定元素插入父节点的时候调用
+3.update:所在组件的VNode更新时调用
+4.componentUpdated:指令所在组件的VNode及其子VNode全部更新后调用
+5.unbind：只调用一次，指令与元素解绑定时调用
+
+钩子函数的参数：
+1.el:指令所绑定的元素，可以用于操作DOM
+2.binding:一个对象，包含各种属性，这个对象中所有属性都是只读属性
+	* name:指令名称
+	* value：指令绑定值
+	* oldValue:指令绑定的前一个值，仅仅在update和componentUpdated钩子中可用
+	* expression:字符串形式的指令表达式
+	* arg:传给指令的参数
+	* modifiers:修饰符对象，v-demo:foo.a.b，arg为foo，modifiers为{a:true,b:true}
+3.oldVnode:上一个虚拟节点，仅在update和componentUpdated中可用
+
+#### 过渡与动画
+过渡效果，可以使用transition标签包裹如下的元素：
+1.条件渲染(v-if)
+2.条件展示(v-show)
+3.动态组件
+4.组件根节点
+
+在进入/离开的过渡中，会切换如下6个class:
+1.v-enter
+2.v-enter-active
+3.v-enter-enter-to
+4.v-leave
+5.v-leave-active
+6.v-leave-to
+
+使用示例：
+
+```
+<transition name="fade">
+	<p v-show="show"></p>
+</transition>
+
+
+.fade-enter-active, .fade-leave-active{
+	transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to{
+	opacity: 0;
+}
+```
+
+
+
 #### 杂项知识点
 不要在选项属性或者回调上使用箭头函数，否则函数中的this不会绑定到vm实例上:
 
@@ -475,5 +550,28 @@ Vue.component("terms-of-service", {
 	template:"<div v-noce><h1>xxxxx</h1></div>"
 
 });
+```
+
+watch数据，如果是浅watch一个对象(例如json对象)，那么不管是从内部还是从外部修改这个对象的某个属性值，均不会触发watch的回调函数。如果是深度watch，那么从内部或者外部修改对象的属性值，均会触发watch的回调。
+
+```
+//1和2是等价的
+watch:{
+	a: function(oNewVal, oOldVal){}
+}
+//2
+watch:{
+	a: {
+		handler(oNewVal, oOldVal){},
+		deep: false
+	}
+}
+//3深度watch
+watch:{
+	a: {
+		handler(oNewVal, oOldVal){},
+		deep: true
+	}
+}
 ```
 
