@@ -300,8 +300,7 @@ Vue.component("my-component", {
 });
 ```
 
-* 父子组件之
-* 间通信，可以简单总结为props down,events up,父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息
+* 父子组件之间通信，可以简单总结为props down,events up,父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息
 父组件可以在使用子组件的地方直接用v-on来监听子组件触发的事件
 可以使用.native来监听原生事件，例如v-on:click.native
 
@@ -462,6 +461,28 @@ directives: {
 .fade-enter, .fade-leave-to{
 	opacity: 0;
 }
+```
+
+#### Vue插件
+开发插件可以为Vue添加的功能如下：
+1.添加全局的方法或者属性
+2.添加全局资源，例如指令
+3.通过mixin添加组件选项
+4.添加Vue实例方法，通过把他们添加到Vue.prototype上实现
+5.一个库，提供自己的Api
+
+Vue插件的开发，插件需要有一个公开的install方法，第一个参数是Vue构造器，第二个参数是可选的options对象：
+
+```
+MyPlugin.install = function(Vue, options){
+  //这里可以对Vue进行操作
+}
+```
+
+插件的使用，Vue会自动阻止多次注册相同的插件
+
+```
+Vue.use(MyPlugin, [options])//会调用MyPlugin.install
 ```
 
 
