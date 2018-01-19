@@ -15,6 +15,30 @@ if(regExp.test(str)){
 String.prototype.search()，类似于test方法，返回匹配项的索引，该方法会忽略全局设置项
 String.prototype.match()，类似于exec方法，找到匹配项，该方法会忽略全局设置项
 
+#### Element
+常用的选择器：
+
+```
+querySelector(selectors):返回第一个匹配的子元素
+querySelectorAll(selectors):返回匹配的子元素集合
+getElementsByClassName():返回所有匹配的子元素集合
+getElementsByTagName():返回所有匹配的子元素集合
+```
+
+常用的属性：
+
+```
+firstElementChild：第一个子元素
+lastElementChild:最后一个子元素
+```
+
+HTMLTextAreaElement属性：
+
+```
+selectionStart//返回选中文本的开始索引，如果没有选中文本，那么返回光标后字符的索引
+selectionEnd//返回选中文本的结束索引，如果没有选中文本，那么返回光标后字符的索引
+```
+
 #### css样式
 **margin的陷阱**
 所有毗邻的两个或更多盒元素的margin将会合并为一个margin共享之，毗邻的定义为：同级或者嵌套的盒元素，并且它们之间没有非空的内容、padding或者border分隔
