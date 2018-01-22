@@ -81,8 +81,8 @@ output: {
 * 按照npm发布包的流程发布包
 
 * 使用
-	* 按照包：npm install n-b-button --save-dev
-	* 引入NBButton组件，即可使用
+    * 安装包：npm install n-b-button --save-dev
+    * 引入NBButton组件，即可使用
 
 ```
 import NBButton from "n-b-button"
