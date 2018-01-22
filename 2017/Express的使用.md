@@ -44,10 +44,10 @@ app.use("/static", express.static("./public"));
 **中间件(middleware)**  
 中间件指的是函数，这些函数可以获取到req，res，next(表示下一个中间件函数)对象。  
 中间件的功能：  
-	* 执行代码
-	* 修改req/res
-	* 结束请求处理的流程
-	* 调用下一个中间件函数(next())  
+* 执行代码
+* 修改req/res
+* 结束请求处理的流程
+* 调用下一个中间件函数(next())  
 可以通过app.use(),app.METHOD(),app.all()来绑定中间件  
 ```
 //示例1
@@ -78,15 +78,13 @@ app.use(function(err, req, res, next){
 ```
 
 内置中间件：  
-	* express.static
-	* express.json
-	* express.urlencoded
+* express.static
+* express.json
+* express.urlencoded
 
 **关键api**  
 1.app:  
-app.use([path], callback, [callback]) //挂载中间件函数到指定的路径  
-path可以指字符串，正则表达式，或者以上数组的组合  
-callback可以是函数，一系列函数，或者以上数组的组合  
+app.use([path], callback, [callback]) //挂载中间件函数到指定的路径；path可以指字符串，正则表达式，或者以上数组的组合；callback可以是函数，一系列函数，或者以上数组的组合
 
 2.res:  
 res.download()//下载文件  
