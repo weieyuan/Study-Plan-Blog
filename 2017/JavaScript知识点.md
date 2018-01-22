@@ -40,14 +40,13 @@ selectionEnd//返回选中文本的结束索引，如果没有选中文本，那
 ```
 
 #### css样式
-**margin的陷阱**
+**margin的陷阱**  
 所有毗邻的两个或更多盒元素的margin将会合并为一个margin共享之，毗邻的定义为：同级或者嵌套的盒元素，并且它们之间没有非空的内容、padding或者border分隔
 
-**z-index**
+**z-index**  
 z-index只对定位元素有效，也就是对设置了position属性的元素有效
 
-**nth-child用法**
-
+**nth-child用法**  
 ```
 //表示是一个p标签，并且是父元素的第二个子元素
 p:nth-child(2) {
@@ -67,21 +66,17 @@ p:nth-child(2) {
 </section>
 ```
 
-**clientX/pageX/offsetX/screenX**
-clientX/clientY: 鼠标相对于浏览器可视区域的x,y坐标
-
-pageX/pageY: 类似于clientX/clientY，但是使用文档坐标而不是窗口坐标
-
-screenX/screenY: 鼠标相对于用户显示器左上角的x,y坐标
-
+**clientX/pageX/offsetX/screenX**  
+clientX/clientY: 鼠标相对于浏览器可视区域的x,y坐标  
+pageX/pageY: 类似于clientX/clientY，但是使用文档坐标而不是窗口坐标  
+screenX/screenY: 鼠标相对于用户显示器左上角的x,y坐标  
 offsetX/offsetY：鼠标相对于最近的relative、absolute元素的x,y坐标
 
 #### es6
-**箭头函数**
+**箭头函数**  
 箭头函数中的this，是在箭头函数执行时，在作用域链中一层一层往上找到最近的this，箭头函数自己是没有this的值
 
-**import/export语法**
-
+**import/export语法**  
 ```
 //export
 //1
@@ -124,115 +119,11 @@ export default {area, circumference}
 import XXXX from "./circle"
 ```
 
-#### express使用
-
-**安装**
-
-```
-npm install express -save-dev
-```
-
-**基本用法**
-
-```
-const express = require("express");
-const app = express();
-
-app.get("/", function(req, res){});
-
-app.post("/index", functioin(req, res){});
-
-app.listen(3000, function(){});
-```
-
-**路由**
-指的是请求分发，哪个请求由哪个endpoint响应, 每个路由可以有多个处理函数
-
-```
-app.get("/", function(req, res){}, function(req. res){});
-
-app.post("/index", functioin(req, res){});
-```
-
-**支持JSON格式的参数交互**
-
-```
-var bodyParser = require("body-parser");
-
-app.use(bodyParser.json()); //for parsing application/json
-```
-
-**静态文件**
-例如css,image,js文件等，express内置了static的中间件来服务静态文件
-
-```
-app.use(express.static("./public")); //所有的静态文件都在public目录下寻找
-
-//通过设定中间件的挂载路径，可以创建虚拟的文件请求路径
-app.use("/static", express.static("./public"));
-```
-
-**中间件(middleware)**
-中间件指的是函数，这些函数可以获取到req，res，next(表示下一个中间件函数)对象。
-中间件的功能：
-	* 执行代码
-	* 修改req/res
-	* 结束请求处理的流程
-	* 调用下一个中间件函数(next())
-可以通过app.use(),app.METHOD(),app.all()来绑定中间件
-
-```
-//示例1
-app.use("/user/:id", function(req, res, next){
-	next();
-},function(req, res, next){
-
-});
-
-//示例2
-app.get("user/:id", function(req, res, next){
- console.log("xxxx");
- next("route");//跳过后面的回调
-}, function(req, res, next){
-
-});
-//这个路由不会执行，因为上一个路由结束了执行(没有调用next())
-app.get("user/:id", function(req, res, next){
-
-});
-```
-
-错误处理中间件：
-
-```
-app.use(function(err, req, res, next){
-
-});
-```
-
-内置中间件：
-	* express.static
-	* express.json
-	* express.urlencoded
-
-**关键api**
-1.app:
-app.use([path], callback, [callback]) //挂载中间件函数到指定的路径
-path可以指字符串，正则表达式，或者以上数组的组合
-callback可以是函数，一系列函数，或者以上数组的组合
-
-2.res:
-res.download()//下载文件
-res.sendFile()//返回文件内容
-res.end()//结束处理
-res.json()//返回json数据
-res.send()
-
-#### nodejs
+#### nodejs  
 1.process是nodejs中的一个全局变量，它提供了当前运行的nodejs进程的信息
 2.process.env返回包含用户环境变量的一个对象
 
-#### Promise的使用
+#### Promise的使用  
 Promise可以将异步操作以同步的方式表达出来。
 Promise的两种应用方式:
 
@@ -280,5 +171,29 @@ p.then(function(res){
 
 },function(res){
 
+});
+```
+
+
+#### mvc/mvp/mvvm  
+* mvc 
+标准的mvc的实现中v是可以直接从model中读取数据
+
+* mvp
+v和m之间不能直接通信，都是通过p来传递
+
+* mvvm
+vm通过数据绑定，view的变动反应到vm上，vm中数据的变化也会反应到view上
+
+#### amd/cmd的区别  
+AMD(asynchronous module definition)，异步加载模块，先定义依赖，依赖加载完成后再执行回调函数，代表是require.js
+```
+require([module], callback);
+```
+
+CMD(common module definition)，异步加载模块，就近依赖，用的时候在require，代表是sea.js
+```
+define(function(require, exports, module){
+	var clock = require("clock");
 });
 ```

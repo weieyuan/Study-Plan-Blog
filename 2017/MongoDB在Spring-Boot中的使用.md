@@ -1,14 +1,11 @@
-####MongoDB在Spring boot中的使用
-1. 引入jar包compile('org.springframework.boot:spring-boot-starter-data-mongodb')。
-2. 在application.yml中配置数据库的连接地址spring.data.mongodb.uri: mongodb://localhost:30000/mongo
-
-> 即使不在yml文件中显示配置，mongoDB也会有自己的默认配置。
-
+#### MongoDB在Spring boot中的使用
+1.引入jar包compile('org.springframework.boot:spring-boot-starter-data-mongodb')。  
+2.在application.yml中配置数据库的连接地址spring.data.mongodb.uri: mongodb://localhost:30000/mongo  
+> 即使不在yml文件中显示配置，mongoDB也会有自己的默认配置。  
 > mongoDB的配置项有很多，可以根据需要来配置。
 
-3. 定义一个模型类
-
-> mongoDB会将ZombieModel映射到名称为zombieModel的集合中，如果需要修改集合的名称，需要加上@Document(collection="customName")
+3.定义一个模型类  
+> mongoDB会将ZombieModel映射到名称为zombieModel的集合中，如果需要修改集合的名称，需要加上@Document(collection="customName")  
 
 ```
 public class ZombieModel {
@@ -43,7 +40,8 @@ public class ZombieModel {
 
 }
 ```
-4. 定义Repository类
+
+4.定义Repository类  
 
 ```
 public interface ZombleRepository extends MongoRepository<ZombieModel, Long>{
@@ -53,7 +51,7 @@ public interface ZombleRepository extends MongoRepository<ZombieModel, Long>{
 }
 ```
 
-5. 使用
+5.使用  
 
 ```
 public class BbitApplicationTests {
@@ -79,7 +77,7 @@ public class BbitApplicationTests {
 }
 ```
 
-####MongoDB的概念
+#### MongoDB的概念
 * com.mongodb.Mongo表示和MongoDB库的一个连接
 * org.springframework.data.mongodb.core.MongoClientFactoryBean用于配置MongoDB
 * com.mongodb.DB表示摸个具体数据库的逻辑视图

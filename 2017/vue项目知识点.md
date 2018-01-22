@@ -1,128 +1,3 @@
-### 项目工程/构建
-
-#### vue-cli搭建项目
-1. 安装vue-cli
-```
-npm install -g vue-cli
-```
-2. 使用工程模板来创建项目
-```
-vue init webpack vue-demo
-//如果因为网络原因导致，下载不下来webpack的模块，那么可以从git上下载vuejs-template/webpack的zip包，然后解压到本机，执行如下命令：
-//模板路径是template的上一层
-vue init 模板的路径 vue-demo
-
-```
-3. 安装插件
-```
-cd vue-demo
-npm install
-```
-
-#### webpack知识点
-
-#### npm
-查看全局安装的包
-```
-npm list -g --depth 0
-```
-
-查看全局下是否安装了某个包
-```
-npm list packageName -g
-```
-
-当前目录下安装的插件
-```
-npm ls
-```
-
-引导创建package.json
-```
-npm init
-```
-
-安装淘宝镜像，安装完成后执行命令时用cnpm代替npm
-```
-npm install cnpm -g --registry=https://registry.npm.taobao.org
-cnpm -v
-```
-
-卸载
-```
-npm uninstall -g vue-cli //卸载全局安装包
-npm uninstall --save vue-cli // --save: Package will be removed from your dependencies.
-npm uninstall --save-dev vue-cli //--save-dev: Package will be removed from your devDependencies.
-npm uninstall vue-cli //Package will not be removed from your package.json file.
-```
-
-更新
-```
-npm update 包的名称
-```
-
-运行package.json中"scripts"标签中的命令xxx
-```
-npm run xxx
-```
-
-查看配置
-```
-npm config list
-```
-
-设置配置
-```
-npm set key value [-g]
-```
-
-删除配置
-```
-npm config delete key
-```
-
-设置网络代理
-```
-//如果用户名，密码中有特色字符，需要进行转义
-//可以使用node中自带的转义api
-//node
-//encodeURIComponent("xxxx")
-npm config set proxy http://username:password@server:port/
-npm config set https-proxy http://username:password@server:port/
-
-```
-
-清除缓存
-```
-//--force表示强制清除
-npm cache clean --force 
-```
-
-发布npm包
-```
-//0. 关注package.json中的内容
-name: 包的名称
-version: 版本号(格式是：x.x.x)
-description: 描述信息
-main：入口文件，一般为index.js
-scripts: 可执行的命令
-//1. 注册npm账号，可以通过官网注册或者通过命令行注册
-npm adduser
-Username: xxx
-Password: xxx
-Email: xxx
-//1.0如果已经有npm账号，使用如下命令登录
-npm login
-//1.1查看npm当前使用的用户
-npm whoami
-//2. 发布
-npm publish
-//3. 修改代码后重新发布前需要更新版本号
-npm version <update_type> //update_type的取值为"patch","minor","major"
-//4. 撤销发布过的某个包
-npm unpublish packagename@version
-```
-
 #### 发布vue组件到npm
 
 * 使用vue-cli创建vue工程
@@ -211,60 +86,6 @@ output: {
 
 ```
 import NBButton from "n-b-button"
-
-```
-
-### vue/vue-router/vuex
-
-#### vue
-
-* mixins
-
-作用：扩展组件的选项。
-
-选项合并的规则
-1. 同名钩子函数将混合为一个数组，都将被调用，混合对象的钩子在组件自身的钩子之前调用
-2. 值为对象的选项，例如methods、components、directives等将被混合为同一个对象，当键名冲突时，取组件对象的键值对
-
-使用
-
-```
-//局部使用
-var mixin = {
-	methods: {
-		a(){
-		
-		},
-		b(){
-		
-		}
-	}
-};
-
-var vm = new Vue({
-	mixins: [mixin],
-	methods: {
-		a(){
-
-		},
-		c(){
-		
-		}
-	}
-});
-
-
-//全局使用，选项将会混入所有之后创建的Vue实例
-Vue.mixin({
-	methods: {
-		a(){
-		
-		},
-		b(){
-		
-		}
-	}
-});
 
 ```
 
@@ -470,10 +291,9 @@ store.dispatch("increment");
 store.dispatch("increment", 10);
 ```
 
-* map辅助函数
-
-用于简化代码
-mapState辅助函数
+* map辅助函数  
+用于简化代码  
+mapState辅助函数  
 
 ```
 import {mapState} from 'vuex';
@@ -489,7 +309,7 @@ computed: {
 }
 ```
 
-mapGetter辅助函数
+mapGetter辅助函数  
 
 ```
 import {mapGetter} from 'vuex';
@@ -500,7 +320,9 @@ computed: {
 	])
 }
 ```
-mapMutations辅助函数
+
+mapMutations辅助函数  
+
 ```
 import {mapMutations} from 'vuex';
 computed: {
@@ -513,7 +335,7 @@ computed: {
 }
 ```
 
-mapActions辅助函数
+mapActions辅助函数  
 
 ```
 import {mapActions} from 'vuex';
@@ -527,10 +349,9 @@ computed: {
 }
 ```
 
-* 模块划分
-
-每个模块中可以定义state，mutations，getters，actions
-默认情况下，模块内部的action,mutations，getters是定义在全局命名空间的，这样使得多个模块能够对同一个mutation或者action作出响应
+* 模块划分  
+每个模块中可以定义state，mutations，getters，actions  
+默认情况下，模块内部的action,mutations，getters是定义在全局命名空间的，这样使得多个模块能够对同一个mutation或者action作出响应  
 
 
 ```
@@ -556,16 +377,14 @@ const store = new Vue.Store({
 });
 ```
 
-### vue中使用第三方库
-
 #### vue中使用jquery
-1.安装jquery
+1.安装jquery  
 
 ```
 npm install jquery --save-dev
 ```
 
-2.修改webpack.base.conf.js文件
+2.修改webpack.base.conf.js文件  
 
 ```
 const webpack = require("webpack")
@@ -582,13 +401,13 @@ plugins: [
 ``` 
 
 #### vue中使用bootstrap
-1.安装bootstrap
+1.安装bootstrap  
 
 ```
 npm install bootstrap --save-dev
 ```
 
-2.引入样式文件和核心的js文件
+2.引入样式文件和核心的js文件  
 
 ```
 //在入口的main.js文件中引入
@@ -596,14 +415,14 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 ```
 
-#### vue中使用less
-1.安装less-loader和less
+#### vue中使用less  
+1.安装less-loader和less  
 
 ```
 npm install less-loader less --save-dev
 ```
 
-2.在webpack的配置文件中设置less文件的加载规则
+2.在webpack的配置文件中设置less文件的加载规则   
 > 注意：在用vue-cli中生成的工程中，less的文件的加载规则已经在webpack.dev.conf.js/webpack.prod.conf.js中配置好了，不需要再手动配置，这里只是示例怎样配置less的加载规则
 
 ```
@@ -634,14 +453,14 @@ npm install less-loader less --save-dev
 ```
 
 #### vue中实现前后台ajax通信
-1.安装vue-resource
+1.安装vue-resource  
 
 ```
 npm install vue-resource --save-dev
 ```
 
-2.声明使用
-在项目的入口文件中声明使用
+2.声明使用  
+在项目的入口文件中声明使用  
 
 ```
 import Vue from 'vue'
@@ -649,7 +468,7 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource);
 ```
 
-3.使用
+3.使用  
 
 ```
 //全局使用
@@ -669,13 +488,13 @@ this.$http.post("/getStudentInfo", [1,2,3], {emulateJSON: true}).then((response)
 ```
 
 #### vue实现跨域访问
-1.安装http-proxy-middleware(基于vue-cli创建的webpack的工程已经默认安装)
+1.安装http-proxy-middleware(基于vue-cli创建的webpack的工程已经默认安装)  
 
 ```
 npm install http-proxy-middleware --save-dev
 ```
 
-2.修改config/index.js文件中的代理配置
+2.修改config/index.js文件中的代理配置  
 
 ```
 //以/app开头的请求都使用代理，
@@ -695,7 +514,7 @@ proxyTable: {
     },
 ```
 
-3.build/dev-server.js中配置了代理
+3.build/dev-server.js中配置了代理  
 
 ```
 var proxyMiddleware = require('http-proxy-middleware')
@@ -710,30 +529,3 @@ Object.keys(proxyTable).forEach(function (context) {
 })
 ```
 
-#### 组件生命周期
-* beforeCteate
-在实例初始化之后，数据观测(data observer)和event/watcher事件配置之前被调用
-
-* created
-实例已经创建完成之后被调用，实例已经完成以下的配置：数据观测、属性和方法的计算、watch/event事件的回调。挂载阶段还没开始，$el属性不可见
-
-* beforeMount
-挂载开始之前被调用，相关的render函数首次被调用
-
-* mounted
-el被新创建的vm.$el替换，并挂载到实例上去之后调用该钩子
-
-* beforeUpdate
-数据更新时调用，发生在虚拟DOM重新渲染和打补丁之前，可以在这个钩子中进一步地更改状态，这不会触发附加的重新渲染过程
-
-* updated
-由于数据更新导致虚拟DOM重新渲染
-
-* beforeDestroy
-实例销毁之前调用，这时，实例仍然可用
-
-* destroyed
-实例销毁后调用，调用后，vue实例指示的所有东西都会被解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
-
-父子组件之间的方法的调用顺序：
-先调用父组件的created方法，再调用子组件的created方法、再调用子组件的mounted方法、再调用父组件的mounted方法

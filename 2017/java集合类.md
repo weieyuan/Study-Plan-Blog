@@ -1,11 +1,11 @@
-## List ##
-**ArrayList**
+## List
+**ArrayList**  
 * 允许添加null值。
 * 和vector是等价的，但是vector是线程安全的。
 * 内部使用Object[] elementData来存储数据
 
-**LinkedList**
-* LinkedList中的Node节点的结构
+**LinkedList**  
+* LinkedList中的Node节点的结构  
 
 ```
 private static class Node<E>{
@@ -21,16 +21,16 @@ private static class Node<E>{
 }
 ```
 
-**Vector**
+**Vector**  
 * 线程安全
 * 使用Object[] elementData来存储数据
 * 如果不提供capacityIncrement参数，那么每次会把size增加一倍
 
-**Stack**
+**Stack**  
 * 继承于Vector，线程安全
 
-## Map ##
-**HashMap**
+## Map
+**HashMap**  
 * 允许key和value为null，和HashTable相比是非线程安全的
 * 内部采用数组来存放数据Node<K,V>[] table，put方法中通过K的hash值来计算出对象在table数组中的下标，通过链表来存放相同hash值的对象
 
@@ -51,7 +51,7 @@ static class Node<K,V> implements Map.Entry<K, V>{
 
 ```
 
-**LinkedHashMap**
+**LinkedHashMap**  
 * 有序，默认按照插入的先后顺序排序，使用LinkedHashMap(int initialCapacity, float loadFactor, boolean accessOrder)构造对象，将accessOrder传入true，按照访问顺序排序，最近访问的排在最后面
 * 继承自HashMap<K,V>，内部使用了一个双向链表，LinkeHashMap.Entry<K, V> head用于记录链表首节点，LinkedHashMap.Entry<K,V> tail用于记录链表的尾节点
 
@@ -68,12 +68,12 @@ static class Entry<K, V> extends HashMap.Node<K,V>{
 
 * LinkedHashMap继承于HashMap，但是并没有覆写put方法，HashMap中每个节点的结构是HashMap.Node，而LinkedHashMap中每个节点的结构是LinkedHashMap.Entry，实现的原理是LinkedHashMap中覆写了newNode的方法。
 
-**HashTable**
+**HashTable**  
 * Key和Value均不能为null
 * HashTable是线程安全的，如果不需要线程安全，那么推荐使用HashMap，如果需要高并发线程安全，那么推荐使用ConcurrentHashMap
 * HashTable的线程安全是通过添加synchronized关键字来实现的
 
-**TreeMap**
+**TreeMap**  
 * 内部使用一颗红黑数来存储数据
 * 数据是有序的
   * 根据key的比较来排序，因此要求key是实现了Comparable接口
@@ -98,22 +98,22 @@ static final class Entry<K,V> implements Map.Entry<K,V>{
 
 ```
 
-**EnumMap**
+**EnumMap**  
 * key必须为某一类型的枚举
 * key不能为null，value可以为null
 * 迭代器的顺序是和key.ordinal()的顺序保持一致
 * 内部使用Object[] vals来存储value，value的索引就是key.ordinal()
 * 使用K[] keyUniverse来存储所有的枚举值
 
-** IdentityHashMap **
+** IdentityHashMap**  
 * key的相等判断条件是k1==k2
 * 允许key和value为null
 * 使用Object[] table来存储数据，table[i]存储key，table[i+1]存储value
 
 
-## Set ##
-**HashSet**
-* 内部使用HashMap来存储数据，add方法的实现
+## Set
+**HashSet**  
+* 内部使用HashMap来存储数据，add方法的实现  
 
 ```
 private static final Object PRESENT = new Object();
@@ -129,12 +129,12 @@ public boolean add(E e){
 **TreeSet**
 * 内部使用TreeMap来存储数据
 
-## Queue ##
-**ArrayDeque**
+## Queue
+**ArrayDeque**  
 * 使用Object[] elements来储存数据
 * 作为堆栈使用时性能优于Stack;作为队列使用时性能优于LinkedList
 
-**PriorityQueue**
+**PriorityQueue**  
 * 使用Object[] queue来存储数据
 * 数据是有序的，按照元素的Comparable来排序，或者Comparator来排序
 * 不允许null元素

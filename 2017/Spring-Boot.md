@@ -8,26 +8,23 @@ Spring Boot的四大核心：
 * Actuator,提供了在运行时检视应用程序内部情况的能力
 
 #### 开发第一个应用程序
-@SpringBootApplication的作用
+@SpringBootApplication的作用  
 
 * @Configuration标注该类使用Spring的java配置
 * @ComponentScan开启组件扫描
 * @EnableAutoConfiguration开启自动配置功能
 
-基于gradle的工程，程序的运行可以使用bootRun,这个任务来自于Spring Boot的Gradle插件
-
+基于gradle的工程，程序的运行可以使用bootRun,这个任务来自于Spring Boot的Gradle插件  
 ```
 gradle bootRun
 ``` 
 
-查看项目的依赖
-
+查看项目的依赖  
 ```
 gradle dependencies
 ```
 
-排除引入的传递依赖
-
+排除引入的传递依赖   
 ```
 compile("org.springframework.boot:spring-boot-starter-web"){
 	exclude group: "com.fasterxml.jackson.core"
@@ -35,10 +32,8 @@ compile("org.springframework.boot:spring-boot-starter-web"){
 ```
 
 #### 自定义配置
-Spring Boot会优先使用自定义配置，再使用自动配置
-
-@ConfigurationProperties说明该Bean的属性是通过配置属性值注入的(setter方法)
-
+Spring Boot会优先使用自定义配置，再使用自动配置  
+@ConfigurationProperties说明该Bean的属性是通过配置属性值注入的(setter方法)  
 ```
 @ConfigurationProperties(prefix="amazon")
 public class ReadingListController {
@@ -50,8 +45,7 @@ public class ReadingListController {
 }
 ```
 
-Profile条件配置
-
+Profile条件配置  
 ```
 //标识某个bean在特定条件下生效@Profile("production")
 @Profile("production")
@@ -93,7 +87,7 @@ logging:
 ```
 
 #### 测试
-测试注解(推荐使用)
+测试注解(推荐使用)  
 ```
 @RunWith(SpringRunner.class)
 @SpringBootTest(properties={"spring.profiles.active=dev"}, 
@@ -101,15 +95,13 @@ webEnvironment=SpringBootTest.WebEnvironment.DEFINED_PORT) //properties可以定
 
 ```
 
-测试注解(不推荐使用)
-
+测试注解(不推荐使用)  
 ```
 @RunWith(SpringJUnit4ClassRunner.class) //开启Spring集成测试
 @SpringApplicationConfiguration(classes=AddressBootConfiguration.class)//加载应用的上下文
 ```
 
-测试运行中的应用程序
-
+测试运行中的应用程序  
 ```
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=ReadingListApplication.class)
@@ -119,8 +111,7 @@ public class Test{
 }
 ```
 
-测试http的接口
-
+测试http的接口  
 ```
 //测试post接口
 Object obj = new Object(); //需要传递的参数
@@ -164,17 +155,15 @@ Actuator提供的端点(13个)
 定制Actuator
 
 1.重命名端点
-每个Actuator端点都有一个ID用来决定端点的路径，通过修改endpoints.endpoint-id.id的值来修改端点的路径
-
+每个Actuator端点都有一个ID用来决定端点的路径，通过修改endpoints.endpoint-id.id的值来修改端点的路径  
 ```
-endpoints:
+endpoints: 
   shutdown:
     id: kill
 ```
 
-2.启用/禁用端点
-通过设置endpoints.endpoint-id.enabled的值来启用或者禁用
-
+2.启用/禁用端点  
+通过设置endpoints.endpoint-id.enabled的值来启用或者禁用  
 ```
 endpoints:
   metrics:
@@ -185,8 +174,7 @@ endpoints:
   enabled: false
 ```
 
-3.添加自定义的度量信息
-
+3.添加自定义的度量信息  
 ```
 //添加自定义度量信息
 CounterService
@@ -194,9 +182,8 @@ GaugeService
 PublicMetrics
 ```
 
-4.保护Actuator端点
-配合Spring Security使用
-
+4.保护Actuator端点  
+配合Spring Security使用  
 ```
 //设置端点的上下文路径,默认为空
 management:
@@ -204,8 +191,7 @@ management:
 ```
 
 #### 部署Spring Boot应用程序
-构建war文件
-
+构建war文件  
 ```
 //修改build.gradle脚本
 apply plugin: "war"
@@ -239,64 +225,59 @@ spring-boot-devtools开发者工具提供了如下的功能：
 compile "org.springframework.boot:spring-boot-devtools"
 ```
 
-自动重启时会默认排除如下目录：/META-INF/resources,/resources,/static,/public,/templates
-
+自动重启时会默认排除如下目录：/META-INF/resources,/resources,/static,/public,/templates  
 ```
 //可以通过设置spring.devtools.restart.exclude属性来设置重启排除目录
 //可以通过设置spring.devtools.restart.enabled属性来关闭自动重启
 ```
 
-LiveReload,需要在浏览器中安装LiveReload插件
-
+LiveReload,需要在浏览器中安装LiveReload插件  
 ```
 //通过设置spring.devtools.livereload.enabled的属性来关闭LiveReload功能
 ```
 
-
-
-
 ### 杂项知识点
-#### Spring Boot ####
 * @SpringBootApplication会自动做以下事情：
   * @Configuration
   * @EnableAutoConfiguration: Spring会根据classpath的设置、其他设置来加载bean
   * @EnableWebMvc: Spring发现spring-mvc在classpath下时会自动加上这个注解
   * @ComponentScan
-* spring.profiles.active可以用于控制使用哪个配置文件
+* spring.profiles.active可以用于控制使用哪个配置文件  
 ```
 //在application.yml中配置如下，那么会使用application-dev.yml作为配置文件
 spring:
   profiles:
     active: dev
 ```
-* server.context-path可以配置web工程的根目录
+
+* server.context-path可以配置web工程的根目录  
 ```
 server:
   context-path: /weieyuan
 ``` 
-* @RequestMapping中可以配置多个映射地址
+
+* @RequestMapping中可以配置多个映射地址  
 ```
 @RequestMapping(value = {"/path1", "/path2"})
 ```
+
 * @PathVariable/@RequestParam
 * @GetMapping等价于@RequestMapping中设置请求方式为GET请求
 * @PostMapping等价于@RequestMapping中设置请求方式为POST请求
 * 默认情况下静态资源的路径匹配模式是'/**'上，但是可以修改静态资源的路径匹配模式和静态资源的路径
-> srping.mvc.static-path-pattern=/resources/**
-> spring.resources.static-locations=/static/
+	> srping.mvc.static-path-pattern=/resources/**
+	> spring.resources.static-locations=/static/
 * @Valid BindingResult
 * @Aspect @Before @After @PointCut
-* Aop在web应用中的使用
-获取Request对象
-
+* Aop在web应用中的使用  
+获取Request对象  
 ```
 ServletRequestAttributes attributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
 HttpServletRequest request = attributes.getRequest();
 ```
 
-在通知中获取切点的信息，使用JoinPoint对象
-在通知中获取方法的返回信息，使用@AfterReturning(returning="object", pointcut="log()")
-
+在通知中获取切点的信息，使用JoinPoint对象  
+在通知中获取方法的返回信息，使用@AfterReturning(returning="object", pointcut="log()")  
 ```
 @PointCut("executing()")
 public void log()
@@ -309,13 +290,12 @@ public void doAfterReturing(Object object){
 ```
 
 * 单元测试
-> @RunWith(SpringRunner.class) @SpringBootTest
-> web中的controller中的接口测试：@AutoConfigureMockMvc MockMvc
+	> @RunWith(SpringRunner.class) @SpringBootTest
+	> web中的controller中的接口测试：@AutoConfigureMockMvc MockMvc
 
 #### spring boot中定义controller的异常处理
-* 异常处理
-@ControllerAdvice @ExceptionHandler
-
+* 异常处理  
+@ControllerAdvice @ExceptionHandler  
 ```
 @ControllerAdvice
 public class ControllerExceptionHandler {
@@ -332,8 +312,7 @@ public class ControllerExceptionHandler {
 ```
 
 #### spring boot中支持跨域请求
-* 在contoller类或者controller中的方法上添加@CrossOrigin的注解
-
+* 在contoller类或者controller中的方法上添加@CrossOrigin的注解  
 ```
 @Controller
 public class StudentController {
@@ -357,8 +336,7 @@ public class StudentController {
 }
 ```
 
-* 通过java配置类来全局配置
-
+* 通过java配置类来全局配置  
 ```
 @Configuration
 public class MyConfiguration {
@@ -376,10 +354,8 @@ public class MyConfiguration {
 }
 ```
 
-* 通过application.yml/properties文件来配置
-
+* 通过application.yml/properties文件来配置  
 ```
 endpoints.cors.allowed-origins=*
 endpoints.cors.allowed-methods=GET,POST
-
 ```

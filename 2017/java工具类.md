@@ -1,4 +1,4 @@
-**Arrays**
+**Arrays**  
 提供操作数组的各种api
 * 排序，单线程排序，多线程并发排序
 * 搜索binarySearch
