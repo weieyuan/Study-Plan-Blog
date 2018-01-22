@@ -18,10 +18,10 @@
 [webpack知识点](./2017/webpack知识点.md)  
 [webpack的使用](./2017/webpack_use.md)  
 
-#### java
+#### Java
 [Java多线程编程核心技术](./2017/Java多线程编程核心技术.md)  
-[Java集合类.md](./2017/Java集合类.md)  
-[Java趣味知识点.md](./2017/Java趣味知识点.md)  
+[Java集合类](./2017/Java集合类.md)  
+[Java趣味知识点](./2017/Java趣味知识点.md)  
 [Java虚拟机](./2017/Java虚拟机.md)  
 [Java的多线程](./2017/Java的多线程.md)  
 
@@ -33,8 +33,8 @@
 
 #### 数据库
 [MongoDB在Spring-Boot中的使用](./2017/MongoDB在Spring-Boot中的使用.md)  
-[MySql](./2017/MySql.md)  
-[Spring-Data-Jpa.md](./2017/Spring-Data-Jpa.md)  
+[MySql基础知识](./2017/MySql基础知识.md)  
+[Spring-Data-Jpa](./2017/Spring-Data-Jpa.md)  
 
 #### 练习项目
 [jQuery + Spring MVC简易博客系统](https:github.com/weieyuan/spring-mvc-blog)  
