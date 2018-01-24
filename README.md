@@ -53,5 +53,4 @@
 [vue + Spring Boot简易博客系统](https://github.com/weieyuan/vue-demo-tucao-weibo)
 
 #### 杂项
-[vue和spring boot实现websocket通信](./2018/vue和spring boot实现websocket通信.md)
-
+[vue和spring-boot实现websocket通信](./2018/vue和spring-boot实现websocket通信.md)
