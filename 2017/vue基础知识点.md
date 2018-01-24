@@ -1,6 +1,6 @@
-## Vue ##
-___
-#### 总体概览 ####
+## vue
+
+#### 总体概览
 * ViewModel是vue的核心，它是一个vue实例，用于处理从Model到View的数据绑定，从View到Model的事情监听。
 * 通过Vue构造函数来创建Vue的实例
 
@@ -16,10 +16,10 @@ var vm = new Vue({
  每个Vue实例都会代理data对象中的所有属性。
  Vue的实例也提供了一些实例的属性和方法，这些属性和方法以$开头，以便于代理的data属性区分。例如vm.$data = xxxx,vm.$el=document.getElementById(ssss)
 
-#### 指令 ####
-以v-开头，作用于HTML元素上面，可以将指令看作特殊的HTML特性
-指令的职责就是当表达式的值发生改变时，将某些行为应用到dom上
-* v-model，可以在表单元素上创建双向数据绑定
+#### 指令
+以v-开头，作用于HTML元素上面，可以将指令看作特殊的HTML特性  
+指令的职责就是当表达式的值发生改变时，将某些行为应用到dom上  
+* v-model，可以在表单元素上创建双向数据绑定  
   * input框绑定输入文本
   * textarea绑定输入的多行文本
   * 单个checkbox，绑定逻辑值
@@ -70,7 +70,7 @@ new Vue({
 </script>
 ```
 
-* v-if，通过表达式的真假来删除或者插入元素，v-if如果想同时控制一组元素，可以使用template元素来包装这一组元素，并且最终渲染的结果不会包含template元素
+* v-if，通过表达式的真假来删除或者插入元素，v-if如果想同时控制一组元素，可以使用template元素来包装这一组元素，并且最终渲染的结果不会包含template元素  
 
 ```
 <template v-if='ok'>
@@ -79,9 +79,9 @@ new Vue({
 </template>
 ```
 
-* v-show，和v-if类似，但是它是设置元素的css样式来控制元素是否显示
-* v-else，配合v-if指令使用
-* v-for,数组循环或者对象属性迭代，可以使用template元素包装一组元素作为循环对象来渲染
+* v-show，和v-if类似，但是它是设置元素的css样式来控制元素是否显示  
+* v-else，配合v-if指令使用  
+* v-for,数组循环或者对象属性迭代，可以使用template元素包装一组元素作为循环对象来渲染  
 
 ```
 <ul id="example-1">
@@ -113,9 +113,9 @@ new Vue({
 })
 ```
 
-* v-bind,后面带一个参数，用冒号隔开，这个参数通常是HTML元素的特性，例如v-bind:class，可以简写为:
-* v-on,用于监听DOM事件，有两种方式，一种是指向方法的引用，一种是使用内联语句。指向方法引用时，将方法定义到methods属性中。可以简写为@
-在内联语句中访问原生的DOM事件时，可以用特殊变量$event把它传入方法中：
+* v-bind,后面带一个参数，用冒号隔开，这个参数通常是HTML元素的特性，例如v-bind:class，可以简写为:class  
+* v-on,用于监听DOM事件，有两种方式，一种是指向方法的引用，一种是使用内联语句。指向方法引用时，将方法定义到methods属性中。可以简写为@  
+在内联语句中访问原生的DOM事件时，可以用特殊变量$event把它传入方法中：  
 
 ```
 <button v-on:click="warn('Form cannot be submitted yet.', $event)">
@@ -155,39 +155,27 @@ data: {
 <div v-bind:style="[baseStyles, overridingStyles]">
 ```
 
-#### 修饰符 ####
-* 以半角.指明的特殊后缀，用于说明一个指令以特殊方式绑定。v-on:submit.prevent，对于触发的事件调用event.preventDefault()
+#### 修饰符
+* 以半角.指明的特殊后缀，用于说明一个指令以特殊方式绑定。v-on:submit.prevent，对于触发的事件调用event.preventDefault()  
+.stop  
+.prevent  
+.capture  
+.self //只有事件在该元素本身(而不是子元素)触发时触发回调  
+.once  
+.enter  
+.tab  
+.delete  
+.space  
 
-.stop
+* v-model中的修饰符  
+.lazy //v-model在input事件中同步输入框的值与数据，添加lazy的修饰符，可以转变在change事件中同步  
+.number //自动将用户的输入值转变为数字  
+.trim //自动过滤用户输入的首尾空格  
 
-.prevent
-
-.capture
-
-.self //只有事件在该元素本身(而不是子元素)触发时触发回调
-
-.once 
-
-.enter
-
-.tab
-
-.delete
-
-.space
-
-* v-model中的修饰符
-
-.lazy //v-model在input事件中同步输入框的值与数据，添加lazy的修饰符，可以转变在change事件中同步
-
-.number //自动将用户的输入值转变为数字
-
-.trim //自动过滤用户输入的首尾空格
-
-#### 过滤器 ####
-* 例子
-过滤器的作用是用于常见的文本格式化，可以使用在两个地方：{{}}插值和v-bind表达式
-过滤器函数总接受表达式的值作为第一个参数
+#### 过滤器
+* 例子  
+过滤器的作用是用于常见的文本格式化，可以使用在两个地方：{{}}插值和v-bind表达式  
+过滤器函数总接受表达式的值作为第一个参数  
 
 ```
   <div id="app">{{message | capitalize}}</div>
@@ -207,13 +195,13 @@ data: {
   </script>
 ```
 
- {{message | filterA("arg1", arg2)}},message是filterA的第一个参数，"arg1"是第二个参数，arg2表达式求值之后是第三个参数
+ {{message | filterA("arg1", arg2)}},message是filterA的第一个参数，"arg1"是第二个参数，arg2表达式求值之后是第三个参数  
  
- #### 计算属性 ####
- * 在构造实例的参数的computed属性中添加
- 计算属性所对应的方法将作为该属性的getter方法
- 计算属性是基于它的依赖进行缓存的，只有它的依赖值发生了变更，计算属性才会重新计算，只要它的依赖值不发生变更，多次调用该属性的getter方法将返回之前的缓存值，相比较而言，method调用总会执行其方法
- 计算属性默认只有getter方法，也可以提供setter方法
+ #### 计算属性
+ * 在构造实例的参数的computed属性中添加  
+ 计算属性所对应的方法将作为该属性的getter方法  
+ 计算属性是基于它的依赖进行缓存的，只有它的依赖值发生了变更，计算属性才会重新计算，只要它的依赖值不发生变更，多次调用该属性的getter方法将返回之前的缓存值，相比较而言，method调用总会执行其方法  
+ 计算属性默认只有getter方法，也可以提供setter方法  
 
 ```
  computed: {
@@ -230,17 +218,18 @@ data: {
  }
 ```
 
-#### 组件 ####
-* 全局组件
-注册全局组件：
+#### 组件
+* 全局组件  
+注册全局组件：  
 
 ```
  Vue.component('my-component', {
     //配置项
  });
  ```
- * 局部组件
- 在实例中创建组件:
+
+* 局部组件  
+在实例中创建组件:  
 
 ```
  var Child = {
@@ -254,8 +243,8 @@ data: {
  });
  ```
  
- * prop
- 子组件显示地用props来声明它期望获取到的数据
+* prop  
+子组件显示地用props来声明它期望获取到的数据  
 
 ```
  Vue.component('my-component', {
@@ -265,7 +254,7 @@ data: {
 <my-component message='hello'></my-component>
 ```
 
-* 动态prop
+* 动态prop  
 
 ```
 <div id="example13">
@@ -285,9 +274,9 @@ var vm14 = new Vue({
 });
 ```
 
-通过v-bind来绑定动态属性
+通过v-bind来绑定动态属性  
 
-* vue定义组件的时候，data属性必须是一个函数，这个作用主要是为了确保每个组件对象的data属性是独立的，不是共享的
+* vue定义组件的时候，data属性必须是一个函数，这个作用主要是为了确保每个组件对象的data属性是独立的，不是共享的  
 
 ```
 Vue.component("my-component", {
@@ -300,95 +289,42 @@ Vue.component("my-component", {
 });
 ```
 
-* 父子组件之间通信，可以简单总结为props down,events up,父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息
-父组件可以在使用子组件的地方直接用v-on来监听子组件触发的事件
-可以使用.native来监听原生事件，例如v-on:click.native
+* 父子组件之间通信，可以简单总结为props down,events up,父组件通过props向下传递数据给子组件，子组件通过events给父组件发送消息  
+父组件可以在使用子组件的地方直接用v-on来监听子组件触发的事件  
+可以使用.native来监听原生事件，例如v-on:click.native  
 
-* 自定义事件
-使用v-on监听事件
-使用v-emit触发事件
+* 自定义事件  
+使用v-on监听事件  
+使用v-emit触发事件  
 
-#### 模板语法 ####
-##### 插值 #####
-* 文本
-使用{{}}来文本插值
-* 纯Html
-使用v-html来插入html
-* 属性
-使用v-bind来绑定属性值
-
-#### 知识点 ####
-* 操作数组的api中，如下方法会改变原有的数组
-  * push/pop
-  * shift/unshift
-  * splice
-  * sort
-  * reverse
- 
- 如下方法会返回一个新的数组，不会修改原有的数组
-  * filter
-  * concat
-  * slice
- 
- 对于会改变原数组的api，vue能够检测到并会触发视图更新。vue不能检测如下变动的数组：
-  * 利用索引修改一个值，vm.items[indexOfItem] = newValue
-  * 修改数组的长度，vm.items.length = newLength
-	 
-	第一种问题的解决方式
-	
-	```
-	 // Vue.set
-	Vue.set(example1.items, indexOfItem, newValue)
-	
-	// Array.prototype.splice
-	example1.items.splice(indexOfItem, 1, newValue)
-	```
-	
-	第二种问题的解决方式
-	```
-	 example1.items.splice(newLength)
-	```
-
-* Vue对象在实例化的时候，只能监听已经定义好的属性，但是可以通过如下的方式将响应属性添加到对象上
-
-```
-//全局方式
-Vue.set(vm.obj, key, value)
-//局部方式
-this.$set(this.obj, key, value)
-```
-
-* global bus event
-通过一个Vue对像(bus)来发布和监听事件。
-监听事件：bus.$on("event", function(){})
-取消监听事件：bus.$off("event")
-发布事件：bus.$emit("event")
+##### 插值
+* 文本  
+使用{{}}来文本插值  
+* 纯Html  
+使用v-html来插入html  
+* 属性  
+使用v-bind来绑定属性值  
 
 #### vue的生命周期
+* beforeCteate  
+在实例初始化之后，数据观测(data observer)和event/watcher事件配置之前被调用  
+* created  
+实例已经创建完成之后被调用，实例已经完成以下的配置：数据观测、属性和方法的计算、watch/event事件的回调。挂载阶段还没开始，$el属性不可见  
+* beforeMount  
+挂载开始之前被调用，相关的render函数首次被调用  
+* mounted  
+el被新创建的vm.$el替换，并挂载到实例上去之后调用该钩子  
+* beforeUpdate  
+数据更新时调用，发生在虚拟DOM重新渲染和打补丁之前，可以在这个钩子中进一步地更改状态，这不会触发附加的重新渲染过程  
+* updated  
+由于数据更新导致虚拟DOM重新渲染  
+* beforeDestroy  
+实例销毁之前调用，这时，实例仍然可用  
+* destroyed  
+实例销毁后调用，调用后，vue实例指示的所有东西都会被解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。  
 
-* beforeCteate
-在实例初始化之后，数据观测(data observer)和event/watcher事件配置之前被调用
-
-* created
-实例已经创建完成之后被调用，实例已经完成以下的配置：数据观测、属性和方法的计算、watch/event事件的回调。挂载阶段还没开始，$el属性不可见
-
-* beforeMount
-挂载开始之前被调用，相关的render函数首次被调用
-
-* mounted
-el被新创建的vm.$el替换，并挂载到实例上去之后调用该钩子
-
-* beforeUpdate
-数据更新时调用，发生在虚拟DOM重新渲染和打补丁之前，可以在这个钩子中进一步地更改状态，这不会触发附加的重新渲染过程
-
-* updated
-由于数据更新导致虚拟DOM重新渲染
-
-* beforeDestroy
-实例销毁之前调用，这时，实例仍然可用
-
-* destroyed
-实例销毁后调用，调用后，vue实例指示的所有东西都会被解绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。
+父子组件之间的方法的调用顺序：  
+先调用父组件的created方法，再调用子组件的created方法、再调用子组件的mounted方法、再调用父组件的mounted方法  
 
 #### 自定义指令
 指令的定义：
@@ -485,23 +421,66 @@ MyPlugin.install = function(Vue, options){
 Vue.use(MyPlugin, [options])//会调用MyPlugin.install
 ```
 
+#### mixins
+作用：扩展组件的选项。  
+选项合并的规则  
+1. 同名钩子函数将混合为一个数组，都将被调用，混合对象的钩子在组件自身的钩子之前调用  
+2. 值为对象的选项，例如methods、components、directives等将被混合为同一个对象，当键名冲突时，取组件对象的键值对  
+
+使用:
+
+```
+//局部使用
+var mixin = {
+	methods: {
+		a(){
+		
+		},
+		b(){
+		
+		}
+	}
+};
+
+var vm = new Vue({
+	mixins: [mixin],
+	methods: {
+		a(){
+
+		},
+		c(){
+		
+		}
+	}
+});
 
 
-#### 杂项知识点
-不要在选项属性或者回调上使用箭头函数，否则函数中的this不会绑定到vm实例上:
+//全局使用，选项将会混入所有之后创建的Vue实例
+Vue.mixin({
+	methods: {
+		a(){
+		
+		},
+		b(){
+		
+		}
+	}
+});
 
+```
+
+#### 拾遗补漏
+不要在选项属性或者回调上使用箭头函数，否则函数中的this不会绑定到vm实例上:  
 ```
 created: () => {}
 vm.$watch("a", () => {})
 ```
 
-样式绑定class，可以绑定字符串、数组、json对象
-绑定style时，可以绑定json对象、数组
+样式绑定class，可以绑定字符串、数组、json对象  
+绑定style时，可以绑定json对象、数组  
+在组件上使用class/style时，样式将会应用到组件的根元素上。  
 
-在组件上使用class/style时，样式将会应用到组件的根元素上。
-
-v-for语句既可以遍历数组也可以遍历对象：
-
+v-for语句既可以遍历数组也可以遍历对象：  
 ```
 //a = []
 <div v-for="item in a"></div>
@@ -510,17 +489,16 @@ v-for语句既可以遍历数组也可以遍历对象：
 <div v-for="(value,key,index) in b"></div>
 ```
 
-数组对象的监听，改变数组对象的方法或者将新的数组赋值给数组对象，vue都能监测到，如下两种方式，vue不能监听到：
-1.通过索引修改数组值，items[index]=newValue
-2.修改数组长度，items.length=newLenght
-对应的解决方式
-1.Vue.set(items,index,newValue)
-2.items.splice(newLength)
+数组对象的监听，改变数组对象的方法或者将新的数组赋值给数组对象，vue都能监测到，如下两种方式，vue不能监听到：  
+1.通过索引修改数组值，items[index]=newValue  
+2.修改数组长度，items.length=newLenght  
+对应的解决方式  
+1.Vue.set(items,index,newValue)  
+2.items.splice(newLength)  
 
-在2.2.0+的版本中，在组件上使用v-for时，key是必须的
+在2.2.0+的版本中，在组件上使用v-for时，key是必须的  
 
-按键事件：
-
+按键事件：  
 ```
 @keyup.enter或者@keyup.keyCode
 
@@ -543,8 +521,7 @@ v-for语句既可以遍历数组也可以遍历对象：
 .middle
 ```
 
-表单知识点：
-
+表单知识点：  
 ```
 v-model会忽略表单元素上的value、checked、selected特性的初始值
 
@@ -560,12 +537,11 @@ v-model的修饰符：
 .trim：去掉用户输入的首尾空白
 ```
 
-使用v-on来监听自定义事件；使用.native修饰符可以监听原生事件(v-on.native)
+使用v-on来监听自定义事件；使用.native修饰符可以监听原生事件(v-on.native)  
 
-数据的双向绑定，使用.sync修饰prop属性时，当子组件修改这个属性后，这个变化也会同步到父组件中所绑定的值。
+数据的双向绑定，使用.sync修饰prop属性时，当子组件修改这个属性后，这个变化也会同步到父组件中所绑定的值。  
 
-v-once可以将渲染结果缓存起来：
-
+v-once可以将渲染结果缓存起来：  
 ```
 Vue.component("terms-of-service", {
 	template:"<div v-noce><h1>xxxxx</h1></div>"
@@ -573,8 +549,7 @@ Vue.component("terms-of-service", {
 });
 ```
 
-watch数据，如果是浅watch一个对象(例如json对象)，那么不管是从内部还是从外部修改这个对象的某个属性值，均不会触发watch的回调函数。如果是深度watch，那么从内部或者外部修改对象的属性值，均会触发watch的回调。
-
+watch数据，如果是浅watch一个对象(例如json对象)，那么不管是从内部还是从外部修改这个对象的某个属性值，均不会触发watch的回调函数。如果是深度watch，那么从内部或者外部修改对象的属性值，均会触发watch的回调。  
 ```
 //1和2是等价的
 watch:{
@@ -595,4 +570,50 @@ watch:{
 	}
 }
 ```
+
+操作数组的api中，如下方法会改变原有的数组  
+
+* push/pop
+* shift/unshift
+* splice
+* sort
+* reverse
+
+如下方法会返回一个新的数组，不会修改原有的数组  
+
+* filter
+* concat
+* slice
+ 
+对于会改变原数组的api，vue能够检测到并会触发视图更新。vue不能检测如下变动的数组：  
+
+* 利用索引修改一个值，vm.items[indexOfItem] = newValue
+* 修改数组的长度，vm.items.length = newLength  
+第一种问题的解决方式  
+```
+ // Vue.set
+Vue.set(example1.items, indexOfItem, newValue)
+
+// Array.prototype.splice
+example1.items.splice(indexOfItem, 1, newValue)
+```
+
+第二种问题的解决方式  
+```
+ example1.items.splice(newLength)
+```
+
+Vue对象在实例化的时候，只能监听已经定义好的属性，但是可以通过如下的方式将响应属性添加到对象上  
+```
+//全局方式
+Vue.set(vm.obj, key, value)
+//局部方式
+this.$set(this.obj, key, value)
+```
+
+global bus event  
+通过一个Vue对像(bus)来发布和监听事件。  
+监听事件：bus.$on("event", function(){})  
+取消监听事件：bus.$off("event")  
+发布事件：bus.$emit("event")  
 

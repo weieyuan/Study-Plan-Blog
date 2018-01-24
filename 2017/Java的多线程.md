@@ -1,4 +1,4 @@
-# java的多线程
+#### Java的多线程
 ___
 * 无状态对象：既不包含任何域，也不包含任何对其他类中域的引用。
 * 同步代码代码块包含两个部分：锁对象的引用，由锁所保护的代码块。
@@ -14,46 +14,46 @@ ___
 	* 线程共享进程的资源
 
 #### 并发容器
-* CopyOnWriteArrayList
+* CopyOnWriteArrayList  
 > 写入时复制(Copy-on-Write)
-> 对修改操作加锁，并且会复制一份底层的数组，在该数组上进行操作，最后将该数组赋值给底层数组，这样保证不会影响读的操作。
+> 对修改操作加锁，并且会复制一份底层的数组，在该数组上进行操作，最后将该数组赋值给底层数组，这样保证不会影响读的操作。  
 > 该容器适用于大量读操作和少量写操作的场景
 
-* Collections.unmodifiableMap(Map map)
+* Collections.unmodifiableMap(Map map)  
 > 代理map对象，但是不支持任何修改操作
 > 但是可以直接修改map对象
 
-* ConcurrentHashMap
-> 采用分段锁，可以保证任意数量的线程并发地读取该容器；读线程和写线程可以并发访问；一定数量的线程可以并发地修改该容器。
-> 并没有实现对Map加锁以提供独占访问，因此在多线程的环境中size和isEmpty的方法返回的并不是准确的值，只是一个估算的值
+* ConcurrentHashMap  
+> 采用分段锁，可以保证任意数量的线程并发地读取该容器；读线程和写线程可以并发访问；一定数量的线程可以并发地修改该容器。    
+> 并没有实现对Map加锁以提供独占访问，因此在多线程的环境中size和isEmpty的方法返回的并不是准确的值，只是一个估算的值  
 > 在需要加锁Map进行独占访问时，这个容器就不适用了，可以采用Hashtable和synchronizedMap
 
 #### 同步工具类
 * 闭锁
-例如CountDownLatch,FutureTask
-用来确保某些活动直到其他活动完成之后才可以执行，适用的场景例如必须把饭端到桌上，把菜端到桌上，我才能开始吃饭
+例如CountDownLatch,FutureTask  
+用来确保某些活动直到其他活动完成之后才可以执行，适用的场景例如必须把饭端到桌上，把菜端到桌上，我才能开始吃饭  
 
 ```
 //countdownlatch的例子
 ```
 
 * 信号量
-例如Semaphore，用来控制同时访问某个资源的操作数量
+例如Semaphore，用来控制同时访问某个资源的操作数量  
 
 ```
 //例子
 ```
 
 * 栅栏
-例如CyclicBarrier
-与闭锁的区别是，所有的线程必须都到达栅栏的位置才可以向下执行。例如跑步的时候，必须所有人都在起跑线上排好队才可以开始跑步
+例如CyclicBarrier  
+与闭锁的区别是，所有的线程必须都到达栅栏的位置才可以向下执行。例如跑步的时候，必须所有人都在起跑线上排好队才可以开始跑步  
 
 ```
 //例子
 ```
 
 #### 定时任务
-* Timer
+* Timer  
 > TimerTask抛出未受检的异常时将终止定时线程，这种情况下Timer也不会恢复线程的执行，而是错误地认为整个Timer都被取消了。
 > 建议使用ScheduledExecutorService来执行定时任务
 
@@ -94,9 +94,9 @@ ___
 * 一般阻塞的方法都能抛出中断异常
 
 #### Fork/Join
-* Fork/Join框架涉及到的类：
-ForkJoinTask: 任务描述类，有两个抽象子类，RecursiveTask用于描述有结果返回的任务，RecursiveAction用于描述无结果返回的任务，在使用时，根据需要继承这两个类，需要实现compute方法，在compute方法中需要对任务进行判断，如果任务比较大需要将任务分割为小任务，否则直接执行任务。可以通过invoke/invokeAll将拆分的子任务提交给线程池，或者调用fork、join方法
-ForkJoinPool：任务执行的线程池，继承于AbstractExecutorService类。建议使用ForkJoinPool.commonPool()方法来获取ForkJoinPool对象，因为这个线程池是预定义好的，可以达到公用的目的。execute方法用于提交没有返回值的任务，submit用于提交有返回值的任务。
+* Fork/Join框架涉及到的类：  
+ForkJoinTask: 任务描述类，有两个抽象子类，RecursiveTask用于描述有结果返回的任务，RecursiveAction用于描述无结果返回的任务，在使用时，根据需要继承这两个类，需要实现compute方法，在compute方法中需要对任务进行判断，如果任务比较大需要将任务分割为小任务，否则直接执行任务。可以通过invoke/invokeAll将拆分的子任务提交给线程池，或者调用fork、join方法。   
+ForkJoinPool：任务执行的线程池，继承于AbstractExecutorService类。建议使用ForkJoinPool.commonPool()方法来获取ForkJoinPool对象，因为这个线程池是预定义好的，可以达到公用的目的。execute方法用于提交没有返回值的任务，submit用于提交有返回值的任务。  
 
 ```
 ///compute方法实现

@@ -119,7 +119,8 @@ import foo from "./user/file.js"
 2.1.如果这个目录中包括package.json，通过resolve.mainFields中指定的值来查找模块。  
 > resolve.mainFields中默认值，和target的值有关  
 > 当target被设置为"webworker","web"或者没有被设置时(默认是"web")，默认值是"["browser","module","main"]"  
-> 在其他值包括node，默认值是"["module", "main"]"  
+> 在其他值包括node，默认值是"["module", "main"]"
+
 2.2.如果没有package.json或者resolve.mainFields中指向的是无效的路径，那么通过resolve.mainFiles中指定的值来查找模块  
 > resolve.mainFields的默认值是"["index"]"
 

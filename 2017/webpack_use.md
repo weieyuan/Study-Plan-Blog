@@ -1,5 +1,4 @@
 #### Use Webpack ####
-___
 1.前置条件：本机安装了node.js
 
 2.在某个目录下新建一个文件夹。例如D:\study\webpack_demo，该目录也是项目的根目录
@@ -11,7 +10,7 @@ ___
 > 该命令会将webpack模块安装到项目根路径的node_modeuls中
 > --save-dev会把对webpack的依赖加到package.json的devDependencies中，这样可以免去人工添加依赖
 
-5.在项目的根路径下创建webpack.config.js文件，文件示例如下
+5.在项目的根路径下创建webpack.config.js文件，文件示例如下  
 ```
 const webpack = require('webpack'); //引入webpack
 const path = require('path');
@@ -38,7 +37,7 @@ const config = {
 module.exports = config;
 ```
 
-6.在项目的根目录下创建一个index.html文件
+6.在项目的根目录下创建一个index.html文件  
 ```
 <!DOCTYPE html>
 <html>
@@ -53,16 +52,15 @@ module.exports = config;
 </html>
 ```
 
-7.在项目根路径/app目录下创建app.js文件和module1.js文件
-
-*app.js*
+7.在项目根路径/app目录下创建app.js文件和module1.js文件  
+*app.js*  
 ```
 require('../css/app.css');
 const module1 = require('./module1.js');
 document.getElementById("test").innerText = module1.getInfo();
 ```
 
-*module1.js*
+*module1.js*  
 ```
 module.exports = {
     getInfo: function(){
@@ -71,7 +69,7 @@ module.exports = {
 };
 ```
 
-8.在项目根路径/css目录下创建app.css文件
+8.在项目根路径/css目录下创建app.css文件  
 ```
 .test{
     width: 200px;
@@ -80,18 +78,18 @@ module.exports = {
 }
 ```
 
-9.执行编译，在项目根目录下执行.node_modeuls\\.bin\webpack
+9.执行编译，在项目根目录下执行.node_modeuls\\.bin\webpack  
 > 该命令默认在项目根目录下查找webpack.config.js配置文件
 > 也可以自己指定配置文件：.node_modeuls\\.bin\webpack --config webpack.config.js
 
-9.1.通过npm命令来执行build
-> 在package.json的scripts标签中增加: "build": "webpack"
+9.1.通过npm命令来执行build  
+> 在package.json的scripts标签中增加: "build": "webpack"  
 ```
   "scripts": {
     "test": "Test Demo",
     "build": "webpack"
   },
-```
+```  
 > 执行npm run build命令
 
-10.执行成功后，访问index.html文件
+10.执行成功后，访问index.html文件  
