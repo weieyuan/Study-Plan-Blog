@@ -72,6 +72,9 @@ pageX/pageY: 类似于clientX/clientY，但是使用文档坐标而不是窗口�
 screenX/screenY: 鼠标相对于用户显示器左上角的x,y坐标  
 offsetX/offsetY：鼠标相对于最近的relative、absolute元素的x,y坐标
 
+#### canvas导出图片
+canvas提供了toDataURL的api，可以将cavans绘制的内容导出为base64。如果导出的是png，那么背景色是透明的(transparent)，如果导出是jpeg，那么背景色是黑色的。
+
 #### es6
 **箭头函数**  
 箭头函数中的this，是在箭头函数执行时，在作用域链中一层一层往上找到最近的this，箭头函数自己是没有this的值

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	<style>
+		.abc::after{
+			content: url("./demo.png")
+		}
+		.bcd{
+			counter-reset: mynum;
+		}
+		.cde:before{
+			content: "(" counter(mynum) "):";
+			counter-increment: mynum;
+			font-weight: bold;
+		}
+		table{
+			width: 100%;
+			height: 100%;
+			table-layout: fixed;
+			text-align: center;
+		}
+		table tr th{
+			border: solid 1px #d5d5d5;
+		}
+		table tr td{
+			border: solid 1px #6ff;
+		}
+		table tbody tr:nth-child(2n){
+			background-color: lime;
+		}
+		table tbody tr:nth-child(2n+1){
+			background-color: gray;
+		}
+		.tdCustomer{
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.def{
+		    width: 200px;
+		    height: 200px;
+			margin: 10px;
+			padding: 20px;
+			background-color: #f66;
+			border: 20px solid red;
+			background-clip: padding-box;
+			border-image-source: url("./demo.png");
+			border-image-slice: 40;
+			border-image-repeat: round;
+			box-shadow: 5px 5px 5px rgba(0,0,0,0.7);
+		}
+	</style>
+</head>
+<body>
+<div>
+	<a class="abc" href="www.baidu.com">百度</a>
+</div>
+<h3 class="bcd">
+	<p class="cde">a</p>
+	<p class="cde">b</p>
+	<p class="cde">c</p>
+</h3>
+<div style="float: left; height: 100%;">
+	<p>内容</p>
+	<p>内容</p>
+	<p style="text-transform: capitalize">abc</p>
+</div>
+<div style="clear: both; width: 100px; height: 100px;">
+	<div style="width: 100%; height: 100%;">xxxxx</div>
+</div>
+<h3 style="clear: left;">标题</h3>
+
+<div style="left: 20px;">这个div的position是static的，它的left: 20px不会生效</div>
+<div style="position: relative; left: 20px;">这个div的position是relative的，它的left: 20px会生效</div>
+
+<div style="width: 200px; height: 200px;">
+<table style="border: 1px solid #7a7;border-collapse:collapse;">
+	<caption>Demo</caption>
+	<thead>
+		<tr>
+			<th scope="row">A</th>
+			<th scope="row">B</th>
+			<th scope="row">C</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td style="empty-cells: hide;">a</td>
+			<td>1</td>
+			<td>wei</td>
+		</tr>
+		<tr>
+			<td>b</td>
+			<td>2</td>
+			<td>e</td>
+		</tr>
+		<tr>
+			<td>c</td>
+			<td>3</td>
+			<td>yuan</td>
+		</tr>
+		<tr>
+			<td rowspan="2">d</td>
+			<td>4</td>
+			<td class="tdCustomer">dessssssss  ssssssssssssssssssssssssssssss</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<th scope="col" colspan="2">总计</th>
+		<td>100</td>
+	</tfoot>
+</table>
+</div>
+
+<div style="width: 100px; height: 100px; outline: 1px solid red; border: 1px dotted green; margin: 10px; padding: 10px;"></div>
+
+<div class="def">xxxxx</div>
+
+</body>
+</html>

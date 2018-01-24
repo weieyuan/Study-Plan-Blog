@@ -35,3 +35,5 @@ em.close();//关闭会话
 SessionFactory:等价于EntityManagerFactory
 Session:等价于EntityManager
 ```
+
+#### 领域模型
