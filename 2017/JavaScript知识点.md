@@ -177,7 +177,6 @@ p.then(function(res){
 });
 ```
 
-
 #### mvc/mvp/mvvm  
 * mvc 
 标准的mvc的实现中v是可以直接从model中读取数据

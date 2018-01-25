@@ -51,6 +51,18 @@
 			border-image-repeat: round;
 			box-shadow: 5px 5px 5px rgba(0,0,0,0.7);
 		}
+		.p_class::first-letter{
+			font-weight: bold;
+		}
+		.p_class::first-line{
+			font-style: italic;
+		}
+		.p_class::selection{
+			color: red;
+		}
+		.p_class1{
+			background-color: lime !important;
+		}
 	</style>
 </head>
 <body>
@@ -117,6 +129,74 @@
 <div style="width: 100px; height: 100px; outline: 1px solid red; border: 1px dotted green; margin: 10px; padding: 10px;"></div>
 
 <div class="def">xxxxx</div>
+
+<p class="p_class">
+	第一行文本<br/>
+	第二行文本
+</p>
+
+<!--优先级-->
+<p class="p_class1" style="background-color:red;">优先级确定</p>
+
+<!--列表-->
+<ol start="5" reversed>
+  <li style="list-style: decimal">list-style: decimal</li>
+  <li style="list-style: decimal">list-style: decimal</li>
+</ol>
+
+<!-- display -->
+<div style="width: 100px; height: 100px; background-color: green; display: inline-block;">1</div>
+<div style="width: 100px; height: 100px; background-color: gray; display: inline-block;">2</div>
+<div style="width: 100px; height: 100px; background-color: blue; display: inline-block;">3</div>
+
+<!-- flexbox -->
+<style>
+	.section_class{
+		width: 93%;
+		height: 240px;
+		margin: 20px auto;
+		background: purple;
+		display: flex;
+	}
+	.section_class div{
+		color: blue;
+		background: orange;
+		flex: 1;
+		margin-right: 10px;
+		text-shadow: 1px 1px 1px black;
+	}
+</style>
+<section class="section_class">
+	<div>This is a box</div>
+	<div>This is a box</div>
+	<div>This is a box</div>
+</section>
+<button>Create box</button>
+<button>Reset Demo</button>
+
+<!--float-->
+<h2>float演示</h2>
+<img style="float:left;" src="./demo.png">
+<p>
+这是一段文本，这是一段文本，这是一段文本，这是一段文本，这是一段文本，这是一段文本，这是一段文本，这是一段文本，这是一段文本，这是一段文本，
+</p>
+<div>
+	<div style="float: left; width: 30%; background-color: red;">
+		<h1>第一段文本</h1>
+		<p>第一段内容</p>
+	</div>
+	<div style="float: right; width: 30%; background-color: green;">
+		<h1>第二段文本</h1>
+		<p>第二段内容</p>
+	</div>
+	<div style="float: right; width: 30%; background-color: blue;">
+		<h1>第三段文本</h1>
+		<p>第三段内容</p>
+	</div>
+	<div style="clear: both;">
+		<p>这是脚注</p>
+	</div>
+</div>
 
 </body>
 </html>
