@@ -198,5 +198,56 @@
 	</div>
 </div>
 
+<!--flex-->
+<style>
+	.h1_class{
+		font-size: 2;
+		line-height: 2;
+		background-color: purple;
+		text-align: center;
+		font-weight: bold;
+		color: #FFFFFF;
+		text-transform: capitalize;
+		margin: 0;
+	}
+	.flex_class{
+		display: flex;
+		width: 100%;
+		height: 400px;
+		background-color: #ffffff;
+		border: 1px solid purple;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: stretch;
+		padding: 10px;
+		box-sizing: border-box;
+	}
+    .flex_class > div:nth-child(1){
+		background-color: red;
+		flex-grow: 0;
+		flex-shrink: 1;
+		width: 30%;
+	}
+	.flex_class > div:nth-child(2){
+		background-color: blue;
+		flex-grow: 0;
+		flex-shrink: 1;
+		width: 30%;
+	}
+	.flex_class > div:nth-child(3){
+		background-color: lime;
+		flex-grow: 0;
+		flex-shrink: 1;
+		width: 30%;
+	}
+</style>
+<h1 class="h1_class">Title</h1>
+<div class="flex_class">
+	<div>内容1</div>
+	<div>内容2</div>
+	<div>内容3</div>
+</div>
+
 </body>
 </html>

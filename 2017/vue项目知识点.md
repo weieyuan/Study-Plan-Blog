@@ -212,9 +212,9 @@ const Foo = {
 Vue.use(Vuex)
 //在根组件中注册store属性，store实例会注入到根组件下的所有子组件中，在子组件中可以通过this.$store访问到。
 const app = new Vue({
-	...
-	store
-	...
+  ...
+  store
+  ...
 });
 
 ```
@@ -225,66 +225,66 @@ getters属性会暴露为store.getters对象
 
 ```
 const store = new Vuex.Store({
-	state: {
-		todos: [
-			{id: 1},
-			{id: 2}
-		]
-	},
-	getters: {
-		doneTodos: (state) => {
-			return state.todos.filter(todo => todo.done)
-		}
-	}
+  state: {
+    todos: [
+	  {id: 1},
+	  {id: 2}
+    ]
+  },
+  getters: {
+    doneTodos: (state) => {
+	  return state.todos.filter(todo => todo.done)
+    }
+  }
 })
 ```
 
-* Mutations
+* Mutations  
+用于提交同步动作  
 
 ```
 const store = new Vuex.Store({
-	state: {
-		count: 1
+  state: {
+	count: 1
+  },
+  mutations: {
+	increment(state){
+		state.count++;
 	},
-	mutations: {
-		increment(state){
-			state.count++;
-		},
-		incrementN(state){
-			state.count+=n;
-		}
+	incrementN(state){
+		state.count+=n;
 	}
+  }
 });
 //触发
 store.commit("increment");
 store.commit("increment", 10);
 ```
 
-* Actions
-
+* Actions  
 actions提交mutation，action可以包含任意的异步操作
 
 ```
 const store = new Vuex.Store({
-	state: {
-		count: 1
+  state: {
+	count: 1
+  },
+  mutations: {
+	increment(state){
+		state.count++;
 	},
-	mutations: {
-		increment(state){
-			state.count++;
-		},
-		incrementN(state){
-			state.count+=n;
-		}
-	},
-	actions: {
-		increment(context){
-			context.commit("increment");
-		},
-		incrementN(state, n){
-			context.commit("increment", n);
-		}
+	incrementN(state){
+		state.count+=n;
 	}
+  },
+  actions: {
+	increment(context){
+		context.commit("increment");
+	},
+	incrementN(state, n){
+		context.commit("increment", n);
+	}
+  }
 });
 //触发
 store.dispatch("increment");
@@ -298,26 +298,33 @@ mapState辅助函数
 ```
 import {mapState} from 'vuex';
 computed: {
-	localComputed: function(){
-	},
-	...mapState({
-		count: state => state.conut
-		countPlusLocalState(state){
-			return state.count + this.localConut
-		}
-	})
+  localComputed: function(){
+  
+  },
+  ...mapState({
+	count: state => state.conut
+	countPlusLocalState(state){
+		return state.count + this.localConut
+	}
+  })
 }
 ```
 
-mapGetter辅助函数  
+mapGetters辅助函数  
 
 ```
-import {mapGetter} from 'vuex';
+import {mapGetters} from 'vuex';
 computed: {
-	...mapGetter([
-		'doneTodosConut',
-		'anotherGetter'
-	])
+  ...mapGetters([
+	'doneTodosConut',
+	'anotherGetter'
+  ])
+}
+//属性映射
+computed: {
+  ...mapGetters({
+    clientId: "clientId"
+  })
 }
 ```
 
@@ -325,13 +332,13 @@ mapMutations辅助函数
 
 ```
 import {mapMutations} from 'vuex';
-computed: {
-	...mapMutations([
-		'increment' //映射this.increment()为this.$store.commit('increment')
-	])
-	...mapMutations({
-		add: 'increment' //映射this.add()为this.$store.commit('increment')
-	})
+methods: {
+  ...mapMutations([
+	'increment' //映射this.increment()为this.$store.commit('increment')
+  ])
+  ...mapMutations({
+	add: 'increment' //映射this.add()为this.$store.commit('increment')
+  })
 }
 ```
 
@@ -339,13 +346,13 @@ mapActions辅助函数
 
 ```
 import {mapActions} from 'vuex';
-computed: {
-	...mapActions([
-		'increment' //映射this.increment()为this.$store.dispatch('increment')
-	])
-	...mapActions({
-		add: 'increment' //映射this.add()为this.$store.dispatch('increment')
-	})
+methods: {
+  ...mapActions([
+	'increment' //映射this.increment()为this.$store.dispatch('increment')
+  ])
+  ...mapActions({
+	add: 'increment' //映射this.add()为this.$store.dispatch('increment')
+  })
 }
 ```
 
@@ -353,27 +360,26 @@ computed: {
 每个模块中可以定义state，mutations，getters，actions  
 默认情况下，模块内部的action,mutations，getters是定义在全局命名空间的，这样使得多个模块能够对同一个mutation或者action作出响应  
 
-
 ```
 const modeulA = {
-	state: {},
-	getter: {
-		doubleCount(state,getter,rootState){}//state为模块中定义的state变量，不是全局的state,rootState为根节点状态
-	},
-	mutations:{
-		increment(state){}//state为模块中定义的state变量
-	},
-	actions: {
-		increment({state,commit,rootState}){//state为局部状态，rootState为根节点状态
+  state: {},
+  getter: {
+	doubleCount(state,getter,rootState){}//state为模块中定义的state变量，不是全局的state,rootState为根节点状态
+  },
+  mutations:{
+	increment(state){}//state为模块中定义的state变量
+  },
+  actions: {
+	increment({state,commit,rootState}){//state为局部状态，rootState为根节点状态
 
-		}
 	}
+  }
 }
 
 const store = new Vue.Store({
-	modules: {
-		a:moduleA
-	}
+  modules: {
+	a:moduleA
+  }
 });
 ```
 
