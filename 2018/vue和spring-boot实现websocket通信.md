@@ -237,6 +237,23 @@ public class StompConnectEventListener implements ApplicationListener<SessionCon
 
 ```
 
+向客户端推送消息：  
+
+```
+@Component
+public class StompService {
+
+	@Autowired
+	private SimpMessagingTemplate template;
+	
+	
+	public void sendMsg(String strDst, Object oPayload){
+		this.template.convertAndSend(strDst, oPayload);
+	}
+	
+}
+```
+
 ## 前后台调试
 SockJS会先发送"GET /info"的请求，用于获取服务器端的基础信息，根据这些信息觉得使用什么协议来通信，优先websocket，不过不支持，则采用其他协议，例如http。该请求的示例：
 

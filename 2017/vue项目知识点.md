@@ -49,7 +49,7 @@ import NBButton from './NBButton.vue';
 export default NBButton;
 ```
 
-* 修改webpack.config.js文件，主要有两点要关注：
+* 修改webpack.config.js文件，主要有两点要关注：  
 	* 修改entry入口点
 	* 修改oupt标签中的内容
 
@@ -66,7 +66,7 @@ output: {
 
 * 执行npm run build，此时会在dist目录下生成目标文件
 
-* 修改package.json，主要有两点：
+* 修改package.json，主要有两点：  
 	* name，这个是发布到npm仓库后包的名称，注意不要和npm上已有的包重名
 	* 修改main的属性，指向上一步中生成的目标文件
 
@@ -80,8 +80,8 @@ output: {
  
 * 按照npm发布包的流程发布包
 
-* 使用
-    * 安装包：npm install n-b-button --save-dev
+* 使用  
+    * 安装包：npm install n-b-button --save-dev  
     * 引入NBButton组件，即可使用
 
 ```
@@ -205,7 +205,7 @@ const Foo = {
 ```
 
 #### vuex
-* vue中使用vuex
+1.vue中使用vuex
 
 ```
 //声明使用
@@ -219,8 +219,7 @@ const app = new Vue({
 
 ```
 
-* Store的getter属性
-
+2.Store的getter属性  
 getters属性会暴露为store.getters对象
 
 ```
@@ -239,7 +238,7 @@ const store = new Vuex.Store({
 })
 ```
 
-* Mutations  
+3.Mutations  
 用于提交同步动作  
 
 ```
@@ -261,7 +260,7 @@ store.commit("increment");
 store.commit("increment", 10);
 ```
 
-* Actions  
+4.Actions  
 actions提交mutation，action可以包含任意的异步操作
 
 ```
@@ -291,8 +290,9 @@ store.dispatch("increment");
 store.dispatch("increment", 10);
 ```
 
-* map辅助函数  
+5.map辅助函数  
 用于简化代码  
+
 mapState辅助函数  
 
 ```
@@ -356,7 +356,7 @@ methods: {
 }
 ```
 
-* 模块划分  
+6.模块划分  
 每个模块中可以定义state，mutations，getters，actions  
 默认情况下，模块内部的action,mutations，getters是定义在全局命名空间的，这样使得多个模块能够对同一个mutation或者action作出响应  
 
