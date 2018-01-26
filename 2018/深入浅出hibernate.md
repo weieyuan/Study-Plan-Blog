@@ -59,6 +59,8 @@ hibernate.connection.provider_class
 
 自定义数据类型，实现UserType或者CompositeUserType接口  
 
+复合主键
 
+Component
 
-
+数据关联
