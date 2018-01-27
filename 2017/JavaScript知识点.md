@@ -199,3 +199,26 @@ define(function(require, exports, module){
 	var clock = require("clock");
 });
 ```
+
+#### HTML
+字符的特殊编码：
+
+|字符|编码|
+|---|----| 
+|`<`|`&lt;`|
+|`>`|`&gt;`|
+|`"`|`&quot;`|
+|`'`|`&apos`|
+|`&`|`&amp`|
+
+##### Header标签中的子元素
+meta，元数据就是描述数据的数据  
+```
+//字符集
+<meta charset="uft-8">
+//许多meta元素包含了name和content特性
+<meta name="author" content="weieyuan">
+<meta name="description" content="software developer">
+```  
+
+

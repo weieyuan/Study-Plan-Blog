@@ -294,6 +294,21 @@ public static class Address{
 }
 ```
 
+##### 集合的映射  
+```
+//会创建两张表，一张表是person表，只有id属性；另外一张表是person_phones表，存放的是PERSON_ID和PHONES;一个person有两个phone，那么person表中会有一条记录，person_phones表中会有两条记录
+@Entity
+public staitc class Person{
+
+  @Id
+  private Long id;
+
+  @ElementCollection
+  private List<String> phones = new ArrayList<>();
+
+}
+```
+
 
 
 
