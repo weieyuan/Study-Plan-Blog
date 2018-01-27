@@ -221,4 +221,26 @@ meta，元数据就是描述数据的数据
 <meta name="description" content="software developer">
 ```  
 
+使用a标签链接下载资源的时候，可以指定下载的文件名称：  
+```
+<a href="download_url" download="xxx.png">下载图片</a>
+```
+
+使用a标签链接到发送邮件  
+```
+//使用mailto:link的格式
+<a href="mailto:weieyuan@yeah.net">发送邮件</a>
+```
+
+描述列表  
+```
+dl(description list)，dt(description term)，dd(description description)
+```
+<dl>
+<dt>term 1</dt>
+<dd>这个是term-1的描述信息</dd>
+<dt>term 2</dt>
+<dd>这个是term-2的描述信息</dd>
+</dl>
+
 
