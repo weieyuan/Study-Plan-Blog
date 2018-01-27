@@ -109,6 +109,194 @@ public class Login{
   }
 }
 ```
+
+##### 实体类之间的关系
+1.@ManyToOne  
+```
+@Entity
+public static class Person{
+
+  @Id
+  @GeneratedValue  
+  private Long id;
+
+}
+
+@Entity
+public static class Phone{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @ManyToOne
+  @JoinColumn(name="person_id", foreignKey=@ForeignKey(name="PERSON_ID_FK"))
+  private Person person;
+
+}
+```
+
+2.@OneToMany  
+不建议采用单向关系，建议使用双向关系，因为单向关系的效率比较差  
+当采用单向关系的时候，会新建一张表用于维护两个表之间的映射关系  
+```
+@Entity
+public static class Person{
+
+  @Id
+  @GeneratedValue  
+  private Long id;
+
+  @OneToMany(mappedBy="person", cascade = CascadeType.ALL, orphanRemoval=true)
+  //orphanRemoval=true表示当表之间的关系被解除时，是否删除数据库中的数据
+  private List<Phone> phones = new ArrayList<>();
+
+}
+
+@Entity
+public static class Phone{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @ManyToOne
+  private Person person;
+
+}
+```
+
+3.@OneToOne  
+```
+public static class Phone{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @OneToOne(mappedBy="phone",cascade=CascadeType.ALL,orphanRemoval=true,fetch=FetchType.LAZY)
+  private PhoneDetails details;
+}
+
+public static class PhoneDetails{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @OneToOne(fetch=FetchType.LAZY)
+  @JoinColumn(name="phone_id")
+  private Phone phone;
+  
+}
+```
+
+4.@ManyToMany  
+新建一张表，用于维护两张表的关系  
+不建议采用单向关系，因为删除一个child的时候，会把所有的child都删除，然后再把存在的child加进来，效率比较差  
+当使用级联删除的时候，可能回抛出异常，因为当删除parent1的时候(child1在其中)，可能存在parent2还在引用child1    
+```
+//单向关系
+public static class Person{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+  private List<Address> addressed = new ArrayList<>();
+
+}
+
+public static class Address{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  private String street;
+
+}
+
+//双向关系
+public static class Person{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @ManyToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+  private List<Address> addresses = new ArrayList<>();
+
+}
+
+public static class Address{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  private String street;
+
+  @ManyToMany(mappedBy="addresses")
+  private List<Person> owners = new ArrayList<>();
+
+}
+
+```
+
+采用双向关系的时候，并不能像@OneToMany的双向关系那样获得效率的提升，因为外键不在控制之中。可以将关系拆分成2个@OneToMany的关系  
+```
+public static class Person{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @OneToMany(mappedBy="person", cascade={CascadeType.ALL, orphanRemoval=true})
+  private List<PersonAddress> addresses = new ArrayList<>();
+
+  public void addAddress(Address address){
+    PersonAddress personAddress = new PersonAddress(this, address);
+    addresses.add(personAddress);
+	address.getOwners().add(personAddress);
+  }
+  
+  public void removeAddress(Address address){
+    PersonAddress personAddress = new PersonAddress(this, address);
+    address.getOwners().remove(personAddress);
+    addresses.remove(address);
+    personAddress.setPerson(null);
+    personAddress.setAddress(null);
+  }
+}
+
+public static class PersonAddress{
+
+  @Id
+  @ManyToOne
+  private Person person;
+
+  @Id
+  @ManyToOne
+  private Address address;
+
+}
+
+public static class Address{
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @OneToMany(mappedBy="address", cascade={CascadeType.ALL, orphanRemoval=true})
+  private List<PersonAddress> owners = new ArrayList<>();
+}
+```
+
+
+
+
   
 
  
