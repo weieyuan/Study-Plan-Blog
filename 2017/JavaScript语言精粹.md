@@ -124,4 +124,16 @@ replace
 split
 ```
 
+#### 方法
+字符串的连接建议使用+，因为+的性能优于Array.join()方法  
+
+Array.shift()方法通常比Array.pop()方法要慢  
+
+Array.sort(cFun)，如果不提供cFun，那么会把参数转换为字符串进行比较。  
+```
+cFun(a,b) < 0 表示a排在前面
+cFun(a,b) = 0 表示a,b的顺序不变
+cFun(a,b) > 0 表示a排在后面
+```
+
 
