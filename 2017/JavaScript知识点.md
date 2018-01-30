@@ -76,10 +76,10 @@ offsetX/offsetY：鼠标相对于最近的relative、absolute元素的x,y坐标
 canvas提供了toDataURL的api，可以将cavans绘制的内容导出为base64。如果导出的是png，那么背景色是透明的(transparent)，如果导出是jpeg，那么背景色是黑色的。
 
 #### es6
-**箭头函数**  
+##### 箭头函数  
 箭头函数中的this，是在箭头函数执行时，在作用域链中一层一层往上找到最近的this，箭头函数自己是没有this的值
 
-**import/export语法**  
+##### import/export语法  
 ```
 //export
 //1
@@ -121,10 +121,46 @@ export default {area, circumference}
 
 import XXXX from "./circle"
 ```
+##### import()函数
+import()函数用于动态加载模块，该函数返回一个Promise对象。  
+适用的场景：  
+1.按需加载  
+```
+button.onclick = (e) => {
+  import("./a.js").then((module) => {
+    //doSth
+  });
+}
+```
+
+2.条件加载  
+```
+if(xx){
+	import("./a.js").then();
+}
+else{
+    import("./b.js").then();
+}
+```
+
+3.动态模块路径  
+```
+var path = "xxxxx/xxx/js";
+
+import(path).then();
+```
 
 #### nodejs  
 1.process是nodejs中的一个全局变量，它提供了当前运行的nodejs进程的信息
 2.process.env返回包含用户环境变量的一个对象
+
+##### module.exports/exports
+1.module.exports初始化值为一个空对象{}  
+2.exports是指向module.exports的初始引用  
+```
+module.exports = {}//这个时候module.exports和exports已经不是引用同一个对象了
+```
+3.require()返回的是module.exports  
 
 #### Promise的使用  
 Promise可以将异步操作以同步的方式表达出来。
@@ -200,47 +236,19 @@ define(function(require, exports, module){
 });
 ```
 
-#### HTML
-字符的特殊编码：
-
-|字符|编码|
-|---|----| 
-|`<`|`&lt;`|
-|`>`|`&gt;`|
-|`"`|`&quot;`|
-|`'`|`&apos`|
-|`&`|`&amp`|
-
-##### Header标签中的子元素
-meta，元数据就是描述数据的数据  
+#### UNPKG
+unpkg是一个快速的、全球的用于服务npm上所有包的内容分发网络。  
+使用方式：  
 ```
-//字符集
-<meta charset="uft-8">
-//许多meta元素包含了name和content特性
-<meta name="author" content="weieyuan">
-<meta name="description" content="software developer">
-```  
+//1.
+格式： https://unpkg.com/:packagee@:version/:file
+示例： https://unpkg.com/w-vue-emoji@1.0.2/dist/w-vue-emoji.js
 
-使用a标签链接下载资源的时候，可以指定下载的文件名称：  
-```
-<a href="download_url" download="xxx.png">下载图片</a>
-```
+//2.会默认返回在package.json中的unpkg的值或者main属性的值
+格式： https://unpkg.com/:package
+示例： https://unpkg.com/w-vue-emoji
 
-使用a标签链接到发送邮件  
+//3.查看包的目录
+格式： https://unpkg.com/:package/
+示例： https://unpkg.com/w-vue-emoji/
 ```
-//使用mailto:link的格式
-<a href="mailto:weieyuan@yeah.net">发送邮件</a>
-```
-
-描述列表  
-```
-dl(description list)，dt(description term)，dd(description description)
-```
-<dl>
-<dt>term 1</dt>
-<dd>这个是term-1的描述信息</dd>
-<dt>term 2</dt>
-<dd>这个是term-2的描述信息</dd>
-</dl>
-
-

@@ -1,8 +1,6 @@
-# Webpack
-
-## 基础概念
-**entry(入口点)**  
-有单入口点和多入口点：  
+# Webpack基础概念
+#### entry(入口点)  
+有单入口点和多入口点：    
 1.单入口点  
 
 ```
@@ -22,8 +20,8 @@ entry: {
 }
 ```
 
-**Output(输出点)**  
-用于说明webpack编译后怎样输出文件  
+#### Output(输出点)
+用于说明webpack编译后怎样输出文件    
 
 ```
 //可应用于单入口点
@@ -38,7 +36,7 @@ output: {
 }
 ```
 
-**loaders**  
+#### loaders
 预处理文件，将文件转换为javascript模块  
 
 ```
@@ -55,7 +53,7 @@ module: {
 }
 ```
 
-**plugins(插件)**  
+#### plugins(插件) 
 用于扩展webpack的功能。一个webpack插件是一个拥有apply属性的javascript对象，apply属性会被webpack compiler调用。  
 
 ```
@@ -67,8 +65,8 @@ plugins: [
 ]
 ```
 
-**参数解释**  
-1.output.library: 表示编译生成后的文件导出的变量的名称  
+#### 参数解释  
+1.output.library: 表示编译生成后的文件导出的变量的名称    
 2.output.libraryTarget:表示library怎样导出来，比如可以将它赋给window中的变量，global中的变量，通过exports导出等  
 
 ```
@@ -79,12 +77,12 @@ umd表示支持所有模块定义
 
 ```
 [id]: 模块识别符
-[hash]: 模块识别符的hash值
+[hash]: 模块识别符的hash值,和构建相关
 [name]: 模块名称
 [chunkhash]: 内容的hash值
 ```
 
-**模块**  
+#### 模块
 webpack模块支持如下几种方式的依赖：  
 1.ES6的import语法  
 2.CommonJS的require()语法  
@@ -93,8 +91,8 @@ webpack模块支持如下几种方式的依赖：
 5.样式表中url("")的语法，html中<img src="">的语法  
 
 
-**模块解析规则**  
-支持3种格式的路径：  
+#### 模块解析规则
+支持3种格式的路径：    
 1.绝对路径  
 
 ```
@@ -124,13 +122,14 @@ import foo from "./user/file.js"
 2.2.如果没有package.json或者resolve.mainFields中指向的是无效的路径，那么通过resolve.mainFiles中指定的值来查找模块  
 > resolve.mainFields的默认值是"["index"]"
 
-**编译后生成的文件**  
+#### 编译后生成的文件
 主要有三类文件：  
-1.开发人员编写的源代码  
-2.项目所依赖的第三方的包  
+1.开发人员编写的源代码(例如app.js)    
+2.项目所依赖的第三方的包(vendor.js)  
 3.webpack运行文件(runtime)和清单文件(manifest)，这些文件用于管理所有模块的交互，例如模块的加载、模块的解析等。  
 
 
+## 配置
 **参数：Resolve**  
 resolve.alias，定义别名用于简化模块的引入  
 在对象的末尾加上$表示精确匹配  
@@ -144,66 +143,8 @@ resolve: {
 }
 ```
 
-
-**编译构建**  
-watch module当文件发生变化时会自动进行编译，但是需要手动刷新界面  
-
-```
-webpack --watch
-```
-
-webpack-dev-server，当文件发生变化时会自动编译并且会自动刷新浏览器  
-
-```
-//安装
-npm install --save-dev webpack-dev-server
-
-//webpack.config.js文件中新增
-devServer: {
-	contentBase: './dist'
-}
-
-webpack-dev-server --open
-
-```
-
-webpack-dev-middleware，功能同webpack-dev-server，但是提供了更强的扩展性  
-
-```
-//安装
-npm install --save-dev express webpack-dev-middleware
-
-//webpack.config.js
-output:{
-	publicPath: '/'
-}
-
-//新增server.js
-const express = require('express');
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middlemare');
-
-const app = express();
-const config = require('./webpack.config.js');
-const compiler = webpack(config);
-
-app.use(webpackDevMiddlewave(compile, {
-	publicPath: config.output.publicPath
-}));
-
-app.listen(3000, function(){
-	console.log("Project start");
-});
-
-//package.json
-scripts: {
-	'server': 'node server.js'
-}
-```
-
-#### 常用的Loader
-
-**file-loader**  
+## 常用的Loader
+### file-loader  
 将依赖的对象作为一个file对象并且返回它的URL。  
 
 默认生成的文件的名称是文件的内容的MD5的hash值.文件的后缀。  
@@ -219,7 +160,7 @@ scripts: {
 }
 ```
 
-**url-loader**  
+#### url-loader
 url-loader的作用类似于file-loader，但是当文件小于limit(Byte)的限制的时候可以返回base64格式的DataUrl
 
 使用示例：  
