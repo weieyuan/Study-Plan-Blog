@@ -743,3 +743,13 @@ if("serviceWorker" in navigator){
 略。。。
 
 ## 使用环境变量
+webpack命令行中，可以通过--env传入环境变量，在webpack.config.js中可以访问这些变量。要使用env变量，module.exports必须指向一个函数。  
+```
+webpack --env.NODE_ENV=local --env.production --progress
+
+//webpack.config.js
+module.exports = (env) => {
+  console.log("NODE_ENV: ", env.NODE_ENV); //local
+  console.log("Production: ", env.production) //true
+}
+```
