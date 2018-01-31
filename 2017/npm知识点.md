@@ -18,6 +18,7 @@ npm ls
 引导创建package.json  
 ```
 npm init
+npm init -f|-force|-y|-yes 使用默认值创建package.json，不会询问客户
 ```
 
 安装淘宝镜像，安装完成后执行命令时用cnpm代替npm  

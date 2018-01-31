@@ -181,6 +181,8 @@ scripts: {
 ```
 执行npm run start，会在localhost:8080下建立服务，将dist目录下的文件作为可访问的文件。
 
+**在webpack-dev-server中不要使用`[chunkhash]`否则编译会失败，会导致很多问题，比如内存泄漏，因为dev server不知道什么时候去清除旧的文件**
+
 ### 使用webpack-dev-middleware
 webpack-dev-middleware是一个中间容器，它将webpack处理后的文件发布到容器。  
 ```
@@ -537,10 +539,207 @@ manifest bundle: 会因为模块的变化而变化。
 2.NamedModulesPlugin： 使用该插件的相对路径来标识模块，而不是数字标识符，方便调试，建议应用于开发环境。
 
 
+## 创建Library
+webpack还可以用于打包javascript library，创建的library应该支持以下几种使用方式：    
+```
+//webpack-numbers为包的名称，webpackNumbers为暴露的变量名称
+//ES6
+import * as webpackNumbers from "webpack-numbers"；
+webpackNumbers.numToWord(1);
 
+//commonJs
+var webpackNumbers = require("webpack-numbers");
+webpackNumbers.numToWord(1);
 
+//AMD
+require(["webpack-numbers"], function(webpackNumbers){
+  webpackNumbers.numToWord(1);  
+});
 
+//通过script标签引入
+<script src="http://unpkg.com/webpack-numbers"></script>
+<script>
+webpackNumbers.numToWord(1); 
+</script>
+```
 
+### 基础配置
+webpack.congif.js中定义基础的配置，定义入口文件，以及编译后生成的文件。  
+```
+//webpack.config.js
 
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "webpack-numbers.js",
+    path: path.resolve(__dirname, "dist"),
+  }
+}
+```
 
+### 暴露library
+library表示暴露出来的变量名称，需要结合libraryTarget的值来确定这个变量怎样暴露出来。 例如当libraryTarget的值是umd的时候：  
+1.在ES6中： import * as webpackNumbers from "xxx"  
+2.Commonjs: var webpackNumbers = require("xxxx");  
+3.AMD: require(["xxx"], function(webpackNumbers){})  
+4.script: <script src="http://ssss/xxx"></script> webpackNumbers暴露为全局变量  
+```
+//webpack.config.js
+output: {
+  library: "webpackNumbers",
+  libraryTarget: "umd"
+}
+```
 
+### 外部扩展(Externals)
+webpack.config.js的配置文件中的externals属性提供了扩展外部依赖的功能。作用是，所发布的这个库可能依赖一些第三方的库，如果将这些第三方的库打到自己的库中，会导致库变得很大，因此希望发布的这个库中不包含第三方的库，而依赖于用户环境中的第三方库。  
+
+当发布的这个库使用客户环境中的依赖时，客户环境中的第三方库可能有如下几种形式：  
+1.root: 通过一个全局变量访问library  
+2.commonjs: 通过commonjs的方式访问
+3.commonjs2: 通过commonjs的方式访问，只不过是通过module.exports.default暴露出来的变量
+4.amd: amd模块定义的模块
+
+应用说明：  
+```
+//lodash使用外部依赖，这样lodash就不会打到发布的库中，这个lodash依赖可以在common、amd中通过lodash访问，在全局变量中通过"_"访问
+externals: {
+  lodash: {
+    commonjs: "lodash",
+    commonjs2: "lodash"
+    amd: "lodash",
+    root: "_"
+  },
+  jquery: "jQuery"
+}
+```
+
+## Shimming
+webpack的编译器能够识别ES2015的语法模块、CommonJS、AMD规范编写的模块。但是一些第三方的库可能会引用一些全局的依赖，有些库也可能需要被导出全局变量。这个就是Shimming发挥作用的地方。  
+
+### Shimming的全局变量
+使用ProvidePlugin能够在通过webpack编译的每个模块中，如果知道某个变量在模块中被使用了，那么就通过变量名称来获取到包，并且引入到最终的bundle中。  
+```
+//webpack.config.js
+const webpack = require("webpack");
+
+plugins: [
+  new webpack.ProvidePlugin({
+    _: "lodash" //意思是如果用到了"_"变量，那么就引入lodash包，供模块使用
+  })
+]
+``` 
+
+可以导出某个模块中的某个变量，结合tree shaking可以有效地去除冗余代码。  
+```
+plugins: [
+  new webpack.ProvidePlugin({
+    join: ["lodash", "join"] //引入lodash.join方法
+  })
+]
+```
+
+### 细粒度的Shimming
+可以设置模块中的this值。  
+```
+//webpack.config.js
+module: {
+  rules: [
+    {
+      test: require.resolve("index.js"),
+      use: "imports-loader?this=>window"
+    }
+  ]
+}
+```
+
+### 全局exports
+某个库创建了一个全局变量，期望用户使用这个变量，可以使用exports-loader将全局变量作为一个普通的模块导出。  
+```
+//webpack.config.js
+module: {
+  rules: [
+    {
+      test: require.resolve("globals.js"),
+      use: 'exports-loader?file,parse=helpers.parse'
+    }
+  ]
+}
+
+//globals.js
+var file = "blah.txt";
+var helpers = {
+  test: function(){},
+  parse: function(){}
+}
+
+//使用
+import {file,parse} from "globals.js";
+```
+
+### 加载polyfills
+略。。。
+
+## TypeScript
+TypeScript具有类型系统，是javascript的超集，并且可以编译成普通的javascript代码。  
+略。。。
+
+## 渐进式网络应用程序
+渐进式网络应用程序(Progressive Web Application-PWA)是一种可以提供类似于原生应用程序(app)体验的网络应用程序(web app)。
+
+通过Service Workers能够实现离线时，应用程序仍然可以运行。  
+
+### 基础设置
+使用http-server来搭建一个简易服务器。  
+```
+npm install http-server --save-dev
+
+//package.json
+scripts: {
+  start： "http-server dist"
+}
+
+//启动
+npm start
+```
+
+### 添加Workbox
+```
+npm install workbox-webpack-plugin --save-dev
+
+//webpack.config.js
+const WorkboxPlugin = require("workbox-webpack-plugin");
+
+plugins: [
+  new WorkboxPlugin({
+    clientsClaim: true,
+    skipWaiting: true
+  })
+]
+```
+
+执行npm run build时，会生成sw.js(Service Worker文件)和workbox-sw.js(sw.js引用的文件)文件。
+
+### 注册Service Worker
+在项目的入口文件中添加如下代码：  
+```
+//index.js
+if("serviceWorker" in navigator){
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register('./sw.js').then(() => {
+      console.log("SW registered");
+    }).catch(() => {
+      console.log("SW registered Failed");
+    })
+  })
+}
+```
+
+> navigator表示客户端(浏览器)的状态和标识，从中可以获取到浏览器的很多信息。 
+
+如果浏览器支持Service Worker，那么项目就可以离线运行了。
+
+## 迁移到新的版本
+略。。。
+
+## 使用环境变量
