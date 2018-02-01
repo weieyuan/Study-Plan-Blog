@@ -446,7 +446,7 @@ plugins: [
 ```
 
 ### 动态导入
-使用ES6中的import语法。  
+使用ES6中的import语法，动态导入的模块会抽取到单独的bundle中。    
 ```
 //webpack.config.js
 output: {
@@ -753,3 +753,123 @@ module.exports = (env) => {
   console.log("Production: ", env.production) //true
 }
 ```
+
+## 构建性能
+### 保持最新的版本
+webpack、nodejs、npm
+
+### Loaders
+将Loaders应用于必要的模块中。  
+```
+module: {
+
+  rules: [
+    {
+      test: /\.js$/,
+      include: path.resolve(__dirname, "src"),
+      use: ["bable-loader"]
+    }
+  ]
+}
+```
+
+### Bootstrap
+尽量减少loader、plugin，每个loader、plugin的启动都是有时间的。
+
+### 解析
+1.尽量减少resolve.modules（设置模块查找路径）、resolve.extensions（设置文件扩展名）、resolve.mainFiles（设置默认查找文件名称）、resolve.descriptionFiles中类目的数量。  
+2.如果不适用symlinks，设置resolve.symlinks:false  
+3.如果使用自定义解析plugins，并且没有指定context信息，可以设置resolve.cacheWithContext: false  
+
+### Dlls
+使用DllPlugin将更改不频繁的代码进行单独编译。  
+
+### 减少编译的文件大小
+1.使用更小/更少的库  
+2.使用CommonsChunksPlugin  
+3.多页面中使用async模式的CommonsChunksPlugin  
+4.移除不使用的代码
+5.只编译正在开发部分的代码  
+
+### worker Pool
+thread-loader
+
+### 持久化缓存
+cache-loader
+
+### 自定义plugins/loaders
+
+### Development环境中性能提升
+1.使用增量编译  
+
+2.在内存中编译  
+	1.webpack-dev-server  
+	2.webpack-hot-middleware  
+	3.webpack-dev-middleware  
+
+3.devtool
+> 使用"eval"具有最好的性能，但是不能转译代码
+> 如果不在意mapping的质量，可以使用"cheap-source-map"来提高性能  
+> 使用"eval-source-map"进行增量编译
+> 大多数情况下，"cheap-moduel-eval-source-map"
+
+4.避免在生产环境中才用到的工具  
+	1. UflifyJsPlugin  
+	2. ExtractTextPlugin  
+	3. [hash]/[chunkhash]  
+	4. AggressiveSplittingPlugin  
+	5. AggressiveMerginPlugin  
+	6. ModuleConcatenationPlugin  
+
+5.最小化入口chunk
+
+### Production环境中性能提升
+1.多编译  
+	1. paraller-webpack  
+	2. cache-loader  
+
+2.source maps，考虑是否需要，因为非常耗性能
+
+### 工具相关问题
+以下工具存在某些可能降低性能的问题：  
+1.babel  
+2.Typescript  
+3.sass  
+
+## 开发-vagrant
+略。。。
+
+## 管理依赖
+略。。。
+
+## 公共路径
+publicPath用于为项目中的所有资源指定一个基础路径。  
+
+### 及时设定路径值
+webpack提供了一个全局变量__webpack_public_path__，可以用于设置publicPath的值。可以在项目的入口中设置这个值。  
+```
+__webpack_public_path__ = "/a/";
+```
+
+官方资料中：如果使用ES6的语法，需要如下使用(但是自己验证好像不行)  
+```
+//index.js
+import "./path.js";
+
+//path.js
+__webpack_public_path__ = "/a/";
+```
+	
+## 集成
+webpack是一个模块打包器，而不是一个任务执行器。任务执行器是用来自动化处理常见的开发任务，例如检查、构建、测试。webpack可以和一些任务运行器配合使用。  
+### npm scripts
+
+### Grunt
+
+### Gulp
+
+### Mocha
+
+### Karma
+
+	
