@@ -186,6 +186,25 @@ plugins: [
 ```
 
 ## OptimizeCSSPlugin
+用于精简CSS文件。  
+
+使用：  
+```
+npm install optimize-css-assets-webpack-plugin --save-dev
+
+const OptimizeCssAssetsWebpackPlugin = require("optimize-css-assets-webpack-plugin");
+new OptimizeCssAssetsWebpackPlugin({
+  
+})
+```
+
+常用配置项：  
+```
+assetNameRegExp: 目标对象，默认值/\.css$/g
+cssProcessor: css处理器，默认使用cssnano
+cssProcessorOptions: 传入cssProcessor的参数，默认为{}
+canPrint: Boolean, 默认值是false，是否打印信息到控制台
+```
 
 ## HashedModuleIdsPlugin
 
