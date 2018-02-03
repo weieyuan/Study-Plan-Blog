@@ -156,6 +156,64 @@ sup：上标；sub：下标
 <hr>
 ```
 
+#### 多媒体和插入
+视频：  
+```
+//controls:用户能够控制视频和音频功能
+//video标签中的内容是备选内容，当浏览器不支持video时会显示
+<video src="xxx.webm" controls>
+	<p>这是备选内容</p> 
+</video>
+
+//浏览器检测source标签中的视频，会播放第一个相匹配的视频
+<video controls>
+	<source serv="xxx.mp4" type="video/mp4">
+    <source serv="xxx.webm" type="video/webm">
+	<p>这是备选内容</p>
+</video>
+```
+
+音频：  
+```
+<audio>
+	<source serv="xxx.mp3" type="audio/mp3">
+    <source serv="xxx.ogg" type="audio/ogg">
+	<p>这是备选内容</p>
+</audio>
+```
+
+显示音轨文件：   
+```
+<video controls>
+	<source serv="xxx.mp4" type="video/mp4">
+    <source serv="xxx.webm" type="video/webm">
+    <track kind="subtitles" src="xxx.vtt" srclang="en"></track>
+	<p>这是备选内容</p>
+</video>
+```
+
+#### 嵌入
+iframe的使用：  
+```
+<iframe src="url" width="100%" height="500" frameborder="0" allowfullscreen sandbox>
+  <p>备选内容</p>
+</iframe>
+allowfullscreen: 可以使用全屏API放置到全屏模式  
+frameborder:如果设置为1（默认值），表示在此框架和其他框架之间绘制边框，设置为0，表示删除边框。
+sandbox：提高安全性设置
+```
+
+使用HTTPS:  
+1.减少了内容在传输过程中被篡改的机会  
+2.防止嵌入内容访问父文档中的内容
+
+使用sandbox来提高安全性。
+
+配置CSP指令：  
+CSP是内容安全策略，它提供一组HTTP标头，用于提高HTML文档的安全性。例如设置X-Frame-Options可以防止网页被嵌入。  
+
+
+
 #### Html元素
 img、map、area:   
 ```

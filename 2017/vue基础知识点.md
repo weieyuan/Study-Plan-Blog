@@ -373,6 +373,7 @@ directives: {
 2.条件展示(v-show)
 3.动态组件
 4.组件根节点
+5.route-view(route-view也是动态组件)
 
 在进入/离开的过渡中，会切换如下6个class:
 1.v-enter
@@ -615,5 +616,15 @@ global bus event
 通过一个Vue对像(bus)来发布和监听事件。  
 监听事件：bus.$on("event", function(){})  
 取消监听事件：bus.$off("event")  
-发布事件：bus.$emit("event")  
+发布事件：bus.$emit("event") 
+
+深入响应式原理：  
+Vue会将data选项中的属性，通过Object.defineProperty全部转换为getter/setter，Vue不能检测到对象属性的添加和删除。  
+Vue不允许在已经创建的实例上动态添加新的根级响应式属性，但是可以使用Vue.set(object,key,vaule)方法将响应式属性添加到嵌套对象上。
+
+异步更新队列：  
+Vue异步执行DOM更新，只要观察到数据变化，Vue将开启一个队列，并缓冲在同一个事件循环中发生的所有数据变化。在下一个的事件循环"tick"中，Vue刷新队列并执行实际工作。为了在数据变化之后等待Vue完成更新DOM，可以在数据变化之后立即调用Vue.nextTick(callback)，这样回调函数会在DOM更新完成之后调用。
+
+
+
 
