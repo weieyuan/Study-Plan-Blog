@@ -1,4 +1,4 @@
-#### 开始HTML
+## 开始HTML
 HTML(HyperText Markup Language)是一种标记语言，用于告诉浏览器如何构造网页。  
 
 元素的组成：
@@ -9,7 +9,7 @@ HTML(HyperText Markup Language)是一种标记语言，用于告诉浏览器如�
 
 空元素，元素只有一个标签，通常用来在此元素所在位置插入/嵌入一些东西，例如<img>  
 
-元素可以用属性  
+元素可以有属性  
 
 布尔属性，没有值的属性，只有属性名称，例如disabled
 
@@ -40,7 +40,7 @@ html的注释：
 <!-- 这是注释 -->
 ```
 
-##### Head标签中的子元素
+## Head标签中的子元素
 meta，元数据就是描述数据的数据  
 ```
 //字符集
@@ -62,7 +62,7 @@ html中使用css和javascript:
 <html lang="en-US">
 ```
 
-#### Html的文字处理基础
+## Html的文字处理基础
 标题元素：  
 尽量不要让层次超过3层。  
 ```
@@ -74,7 +74,7 @@ html中使用css和javascript:
 <h6>
 ``` 
 
-#### 创建超链接
+## 创建超链接
 使用图片链接：  
 ```
 <a href="url">
@@ -93,7 +93,7 @@ html中使用css和javascript:
 <a href="mailto:weieyuan@yeah.net">发送邮件</a>
 ```
  
-#### 高级文本排版
+## 高级文本排版
 描述列表： 
 ```
 dl(description list)，dt(description term)，dd(description description)
@@ -132,7 +132,7 @@ sup：上标；sub：下标
 <time datetime="2016-01-20">20 January 2016</time>
 ```
 
-#### 文档和网站的结构
+## 文档和网站的结构
 理解主要元素的定义：  
 ```
 1.<main> 每个页面中使用一次    
@@ -156,7 +156,7 @@ sup：上标；sub：下标
 <hr>
 ```
 
-#### 多媒体和插入
+## 多媒体和插入
 视频：  
 ```
 //controls:用户能够控制视频和音频功能
@@ -192,7 +192,7 @@ sup：上标；sub：下标
 </video>
 ```
 
-#### 嵌入
+## 嵌入
 iframe的使用：  
 ```
 <iframe src="url" width="100%" height="500" frameborder="0" allowfullscreen sandbox>
@@ -212,9 +212,18 @@ sandbox：提高安全性设置
 配置CSP指令：  
 CSP是内容安全策略，它提供一组HTTP标头，用于提高HTML文档的安全性。例如设置X-Frame-Options可以防止网页被嵌入。  
 
+## 表格(Table)
+`<clo>``<colgroup>`用于定义列的样式。`<colgroup>`标签位于`<table>`标签下面。  
+```
+<table>
+  <colgroup>
+    <col>
+    <col style="background-color: yellow">
+  </colgroup>
+</table>
+```
 
-
-#### Html元素
+## Html元素
 img、map、area:   
 ```
 //usemap:与元素相关联的map的部分URL(以#开头)
