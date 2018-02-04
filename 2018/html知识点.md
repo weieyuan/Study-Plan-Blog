@@ -215,13 +215,23 @@ CSP是内容安全策略，它提供一组HTTP标头，用于提高HTML文档的
 ## 表格(Table)
 `<clo>``<colgroup>`用于定义列的样式。`<colgroup>`标签位于`<table>`标签下面。  
 ```
+//1
 <table>
   <colgroup>
-    <col>
-    <col style="background-color: yellow">
-  </colgroup>
+    <col> //样式将应用于第一列
+    <col style="background-color: yellow">//样式将应用于第二列
+ </colgroup>
+</table>
+
+//2
+<table>
+  <colgroup>
+    <col style="background-color: yellow" span="2">//span定义了样式将应用于多少列上
+ </colgroup>
 </table>
 ```
+
+`<caption>`用于定义表格的标题，位于`<table>`标签下。  
 
 ## Html元素
 img、map、area:   
