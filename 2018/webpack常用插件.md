@@ -57,7 +57,7 @@ new webpack.DefinePlugin({
 ## HotModuleReplacementPlugin
 启用热替换模块(Hot Module Replacement, HMR)。  
 
-用法：
+使用：  
 大多数情况下也不需要设置选项。  
 ```
 new webpack.HotModuleReplacementPlugin()
@@ -65,6 +65,11 @@ new webpack.HotModuleReplacementPlugin()
 
 ## NoEmitOnErrorsPlugin
 在出现编译错误的时候，会跳过输出阶段，不会生成编译的文件，因为编译的文件中包含错误。  
+
+使用：
+```
+new webpack.NoEmitOnErrorsPlugin()
+```
 
 ## HtmlWebpackPlugin
 简化html文件的创建，这个插件会生成一个html文件，并且会将生成的css文件通过`<link>`标签引入到`<head>`标签中，生成的js文件通过`<script>`标签引入到`<body>`标签中。
@@ -90,7 +95,31 @@ minify: {}|false，精简选项
 ```
 
 ## FriendlyErrorsPlugin
+能够识别webpack的编译错误，将这些错误进行清理、聚合和优先级处理，以更加友好的方式展示错误信息。
 
+使用：  
+```
+npm install friendly-errors-webpack-plugin --save-dev
+
+const FriendlyErrorsWebpackPlugin = require("friendly-errors-webpack-plugin");
+plugins: [
+  new FriendlyErrorsWebpackPlugin()
+]
+
+//关闭errors
+//webpack-dev-middleware
+app.use(require("webpack-dev-middleware")(compiler, {
+  quiet: true //关闭记录错误日志
+}));
+//webpack-dev-server
+devServer: {
+  quiet: true
+}
+//webpack-hot-middleware
+app.use(require("webpack-hot-middleware")(compiler, {
+  log: false
+}));
+```
 
 ## UglifyJsPlugin/UglifyjsWebpackPlugin
 用于精简javascript。
@@ -207,8 +236,60 @@ canPrint: Boolean, 默认值是false，是否打印信息到控制台
 ```
 
 ## HashedModuleIdsPlugin
+该插件会根据模块的相对路径生成一个四位数的hash作为模块的id，建议用于生产环境。
+
+使用：  
+```
+new webpack.HashedModuleIdsPlugin({
+  
+})
+```
+
+常用配置：  
+```
+hashFunction: 散列算法，默认为"md5",
+hashDigest: 生成hash时使用的编码方式，默认为"base64",
+hashDigestLength: 散列摘要的前缀长度，默认为4
+```
 
 ## CommonsChunkPlugin
+CommonsChunkPlugin插件，可以将公共的模块提取到单独的文件(chunk)中。
+
+使用：  
+```
+new webpack.optimize.CommonsChunkPlugin({
+  name: 'vendor',
+  minChunks: function (module) {
+    // any required modules inside node_modules are extracted to vendor
+    return (
+      module.resource &&
+      /\.js$/.test(module.resource) &&
+      module.resource.indexOf(
+      path.join(__dirname, '../node_modules')
+     ) === 0
+    )
+  }
+})
+```
+
+常用配置：  
+```
+name： String， 新建的chunk的名称，如果是已经存在的chunk，那么公共代码会被抽取到该chunk中
+names: Array，新建的chunk的名称的集合，相当于对每个chunk都调用该配置
+filename: 新建的chunk的文件名称
+minChunks: Number|Infinity|Function(module,count)，在导入公共chunk时需要满足的条件,Infinity表示立马生成Chunk，但是里面没有模块。
+  module.context: 表示模块的路径(不含文件名称)
+  module.resource: 表示模块的文件名称(包括路径)
+  count: 表示模块被chunk的次数
+chunks: Array，指定从哪些chunk去查找公用的模块，省略时，默认为所有的entry Chunks
+children: Boolean，为true表示指定source chunks为children of commons chunk
+deepChildren: Boolean
+async: Boolean|String
+minSize: Number，在公共chunk创建之前，公共模块的最小大小
+```
+
+Manifest file:  
+为了将webpack bootstrap运行逻辑代码抽取到一个公共的文件中，可以使用CommonsChunkPlugin并且将name设置为非entry中定义的chunk名称，一般使用"manifest"作为这个chunk名称。
 
 ## CopyWebpackPlugin
 用于拷贝文件或者目录到指定的文件或者目录。  
@@ -241,5 +322,51 @@ ignore: 忽略文件(应用于全局)
 ```
 
 ## CompressionWebpackPlugin
+提供压缩后的资源。  
+
+使用：  
+```
+npm install compression-webpack-plugin --save-dev
+
+const CompressionWebpackPlugin = require("compression-webpack-plugin");
+plugins: [
+  new CompressionWebpackPlugin(option)
+]
+```
+
+常用配置项：  
+```
+test: 默认值"."， 目标对象
+asset: 默认值[path].gz[query]，目标资源名称，[file]会被替换成原资源，[path]会被替换成原资源路径，[query]替换成原查询字符串
+filename: Function，默认值false，函数接收原资源名称参数，返回新的资源名称
+algorithm: String|Function，默认值gzip
+threshold: Number, 默认值0，只处理比这个值大的资源
+minRatio: Number，默认值0.8，只有压缩率比这个值小的资源才会被处理
+deleteOriginalAssets: Boolean，默认值false，是否删除原资源
+```
 
 ## BundleAnalyzerPlugin
+可视化展示webpack编译后的输出结果，能够呈现编译后文件的大小和依赖关系。  
+
+使用：  
+```
+npm install webpack-bundle-analyzer --save-dev
+
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+
+plugins: [
+  new BundleAnalyzerPlugin()
+]
+```
+
+说明：执行完webpack编译后，会自动打开127.0.0.1:8888页面。  
+
+常用配置：  
+```
+analyzerMode: server|static|disabled，默认值server，通过http来呈现报告；static，会生成html文件
+analyzerHost: String，默认值127.0.0.1
+analyzerPort: Number，默认值8888
+reportFileName: String，默认值report.html
+openAnalyzer: Boolean，默认值true，是否自动在浏览器中打开报告
+```
+

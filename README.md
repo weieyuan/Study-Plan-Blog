@@ -54,7 +54,8 @@
 [css知识点](./2018/css知识点.md)
 
 #### 前端工程
-[基于webpack的代码分离在vue项目中使用懒加载](./2018/基于webpack的代码分离在vue项目中使用懒加载.md)
+[基于webpack的代码分离在vue项目中使用懒加载](./2018/基于webpack的代码分离在vue项目中使用懒加载.md)  
+[webpack常用插件](./2018/webpack常用插件.md)
 
 #### 练习项目
 [vue + Spring Boot简易博客系统](https://github.com/weieyuan/vue-demo-tucao-weibo)
