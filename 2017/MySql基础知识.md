@@ -328,10 +328,13 @@ RENAME TABLE customer TO customers;
 > 输入mysql -u root
 
 7.修改root用户的密码
-> set password for root@localhost = password("admin");
+> `set password for root@localhost = password("admin");`
 
 8.创建用户
-> create user 'platform_admin'@'localhost' identified by 'weieyuan';
+> `create user 'platform_admin'@'localhost' identified by 'weieyuan';`
 
 9.赋予权限
-> grant all no *.* to 'platfrom_admin'@'localhost';
+> `grant all on *.* to 'platfrom_admin'@'localhost';`  
+> 或者
+> `grant all privileges on *.x to 'platfrom_admin'@'localhost';`
+> `flush privileges`
