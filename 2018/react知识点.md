@@ -1,3 +1,5 @@
+# React入门
+
 ## JSX
 JSX是JavaScript的扩展，在React中用于描述UI界面。
 
@@ -106,7 +108,7 @@ ReactDOM.render(
 )
 ```
 
-**组件的名字的首字母需要大写。 React将首字符消息的元素认为是dom元素，将首字符大写的元素认为是React组件元素**
+**组件的名字的首字母需要大写。 React将首字母小写的元素认为是dom元素，将首字符大写的元素认为是React组件元素**
 
 ### 组件的组合
 组件可以组合使用
@@ -114,7 +116,7 @@ ReactDOM.render(
 ### props是只读的
 所有的组件都不应该修改props属性。
 
-## State和声明周期
+## State和生命周期
 ### State的使用
 ```
 class Clock extends React.Component{
@@ -311,6 +313,8 @@ class Toggle extends React.Component{
 }
 ```
 
+**事件处理中的e参数是React包装之后的事件对象**
+
 **注意事件处理函数中的this**
 
 ### 参数传递
@@ -403,6 +407,175 @@ class Page extends React.Component{
 
 注意，即使render中返回null，组件的生命周期方法还是会被调用。在上述例子中componentWillUpdate和componentDidUpdate都会被调用。
 
+## Lists和keys
+key在一个循环中应该唯一，用于帮助react唯一标识一个item。
+
+使用：  
+```
+//1
+class Test extends React.Component{
+  ...
+  render(){
+    const listItem = this.props.numbers.map((item) => {
+      return <li key={item.id}>{item.name}</li>
+    });
+    return (<ul>{listItem}</ul>);
+  }
+}
+
+//2.
+class Test extends React.Component{
+  ...
+  render(){
+    return (
+      <ul>
+        {this.props.map((item) => {
+		  return <li key={item.id}>{item.name}</li>;
+        })}
+      </ul>);
+  }
+}
+```
+
+## 表单
+一个form表单元素，它的value是React控制的，称为控制组件。
+
+```
+//1.
+class Test extends React.Component{
+
+  handleChange(e){
+     this.setState({
+        value: e.target.value
+      });
+  }
+
+  render(){
+    return (
+      <form>
+        <label>
+          <input type="text" value={this.state.value} onChange={this.handleChange.bind(this)}>
+        </label>
+      </form>
+    );
+  }
+}
+
+//2.
+<textarea value={this.state.value} onChange={this.handleChange.bind(this)}></textarea>
+
+//3.
+<select value={this.state.value} onChange={this.handleChange.bind(this)}>
+  <option value="a">a</option>
+  <option value="b">b</option>
+  <option value="c">c</option>
+</select>
+
+<select multiplie={true} value={["a", "b"]}>
+  <option value="a">a</option>
+  <option value="b">b</option>
+  <option value="c">c</option>
+</select>
+```
+
+当明确指定表单为一个非null或者undefined的值时，表单呈现不可输入状态：  
+```
+<input value="a" />
+```
+
+## state上移到公共的父元素
+如果多个组件需要对相同的事件或者变化作出响应，那么应该将state中的数据上移到它们最近的公共的父元素。
+
+单向数据流从上至下，通过回调从下至上反馈事件或者变化。  
+
+```
+
+class Test extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e){
+    this.props.handleChange(e);
+  }
+
+  render(){
+   return (
+     <input value={this.props.name} onChange={this.hangeChange}>
+   );
+  }
+}
+
+
+//
+
+class Parent extends React.Component{
+
+  ...
+
+  render(){
+   return (
+     <Test name={this.state.name} handleChange={this.handleChange}/>
+   );
+  }
+}
+```
+
+## 组合和继承
+有时候一个组件可能并不清楚自己里面应该包含啥，可以通过两种方式解决：  
+1.通过props.children：    
+```
+function A(props){
+  return (
+    <div>
+      {props.children}
+    </div>
+  );
+}
+
+function B(props){
+  return (
+    <A>
+      <h1>Welcome</h1>
+      <p>dream</p>
+    </A>
+  );
+}
+```
+
+在标签之内的内容都会作为props.children属性传递给组件。  
+2.通过props的普通属性传递：  
+```
+function A(props){
+  return (
+    <A>
+      <div>
+        {props.left}
+      </div>
+      <div>
+        {props.right}
+      </div>
+    </A>
+  );
+}
+
+function B(props){
+  return (
+    <A left={<C />} right={<D />} />
+  );
+}
+```
+
+**注意，props中可以传递基本类型数据，对象类型数据、React Elements或者函数**
+
+**不要用继承，用组合就可以满足所有的场景**
+
+## Thinking in react
+1. 确定组件怎么划分
+2. 确定需要有哪些state，state应该放到哪个组件中
+3. 需要有哪些逆向的事件流
 
 
 
