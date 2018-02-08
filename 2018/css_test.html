@@ -252,5 +252,61 @@
 <!--链接-->
 <a href="#abc">跳转</a>
 
+<!-- transition -->
+<style>
+.div_1{
+  width: 100px;
+  height: 100px;
+  color: red;
+  background-color: blue;
+  font-size: 1em;
+  transition: width 2s, height 4s, color 2s, background-color 2s, ease, 1s;
+}
+.div_1:hover{
+  width: 200px;
+  height: 200px;
+  color: lime;
+  background-color: yellow;
+}
+</style>
+
+<div class="div_1">
+<p>Test</p>
+</div>
+
+<!--animation-->
+<style>
+.div_2{
+  width: 100px;
+  height: 100px;
+  border-radius: 40% 80%;
+  background-color: red;
+  text-align: center;
+  line-height: 100px;
+  animation-duration: 2s;
+  animation-name: test;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear
+}
+@keyframes test{
+  0% {
+    transform: rotate(90deg);
+  }
+  40% {
+    transform: rotate(180deg);
+  }
+  80% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
+
+<div class="div_2">
+xxxx
+</div>
+
 </body>
 </html>

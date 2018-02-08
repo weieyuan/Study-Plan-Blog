@@ -1,18 +1,18 @@
 ## CSS
-#### 什么是CSS
+### 什么是CSS
 CSS(Cascading Style Sheets)是一门指定文档该如何呈现给用户的语言。  
 
-#### 为什么使用CSS
+### 为什么使用CSS
 * 避免重复
 * 更容易维护
 * 为不同的目的，使用不同的样式而内容相同
 
-#### CSS如何工作
+### CSS如何工作
 两个过程：  
 1.浏览器先将标记语言和CSS转换成DOM结构，这时DOM就代表了电脑内存中的相应文档。  
 2.浏览器把DOM的内容展示处理。
 
-#### CSS的语法
+### CSS的语法
 基本语言  
 ```
 p{
@@ -65,13 +65,13 @@ CSS语句：
 }
 ```
 
-#### 创建可读性良好的CSS
+### 创建可读性良好的CSS
 * 使用空白符，例如空格、tab、换行
 * 注释，使用/*  */
 * 选择器组，组内用逗号分隔
 
-#### 选择器
-#####简单选择器：    
+## 选择器
+### 简单选择器：    
 1.标签选择器  
 ```
 p{
@@ -110,13 +110,13 @@ p.key //表示拥有key类的p标签
 input[type='button']
 ```
 
-##### 关系选择器
+### 关系选择器
 * A E //元素A的任一后代元素E  
 * A > E //元素A的直系后代E  
 * B + E //位于元素B后面的相邻兄弟元素E(相邻兄弟选择器，向后选择)  
 * B ~ E //B元素后面的拥有共同父元素的兄弟元素E(通用兄弟选择器，向后选择)  
 
-##### 伪类选择器和伪元素选择器
+### 伪类选择器和伪元素选择器
 CSS伪类是加在选择器后面的用来指定元素状态的关键字。  
 伪类列表：
 
@@ -183,7 +183,7 @@ a:active //激活，表示按下鼠标到松开鼠标这段时间
 * ::selection //样式会应用于被用户选择或者高亮的文本(例如通过鼠标选中)  
 * ::backdrop
 
-#### 层叠和继承
+## 层叠和继承
 浏览器中主要有三种样式来源：  
 1.浏览器的默认样式  
 2.用户定义的样式  
@@ -204,8 +204,8 @@ style标签中的级别高于ID选择器
 2.initial 元素的属性设置为浏览器的默认样式，如果浏览器没有设置默认样式，并且该属性是自然继承的，那么该属性就被设置为inherit  
 3.unset 重置为自然值，如果属性时自然继承的，那么就为inherit，否则就是initial  
 
-#### 文本样式
-##### 字体样式
+## 文本样式
+### 字体样式
 font-family，字体  
 ```
 font-family: "微软雅黑"， "serif";
@@ -232,7 +232,7 @@ font-weight，字体粗细
 font-weight: normal|bold|ligher|bolder|数字;
 ```
 
-##### 文本样式
+### 文本样式
 line-height，行高，指定行与行之间的距离    
 ```
 line-height: 10px|1.5; //1.5表示是字体的1.5倍  
@@ -290,7 +290,7 @@ word-wrap，为了避免溢出，浏览器是否可以在单词之间加换行�
 word-wrap: normal|break-word
 ```
 
-#### 颜色
+## 颜色
 可以如下几种颜色方式：  
 * 名字，例如red,lime
 * 16进制，例如#000，#FFFFFF
@@ -299,7 +299,7 @@ word-wrap: normal|break-word
 文本颜色使用color  
 背景颜色使用background-color，可以通过设置为transparent来呈现父元素的背景色
 
-#### 内容
+## 内容
 文本内容，在选择器的后面加上::before或者::after，在声明中指定content属性并设置文本内容  
 ```
 .ref::before{
@@ -317,7 +317,7 @@ a.glossary::after {
 }
 ```
 
-#### 列表
+## 列表
 无序列表(ul/li)  
 list-style-type  
 <ul>
@@ -382,7 +382,7 @@ value，手动设置项目的编号
 </h3>
 ```
 
-#### 盒模型
+## 盒模型
 浏览器展示元素时，这个元素占用的空间分为4个部分，中间是元素的内容、往外是内边距、往外是边框、往外是外边距。  
 
 **盒模型的几个关键点**  
@@ -462,7 +462,7 @@ background-size: 16px 16px;
 background-attachment: scroll|fixed|local 用于确定当内容滚动的时候，背景是否滚动
 ```
 
-#### 布局
+## 布局
 文档结构
 
 大小单位  
@@ -499,7 +499,7 @@ float使元素脱离正常的文档布局流，并吸附到父容器的左/右�
 所有在浮动元素下面的自身不浮动的元素都将围绕着浮动元素进行包装，可以通过clear属性来避免其它元素受到浮动效果的影响  
 非浮动元素的外边距不能用于它们和浮动元素之间来创建空间，可以在非浮动元素和浮动元素之间加一个空的元素(并且让这个元素清除浮动)来解决。  
 
-#### 表格
+## 表格
 信息显示在一个单元格(cell)中；横向组成行(row)；行可以被分组，例如表头(header)，表体(body)，表尾(footer)
 
 th(table header)一般用于表头中，有些浏览器会自动将th的字体加粗；td(table data)一般用于表体中。
@@ -533,7 +533,7 @@ rowspan: int //表示这个单元格占用几行
 scope: row|col|rowgroup|colgroup|auto //应用在th上表示这个单元格是列还是行的表头
 ```
 
-#### Media
+## Media
 CSS为文档提供了在不同媒介上展示的适配方法。  
 
 常见的媒介类型：
@@ -552,7 +552,7 @@ CSS为文档提供了在不同媒介上展示的适配方法。
 }
 ```
 
-#### 弹性盒子
+## 弹性盒子
 Flex(Flexible Box)，弹性布局，由于为盒模型提供灵活性。  
 
 任何一个容器都可以定义为Flex布局  
@@ -564,11 +564,11 @@ display: flex|inline-flex;//flex表示容器类似于block布局，inline-flex�
 
 [参考学习材料](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
 
-##### 基本概念：  
+### 基本概念：  
 采用Flex布局的元素，称为容器；容器内的子元素自动称为容器的成员，称为Item(项目)  
 容器存在两根轴，水平抽(main axis)和垂直的交叉轴(cross axis)，每个轴都有起始位置，单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size  
 
-##### 容器的属性：  
+### 容器的属性：  
 容器有6个属性，flex-direction、flex-wrap、flex-flow、justify-content、align-items、align-content  
 
 flex-direction，主轴方向(定义了项目的排列方向)  
@@ -626,7 +626,7 @@ space-around:每根轴线两侧的间隔都相等
 stretch: 轴线占满整个交叉轴，默认值
 ```
 
-##### 项目的属性
+### 项目的属性
 项目有6个属性，order、flex-grow、flex-shrink、flex-basis、flex、align-self  
 
 order，定义了项目的顺序，数值越小，排列越靠前，默认为0  
@@ -664,12 +664,205 @@ align-self，用于设置项目的对齐方式，用于覆盖align-items的属�
 align-self: auto|flex-start|flex-end|center|baseline|stretch
 ```
 
-#### 网格布局
+使用示例：  
+```
+<style>
+	.h1_class{
+		font-size: 2;
+		line-height: 2;
+		background-color: purple;
+		text-align: center;
+		font-weight: bold;
+		color: #FFFFFF;
+		text-transform: capitalize;
+		margin: 0;
+	}
+	.flex_class{
+		display: flex;
+		width: 100%;
+		height: 400px;
+		background-color: #ffffff;
+		border: 1px solid purple;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: stretch;
+		padding: 10px;
+		box-sizing: border-box;
+	}
+    .flex_class > div:nth-child(1){
+		background-color: red;
+		flex-grow: 0;
+		flex-shrink: 1;
+		width: 30%;
+	}
+	.flex_class > div:nth-child(2){
+		background-color: blue;
+		flex-grow: 0;
+		flex-shrink: 1;
+		width: 30%;
+	}
+	.flex_class > div:nth-child(3){
+		background-color: lime;
+		flex-grow: 0;
+		flex-shrink: 1;
+		width: 30%;
+	}
+</style>
+<h1 class="h1_class">Title</h1>
+<div class="flex_class">
+	<div>内容1</div>
+	<div>内容2</div>
+	<div>内容3</div>
+</div>
+```
+
+## 网格布局
 自定义实现网格系统  
 
 第三方的网格系统  
 
-#### javascript和css
+## transitions
+CSS transitions提供了一种在更改CSS属性时控制动画速度的方法，可以让属性变化成为一个持续一段时间的过程，而不是立即生效。  
+
+CSS transitions可以决定哪些属性发生动画效果、何时开始(设置delay)、持续多久(duration)、如何动画(定义timing function)。
+
+transition-property:  
+指定哪些CSS属性用于过渡。
+
+transition-duration：  
+指定过渡的时长，可以为所有属性指定一个值，也可以为不同属性指定不同的值。
+
+transition-timing-function:  
+指定一个函数，定义属性值怎么变化。可取值如"ease"、"linear"等。
+
+transition-delay:  
+延迟，属性开始变化与过渡开始发生时之间的时长。
+
+
+transition:  
+简写： <property> <duration> <timing-function> <delay>
+
+可以监听过渡是否完成：  
+```
+el.addEventListener("transitioned", updateTransiton);
+```
+
+使用示例：  
+```
+<style>
+.div_1{
+  width: 100px;
+  height: 100px;
+  color: red;
+  background-color: blue;
+  font-size: 1em;
+  transition: width 2s, height 4s, color 2s, background-color 2s, ease, 1s;
+}
+.div_1:hover{
+  width: 200px;
+  height: 200px;
+  color: lime;
+  background-color: yellow;
+}
+</style>
+
+<div class="div_1">
+<p>Test</p>
+</div>
+```
+
+## animation
+### animation
+CSS animations使得可以将一个CSS样式配置转换到另一个CSS样式配置。  
+动画包含两个部分：  
+1.描述动画的样式规则  
+2.指定动画开始、中间点和结束的关键帧
+
+### animation的子属性
+animation-delay:  
+延时
+
+animation-direction:  
+方向
+
+animation-duration:  
+周期时长
+
+animation-iteration-count:  
+动画重复次数，infinite表示无限次重复
+
+animation-name:  
+关键帧的名称，由@keyframes定义
+
+animation-play-state:  
+允许暂停和恢复动画
+
+animation-timing-function:  
+动画速度
+
+animation-fill-mode:  
+指定动画执行前后如何为目标元素应用样式
+
+### @keyframes
+用于定义动画帧。
+
+规则：  
+1.必须包含对0%(from)和100%(to)帧的定义。  
+2.如果多个关键帧使用同一个名称，以最后一次定义为准。    
+3.只有同时出现在from和to中的属性才会在动画中使用。  
+4.如果一个关键帧中出现了重复定义，以最后一次定义为准。  
+5.关键帧中!important会被忽略。  
+```
+@keyframes test{
+  0% {margin-top: 5px;}
+  10% {margin-top: 10px !important;} //!important会被忽略
+  100% {margin-topo: 20px;}
+}
+```
+
+使用示例：  
+```
+<style>
+.div_2{
+  width: 100px;
+  height: 100px;
+  border-radius: 40% 80%;
+  background-color: red;
+  text-align: center;
+  line-height: 100px;
+  animation-duration: 2s;
+  animation-name: test;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear
+}
+@keyframes test{
+  0% {
+    transform: rotate(90deg);
+  }
+  40% {
+    transform: rotate(180deg);
+  }
+  80% {
+    transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
+
+<div class="div_2">
+xxxx
+</div>
+```
+
+## transform属性
+transform属性只对block元素生效。  
+
+transform属性允许修改CSS视觉格式模型的坐标控件，例如转换(translate)、旋转(rotate)、缩放(scale)、倾斜(skew)。  
+
+## javascript和css
 可以使用javascript来控制元素的样式，使用示例：  
 ```
 var element = ...;
