@@ -413,7 +413,8 @@ plugins: [
 npm install bootstrap --save-dev
 ```
 
-2.引入样式文件和核心的js文件  
+2.引入样式文件和核心的js文件
+实际安装中使用的是`^3.3.7`的版本，如果使用`^4.0`的版本引入bootstrap.js时会缺少依赖  
 
 ```
 //在入口的main.js文件中引入

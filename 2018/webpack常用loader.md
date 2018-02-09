@@ -1,2 +1,126 @@
+## file-loader
+将对象作为一个文件引入，并且返回文件的public路径。  
+
+使用：  
+```
+npm install file-loader --save-dev
+
+rules: [
+  {
+    test: /\.(png|jpg|gif)$/,
+    use: [
+      loader: "file-loader",
+      options: {}
+    ]
+  }
+]
+```
+
+常用配置项：  
+```
+1.name: String|Function，默认值[hash].[ext]，文件名模板
+可以使用的占位符：
+[ext]: 资源的扩展名
+[name]: 资源的基本名称
+[path]: 资源相对于context的路径
+[hash]: 内容的hash值
+2.publicPath: String|Function，默认值__webpack_public_path__，设置public路径
+3.outputPath: String|Function，默认值undefined，自定义output路径
+4.useRelativePath: Boolean，默认值false，是否使用相对路径
+5.emitFile: Boolean，默认值true，是否生成文件
+```
+
+## url-loader
+可以将文件已Data URL(Base64编码)格式引入。
+
+使用：  
+```
+npm install url-loader --save-dev
+
+rules: [
+  {
+     test: /\.(png|jpg|gif)$/,
+     use: [
+       {
+         loader: "url-loader",
+         options: {}
+       }
+     ]
+  }
+]
+```  
+
+常用配置项：  
+```
+1.limit: Number， 默认undefined，设置文件阈值，小于该阈值会使用Data URL
+2.mimeType: String，默认值extname，指明文件类型
+3.fallback: String，默认值file-loader
+```
+
+## babel-loader
+
+
+## style-loader
+
+## css-loader
+
+## less-loader
+
+## postcss-loader
+
+
+
 ## vue-loader
+### Vue组件
+`.vue`文件包含三种类型的顶级语言块`<template>``<script>``<style>`，允许添加自定义块。  
+vue-loader会提取每个语言块，如有必要会通过其他loader进行处理，最后将它们组装成一个CommonJS模块，module.exports会导出一个vue的组件对象。  
+
+`<template>`语言块最多能包含一个。  
+`<script>`语言块最多能包含一个。  
+`<style>`语言块可以包含多个。可以有scoped或者module属性。
+
+`<style>`标签上的module属性，会将Css作为一个模块使用，生成的css对象会为组件注入一个`$style`的计算属性：    
+```
+<style module>
+.red{
+  color: red;
+}
+</style>
+
+<template>
+  <p :class="$style.red"> xxx </p>
+</template>
+
+<script>
+  //在script标签中也可以访问$style变量
+</script>
+
+//可以指定注入的名称
+<style module="a">
+.red{
+  color: red;
+}
+</style>
+
+```
+
+### 通过src引入外部文件
+```
+<template src="./template.html"></template>
+<script src="./script.js"></script>
+<style src="./style.css"></style>
+```
+
+### CSS
+可以设置CSS为局部作用域：  
+```
+<style scoped></style>
+```
+
+混用本地和全局的样式：  
+```
+<style scoped></style>
+<style></style>
+```
+
 
