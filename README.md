@@ -56,6 +56,9 @@
 #### html
 [html知识点](./2018/html知识点.md)
 
+#### javascript
+[requirejs的使用](./2018/requirejs的使用.md)  
+
 #### React
 [react知识点](./2018/react知识点.md)  
 [vue和react的对比](./2018/vue和react的对比.md)

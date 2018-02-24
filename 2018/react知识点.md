@@ -3,7 +3,7 @@
 ## JSX
 JSX是JavaScript的扩展，在React中用于描述UI界面。
 
-###JSX中可以嵌入JavaScript表达式
+### JSX中可以嵌入JavaScript表达式
 使用的语法：将JavaScript放到{}中。
 
 示例：  
@@ -77,7 +77,7 @@ ReactDOM.render(
 ### 更新React Element
 React Element是不可变的，一旦这个元素被创建了，那么它的属性和children都是不可变的。
 
-React只是更新变化的元素，React DOM会比元素和这个元素之前的状态进行对比，只会更新变化的点。
+React只是更新变化的元素，React DOM会将元素和这个元素之前的状态进行对比，只会更新变化的点。
 
 ## 组件和Props
 ### 函数形式组件和Class形式组件
@@ -361,7 +361,7 @@ class LoginControl extends React.Component{
     }
     return (
       <div>
-        {button}
+        {element}
       </div>
     )
   }
@@ -489,7 +489,6 @@ class Test extends React.Component{
 单向数据流从上至下，通过回调从下至上反馈事件或者变化。  
 
 ```
-
 class Test extends React.Component{
 
   constructor(props){

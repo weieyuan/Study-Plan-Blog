@@ -58,17 +58,92 @@ rules: [
 ```
 
 ## babel-loader
+加载ES2015+代码，然后使用Babel转译为ES5。  
 
+使用：  
+```
+npm install babel-loader babel-core babel-preset-env --save-dev
+
+//webpack.config.js
+rules: [
+  {
+    test: /\.js$/,
+    use: [
+      {
+        loader: "babel-loader",
+        options: {
+          presets: ['env']
+        }
+      }
+    ]
+  }
+]
+```
 
 ## style-loader
+通过`<style>`标签引入样式。
+
+使用：  
+```
+npm install style-loader --save-dev
+```
 
 ## css-loader
+解析css文件后，使用import加载，并且返回css代码。
+
+使用：  
+```
+npm install css-loader --save-dev
+
+//webpack.config.js
+module: {
+  rules: [
+    {
+      test: /\.css$/,
+      use: ["style-loader", "css-loader"]
+    }
+  ]
+}
+```
+
+常用配置项：  
+```
+1.root String，默认值"/"，解析url的路径，以"/"开头的url不会被转译
+2.url Boolean，默认值true，启用/禁用url处理
+3.import Boolean，默认值true，启用/禁用@import处理
+4.minimize Boolean，默认值false，启用/禁用压缩
+5.sourceMap Boolean，默认值false，启用/禁用Sourcemap 
+```
 
 ## less-loader
+加载和转译less文件，将less文件转译为css。
+
+使用：  
+```
+npm install less-loader less --save-dev
+
+//webpack.config.js
+module: {
+  rules: [
+    {
+      test: /\.less$/,
+      use: [
+        {
+          loader: "style-loader"
+        },
+        {
+          loader: "css-loader"
+        },
+        {
+          loader: "less-loader"
+        }
+      ]
+    }
+  ]
+}
+```
 
 ## postcss-loader
-
-
 
 ## vue-loader
 ### Vue组件
@@ -93,6 +168,7 @@ vue-loader会提取每个语言块，如有必要会通过其他loader进行处�
 
 <script>
   //在script标签中也可以访问$style变量
+  this.$style.red
 </script>
 
 //可以指定注入的名称

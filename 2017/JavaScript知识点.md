@@ -1,4 +1,4 @@
-##### 正则表达式的陷阱
+## 正则表达式的陷阱
 看下面的例子：
 
 ```
@@ -9,13 +9,12 @@ if(regExp.test(str)){
 }
 ```
 
-当设置了全局匹配的模式后，我们可以对同一个字符串进行多次匹配，找到所有的匹配项。每调用一次test或者exec的方法，如果找到了匹配项，那么就会把lastIndex指向匹配项
-的下一个字符的索引，如果没有匹配到会将lastIndex设置为0，lastIndex会作为下一次匹配的起始索引。
-如果没有设置为全局匹配模式，每次调用匹配方法时，lastIndex均为0
-String.prototype.search()，类似于test方法，返回匹配项的索引，该方法会忽略全局设置项
-String.prototype.match()，类似于exec方法，找到匹配项，该方法会忽略全局设置项
+当设置了全局匹配的模式后，我们可以对同一个字符串进行多次匹配，找到所有的匹配项。每调用一次test或者exec的方法，如果找到了匹配项，那么就会把lastIndex指向匹配项的下一个字符的索引，如果没有匹配到会将lastIndex设置为0，lastIndex会作为下一次匹配的起始索引。  
+如果没有设置为全局匹配模式，每次调用匹配方法时，lastIndex均为0。  
+String.prototype.search()，类似于test方法，返回匹配项的索引，该方法会忽略全局设置项。  
+String.prototype.match()，类似于exec方法，找到匹配项，该方法会忽略全局设置项。
 
-#### Element
+## Element
 常用的选择器：
 
 ```
@@ -39,11 +38,11 @@ selectionStart//返回选中文本的开始索引，如果没有选中文本，�
 selectionEnd//返回选中文本的结束索引，如果没有选中文本，那么返回光标后字符的索引
 ```
 
-#### css样式
+## css样式
 **margin的陷阱**  
-所有毗邻的两个或更多盒元素的margin将会合并为一个margin共享之，毗邻的定义为：同级或者嵌套的盒元素，并且它们之间没有非空的内容、padding或者border分隔
+当两个box元素相邻时，它们之间的距离是这两个box中margin值最大的那个距离，而不是两者相加。  
 
-**z-index**  
+**z-index**
 z-index只对定位元素有效，也就是对设置了position属性的元素有效
 
 **nth-child用法**  
@@ -70,16 +69,16 @@ p:nth-child(2) {
 clientX/clientY: 鼠标相对于浏览器可视区域的x,y坐标  
 pageX/pageY: 类似于clientX/clientY，但是使用文档坐标而不是窗口坐标  
 screenX/screenY: 鼠标相对于用户显示器左上角的x,y坐标  
-offsetX/offsetY：鼠标相对于最近的relative、absolute元素的x,y坐标
+offsetX/offsetY：鼠标事件对象与目标节点内填充边在X轴方向上的偏移量
 
-#### canvas导出图片
+## canvas导出图片
 canvas提供了toDataURL的api，可以将cavans绘制的内容导出为base64。如果导出的是png，那么背景色是透明的(transparent)，如果导出是jpeg，那么背景色是黑色的。
 
-#### es6
-##### 箭头函数  
+## es6
+### 箭头函数  
 箭头函数中的this，是在箭头函数执行时，在作用域链中一层一层往上找到最近的this，箭头函数自己是没有this的值
 
-##### import/export语法  
+### import/export语法  
 ```
 //export
 //1
@@ -121,7 +120,7 @@ export default {area, circumference}
 
 import XXXX from "./circle"
 ```
-##### import()函数
+### import()函数
 import()函数用于动态加载模块，该函数返回一个Promise对象。  
 适用的场景：  
 1.按需加载  
@@ -150,11 +149,11 @@ var path = "xxxxx/xxx/js";
 import(path).then();
 ```
 
-#### nodejs  
+## nodejs  
 1.process是nodejs中的一个全局变量，它提供了当前运行的nodejs进程的信息
 2.process.env返回包含用户环境变量的一个对象
 
-##### module.exports/exports
+### module.exports/exports
 1.module.exports初始化值为一个空对象{}  
 2.exports是指向module.exports的初始引用  
 ```
@@ -162,7 +161,7 @@ module.exports = {}//这个时候module.exports和exports已经不是引用同�
 ```
 3.require()返回的是module.exports  
 
-#### Promise的使用  
+## Promise的使用  
 Promise可以将异步操作以同步的方式表达出来。
 Promise的两种应用方式:
 
@@ -213,7 +212,7 @@ p.then(function(res){
 });
 ```
 
-#### mvc/mvp/mvvm  
+## mvc/mvp/mvvm  
 * mvc 
 标准的mvc的实现中v是可以直接从model中读取数据
 
@@ -223,7 +222,7 @@ v和m之间不能直接通信，都是通过p来传递
 * mvvm
 vm通过数据绑定，view的变动反应到vm上，vm中数据的变化也会反应到view上
 
-#### amd/cmd的区别  
+## amd/cmd的区别  
 AMD(asynchronous module definition)，异步加载模块，先定义依赖，依赖加载完成后再执行回调函数，代表是require.js
 ```
 require([module], callback);
@@ -236,7 +235,7 @@ define(function(require, exports, module){
 });
 ```
 
-#### UNPKG
+## UNPKG
 unpkg是一个快速的、全球的用于服务npm上所有包的内容分发网络。  
 使用方式：  
 ```
