@@ -34,12 +34,12 @@ vue init 模板的路径 myProject
 
 ![项目结构](./image/vue-cli-prj.png)
 
-build目录放置的是wepack的配置文件以及在package.json中配置的npm命令所调用的脚本(build命令、dev命令等)。  
-config目录放置的是配置文件，主要包括生产环境和开发环境中的各种webpack配置文件中的配置项。  
-node_modules是依赖包的安装目录。  
-src是源码目录。  
-static用于放置静态资源，包括图片、js文件、css文件等。  
-test用于放置测试代码。  
+* build: 放置的是wepack的配置文件以及在package.json中配置的npm命令所调用的脚本(build命令、dev命令等)。  
+* config: 放置的是配置文件，主要包括生产环境和开发环境中的各种webpack配置文件中的配置项。  
+* node_modules: 是依赖包的安装目录。  
+* src: 是源码目录。  
+* static: 用于放置静态资源，包括图片、js文件、css文件等。  
+* test: 用于放置测试代码。  
 
 2.常用的npm命令  
 1）npm run dev  
