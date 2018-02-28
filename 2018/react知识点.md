@@ -476,6 +476,9 @@ class Test extends React.Component{
   <option value="b">b</option>
   <option value="c">c</option>
 </select>
+
+//4.checkbox
+<input type="checkbox" checked={this.state.isGoing} onChange={this.handleInputChange} />
 ```
 
 当明确指定表单为一个非null或者undefined的值时，表单呈现不可输入状态：  

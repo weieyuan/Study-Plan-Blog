@@ -154,6 +154,27 @@ vue-loader会提取每个语言块，如有必要会通过其他loader进行处�
 `<script>`语言块最多能包含一个。  
 `<style>`语言块可以包含多个。可以有scoped或者module属性。
 
+
+### 通过src引入外部文件
+```
+<template src="./template.html"></template>
+<script src="./script.js"></script>
+<style src="./style.css"></style>
+```
+
+### CSS作用域
+可以设置CSS为局部作用域：  
+```
+<style scoped></style>
+```
+
+混用本地和全局的样式：  
+```
+<style scoped></style>
+<style></style>
+```
+
+### CSS Modules
 `<style>`标签上的module属性，会将Css作为一个模块使用，生成的css对象会为组件注入一个`$style`的计算属性：    
 ```
 <style module>
@@ -177,26 +198,16 @@ vue-loader会提取每个语言块，如有必要会通过其他loader进行处�
   color: red;
 }
 </style>
-
 ```
 
-### 通过src引入外部文件
-```
-<template src="./template.html"></template>
-<script src="./script.js"></script>
-<style src="./style.css"></style>
-```
+### PostCSS
 
-### CSS
-可以设置CSS为局部作用域：  
-```
-<style scoped></style>
-```
+### 热重载
+状态保留规则：  
+1. 编辑`template`时，这个组件实例将就地重新渲染，并保留当前所有的私有状态。
+2. 编辑`script`时，这个组件实例就地销毁并重新创建。
+3. `style`会通过`vue-style-loader`自行热重载，所以它不会影响应用的状态。
 
-混用本地和全局的样式：  
-```
-<style scoped></style>
-<style></style>
-```
+
 
 

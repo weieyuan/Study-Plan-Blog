@@ -308,6 +308,151 @@ class ErrorBoundary extends React.Component{
 ```
 如果一个error boundary没有成功渲染错误信息，那么错误就会向上冒泡到上一个error boundary。  
 
+## Higher-Order Component
+Higher-Order Component(HOC)是一个函数，这个函数接收一个组件作为参数，返回一个新的组件，作用是可以重用组件的逻辑。
+
+使用示例：  
+```
+function hoc(SrcComponent, oConfig) {
+    return class extends Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                data: oConfig.name
+            };
+            this.handleClick = this.handleClick.bind(this);
+        }
+
+        handleClick(e, name) {
+            console.log(this);
+            console.log(name);
+        }
+
+        componentDidMount() {
+            console.log("DidMount");
+        }
+
+        componentWillUnmount() {
+            console.log("WillUnmount");
+        }
+
+        render() {
+            return (
+                <SrcComponent {...this.props} data={this.state.data} handleClick={this.handleClick}/>
+            );
+        }
+    }
+}
+
+class C1 extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div>
+                {this.props.data}
+                <button onClick={(e) => this.props.handleClick(e, this.props.data)}>C1 click</button>
+            </div>
+        );
+    }
+}
+
+class C2 extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div>
+                {this.props.data}
+                <button onClick={(e) => this.props.handleClick(e, this.props.data)}>C2 click</button>
+            </div>
+        );
+    }
+}
+
+class Test extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        let C1Wrapper = hoc(C1, {name: "C1"});
+        let C2Wrapper = hoc(C2, {name: "C2"});
+        return (
+            <div>Test
+                <C1Wrapper/>
+                <C2Wrapper/>
+            </div>
+        );
+    }
+}
+```
+
+不要在render函数中使用hoc，因为会影响render的diff算法对组件的识别，从而导致性能问题。
+
+## Render props
+Render Props是指组件的props中的某个属性是一个函数，这个函数返回需要渲染的对象。
+
+使用示例：  
+```
+class Mouse extends Component {
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+        this.state = {
+            x: 0,
+            y: 0
+        };
+    }
+
+    handleClick(oEvent) {
+        this.setState({
+            x: oEvent.clientX,
+            y: oEvent.clientY
+        });
+    }
+
+    render() {
+        return (
+            <div onClick={this.handleClick}>
+                {this.props.render(this.state)}
+            </div>
+        );
+    }
+}
+
+class Test extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        let C1Wrapper = hoc(C1, {name: "C1"});
+        let C2Wrapper = hoc(C2, {name: "C2"});
+        let oFun = function(state){
+            return (
+                <p>x: {state.x}, y: {state.y}</p>
+            );
+        };
+        return (
+            <div>Test
+                <C1Wrapper/>
+                <C2Wrapper/>
+                <Mouse render={oFun} />
+            </div>
+        );
+    }
+}
+
+```
+
+## Integrating with other Libraries
+
+
 
 
 ## React.Component
@@ -316,18 +461,18 @@ React.Component是一个抽象的基类，必须继承后使用，至少实现re
 ### 组件的生命周期
 **Mounting**
 
-* constructor()
+* constructor(props)
 * componentWillMount()
 * render()
 * componentDidMount()
 
 **Updating**  
 
-* componentWillReceiveProps()
-* shouldComponentUpdate()
-* componentWillUpdate()
+* componentWillReceiveProps(nextProps)
+* shouldComponentUpdate(nextProps, nextState)
+* componentWillUpdate(nextProps, nextState)
 * render()
-* componentDidUpdate()
+* componentDidUpdate(prevProps, prevState)
 
 **Unmounting**
 
@@ -335,7 +480,7 @@ React.Component是一个抽象的基类，必须继承后使用，至少实现re
 
 **ErrorHanding**
 
-* componentDidCatch()
+* componentDidCatch(error, info)
 
 ### Other APIs
 * setState()

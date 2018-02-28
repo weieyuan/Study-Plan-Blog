@@ -203,7 +203,7 @@ const config = require("./webpack.config.js");
 const compiler = webpack(config);
 
 app.use(webpackDevMiddleware(compiler, {
-  puglicPath: config.output.publicPath
+  publicPath: config.output.publicPath
 }));
 
 app.listen(3000, function(){
@@ -267,13 +267,13 @@ plugins: [
 ]
 ```
 
-在某些场景下，Tree-Shaking可能会失效，常见的情况有：  
-1.从第三方模块调用一个函数，webpack/minifier无法检查此模块。
-2.从第三方模块导入的函数被重新导出。
+在某些场景下，Tree-Shaking可能会失效，常见的情况有：    
+1.从第三方模块调用一个函数，webpack/minifier无法检查此模块。  
+2.从第三方模块导入的函数被重新导出。  
 
-为了使用Tree-Shaking，你必须：
-1.使用ES2015的语法(import/export)  
-2.使用三方插件，例如UglifyJsPlugin
+为了使用Tree-Shaking，你必须：  
+1.使用ES2015的语法(import/export)    
+2.使用三方插件，例如UglifyJsPlugin  
 
 ## 生产环境构建
 ### 配置拆分
@@ -564,7 +564,7 @@ webpackNumbers.numToWord(1);
 ```
 
 ### 基础配置
-webpack.congif.js中定义基础的配置，定义入口文件，以及编译后生成的文件。  
+webpack.config.js中定义基础的配置，定义入口文件，以及编译后生成的文件。  
 ```
 //webpack.config.js
 
@@ -595,10 +595,10 @@ output: {
 webpack.config.js的配置文件中的externals属性提供了扩展外部依赖的功能。作用是，所发布的这个库可能依赖一些第三方的库，如果将这些第三方的库打到自己的库中，会导致库变得很大，因此希望发布的这个库中不包含第三方的库，而依赖于用户环境中的第三方库。  
 
 当发布的这个库使用客户环境中的依赖时，客户环境中的第三方库可能有如下几种形式：  
-1.root: 通过一个全局变量访问library  
-2.commonjs: 通过commonjs的方式访问
-3.commonjs2: 通过commonjs的方式访问，只不过是通过module.exports.default暴露出来的变量
-4.amd: amd模块定义的模块
+1.root: 通过一个全局变量访问library。    
+2.commonjs: 通过commonjs的方式访问。   
+3.commonjs2: 通过commonjs的方式访问，只不过是通过module.exports.default暴露出来的变量。  
+4.amd: amd模块定义的模块。  
 
 应用说明：  
 ```

@@ -16,3 +16,51 @@ class Point{
 }
 ```
 
+## ES6和Commonjs
+由于ES6还未被广泛支持，因此一般将ES6转换为ES5的语法，例如使用`Babel`来转换。  
+
+export语法的转换：  
+```
+//es6
+export function sth(){};
+export default function sthEx(){};
+
+//转换为es5的语法
+'use strict'
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.sth = sth;
+exports.default = sthEx;
+
+function sth(){};
+function sthEx(){};
+
+```
+
+import语法转换：  
+```
+//es6
+import sthEx, {sth} from "./a.js"
+
+//转换为es5
+"use strict"
+
+var _a = require(./a);
+var _a2 = _interopRequireDefault(_a);
+
+function _interopRequireDefault(obj){return obj && obj._esModule ? obj : {default: obj}};
+
+```
+
+如果直接在commonjs中引入es6的模块：  
+```
+//commonjs
+var sthEx = require("./a.js").default;
+
+```
+
+
+

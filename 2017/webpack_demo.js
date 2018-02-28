@@ -53,7 +53,7 @@ const config = {
 		new htmlWebpackPlugin({ //用于配置html模板信息
 			template: "./index.html", //模板html文件的名称
 			filename: 'home.html', //生成的目标html文件的名称
-			inject: 'body' //引入的js、css文件插入到body标签中
+			inject: 'body' //引入的js文件插入到body标签中
 		}),
 		new cleanWebpackPlugin(['dist']) //文件清理插件，打包的时候会先清理掉dist目录中文件
 	]

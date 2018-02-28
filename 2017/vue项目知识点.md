@@ -96,6 +96,9 @@ import NBButton from "n-b-button"
 //声明使用
 Vue.use(VueRouter);
 //在根组件中注册router属性
+let router = new Router({
+
+});
 const app = new Vue({
 	router
 });
@@ -163,12 +166,16 @@ const router = new VueRouter({
 全局钩子
 
 ```
-router.beforeEach(function(to, from, next){
+router.beforeEach(function(to, from, next){ //to：即将要进入的目标路由；from: 当前导航正要离开的路由；next: Function，一定要调用该方法来resolve这个钩子。
 	next()//放行
 	next(false)//不放行，中断当前导航，url地址重置到from路由的地址
 	next({path: '/login'})//跳转到login的路由
 });
 
+//后置钩子
+router.afterEach(function(to, from){
+
+});
 ```
 
 路由独享钩子
@@ -195,11 +202,14 @@ const Foo = {
 	beforeRouteEnter: function(to, from, next){
 		//不能访问this
 	},
+    //当前路由改变，但是该组件被复用时调用
+    //例如，对于动态路由/foo/:id，在/foo/1和/foo/2之间跳转的时候
+    //由于会渲染同样的Foo组件，因此组件实例会被复用，这个钩子就会被调用
 	beforeRouteUpdate: function(to, from, next){
 
 	},
 	beforeRouteLeave: function(to, from, next){
-	
+		//可以访问this
 	}
 }
 ```
@@ -211,6 +221,9 @@ const Foo = {
 //声明使用
 Vue.use(Vuex)
 //在根组件中注册store属性，store实例会注入到根组件下的所有子组件中，在子组件中可以通过this.$store访问到。
+let store = new Vuex.Store({
+
+});
 const app = new Vue({
   ...
   store
@@ -308,6 +321,11 @@ computed: {
 	}
   })
 }
+
+//当计算属性和state中的属性一致时，也可以写成如下：
+computed: mapState([
+  "count"
+])
 ```
 
 mapGetters辅助函数  
@@ -323,7 +341,7 @@ computed: {
 //属性映射
 computed: {
   ...mapGetters({
-    clientId: "clientId"
+    clientIdEx: "clientId"//将this.clientIdEx映射为store.getters.clientId
   })
 }
 ```
@@ -357,8 +375,8 @@ methods: {
 ```
 
 6.模块划分  
-每个模块中可以定义state，mutations，getters，actions  
-默认情况下，模块内部的action,mutations，getters是定义在全局命名空间的，这样使得多个模块能够对同一个mutation或者action作出响应  
+每个模块中可以定义state，mutations，getters，actions。    
+默认情况下，模块内部的mutations，action，getters是定义在全局命名空间的，这样使得多个模块能够对同一个mutation或者action作出响应。    
 
 ```
 const modeulA = {
