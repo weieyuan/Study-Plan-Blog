@@ -1,11 +1,11 @@
-#### express使用
+# express使用
 
-**安装**  
+## 安装 
 ```
 npm install express -save-dev
 ```
 
-**基本用法**  
+## 基本用法
 ```
 const express = require("express");
 const app = express();
@@ -17,7 +17,7 @@ app.post("/index", functioin(req, res){});
 app.listen(3000, function(){});
 ```
 
-**路由**  
+## 路由
 指的是请求分发，哪个请求由哪个endpoint响应, 每个路由可以有多个处理函数  
 ```
 app.get("/", function(req, res){}, function(req. res){});
@@ -25,14 +25,14 @@ app.get("/", function(req, res){}, function(req. res){});
 app.post("/index", functioin(req, res){});
 ```
 
-**支持JSON格式的参数交互**  
+## 支持JSON格式的参数交互
 ```
 var bodyParser = require("body-parser");
 
 app.use(bodyParser.json()); //for parsing application/json
 ```
 
-**静态文件**  
+## 静态文件
 例如css,image,js文件等，express内置了static的中间件来服务静态文件  
 ```
 app.use(express.static("./public")); //所有的静态文件都在public目录下寻找
@@ -41,14 +41,16 @@ app.use(express.static("./public")); //所有的静态文件都在public目录�
 app.use("/static", express.static("./public"));
 ```
 
-**中间件(middleware)**  
+## 中间件(middleware)
 中间件指的是函数，这些函数可以获取到req，res，next(表示下一个中间件函数)对象。  
+
 中间件的功能：  
 * 执行代码
 * 修改req/res
 * 结束请求处理的流程
 * 调用下一个中间件函数(next())  
-可以通过app.use(),app.METHOD(),app.all()来绑定中间件  
+
+可以通过app.use(),app.METHOD(),app.all()来绑定中间件  
 ```
 //示例1
 app.use("/user/:id", function(req, res, next){
@@ -78,11 +80,12 @@ app.use(function(err, req, res, next){
 ```
 
 内置中间件：  
+
 * express.static
 * express.json
 * express.urlencoded
 
-**关键api**  
+## 关键api 
 1.app:  
 app.use([path], callback, [callback]) //挂载中间件函数到指定的路径；path可以指字符串，正则表达式，或者以上数组的组合；callback可以是函数，一系列函数，或者以上数组的组合
 
