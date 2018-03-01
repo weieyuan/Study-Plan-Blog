@@ -310,7 +310,7 @@ const common = require("./webpack.common.js");
 const webpack = require("webpack");
 
 module.exports = merge(common, {
-  devtool: 'inline-source-map',
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: "./dist",
     hot: true
@@ -327,7 +327,7 @@ const webpack = require("webpack");
 
 module.exports = merge(common, {
   plugins: [
-    new webpack.optimeze.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin()
   ]
 });
 
@@ -379,7 +379,7 @@ if(process.env.NODE_ENV="production"){
 
 ### 分离CSS
 前面使用style-loader，css-loader加载的样式会以嵌入式的`<style>`标签的形式嵌入到html文件中。  
-可以使用ExtracTextWebpackPlugin将样式提取到单独的文件中，然后以外联的方式引入到html文件中。  
+可以使用ExtractTextWebpackPlugin将样式提取到单独的文件中，然后以外联的方式引入到html文件中。  
 ```
 npm install extract-text-webpack-plugin --save-dev
 
@@ -778,18 +778,18 @@ module: {
 
 ### 解析
 1.尽量减少resolve.modules（设置模块查找路径）、resolve.extensions（设置文件扩展名）、resolve.mainFiles（设置默认查找文件名称）、resolve.descriptionFiles中类目的数量。  
-2.如果不适用symlinks，设置resolve.symlinks:false  
+2.如果不使用symlinks，设置resolve.symlinks:false  
 3.如果使用自定义解析plugins，并且没有指定context信息，可以设置resolve.cacheWithContext: false  
 
 ### Dlls
 使用DllPlugin将更改不频繁的代码进行单独编译。  
 
 ### 减少编译的文件大小
-1.使用更小/更少的库  
-2.使用CommonsChunksPlugin  
-3.多页面中使用async模式的CommonsChunksPlugin  
-4.移除不使用的代码
-5.只编译正在开发部分的代码  
+1.使用更小/更少的库。    
+2.使用CommonsChunksPlugin。    
+3.多页面中使用async模式的CommonsChunksPlugin。    
+4.移除不使用的代码。  
+5.只编译正在开发部分的代码。    
 
 ### worker Pool
 thread-loader
@@ -800,26 +800,26 @@ cache-loader
 ### 自定义plugins/loaders
 
 ### Development环境中性能提升
-1.使用增量编译  
+* 使用增量编译  
 
-2.在内存中编译  
-	1.webpack-dev-server  
-	2.webpack-hot-middleware  
-	3.webpack-dev-middleware  
+* 在内存中编译  
+	* webpack-dev-server  
+	* webpack-hot-middleware  
+	* webpack-dev-middleware  
 
-3.devtool
+* devtool
 > 使用"eval"具有最好的性能，但是不能转译代码
 > 如果不在意mapping的质量，可以使用"cheap-source-map"来提高性能  
 > 使用"eval-source-map"进行增量编译
 > 大多数情况下，"cheap-moduel-eval-source-map"
 
-4.避免在生产环境中才用到的工具  
-	1. UflifyJsPlugin  
-	2. ExtractTextPlugin  
-	3. [hash]/[chunkhash]  
-	4. AggressiveSplittingPlugin  
-	5. AggressiveMerginPlugin  
-	6. ModuleConcatenationPlugin  
+* 避免在生产环境中才用到的工具  
+	* UflifyJsPlugin  
+	* ExtractTextPlugin  
+	* [hash]/[chunkhash]  
+	* AggressiveSplittingPlugin  
+	* AggressiveMerginPlugin  
+	* ModuleConcatenationPlugin  
 
 5.最小化入口chunk
 
