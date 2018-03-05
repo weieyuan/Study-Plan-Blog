@@ -34,14 +34,119 @@ ___
 用来确保某些活动直到其他活动完成之后才可以执行，适用的场景例如必须把饭端到桌上，把菜端到桌上，我才能开始吃饭  
 
 ```
-//countdownlatch的例子
+//关键api
+countDown(): 减1
+await(): 等待
+//示例
+public class Test {
+	
+	private static class Child implements Runnable {
+		
+		private CountDownLatch countDownLatch;
+
+		public Child(CountDownLatch countDownLatch){
+			this.countDownLatch = countDownLatch;
+		}
+		
+		
+		@Override
+		public void run() {
+			System.out.println(Thread.currentThread().getName() + ": child run begin");
+			this.countDownLatch.countDown();
+			System.out.println(Thread.currentThread().getName() + ": child run end");
+		}
+		
+	}
+	
+	private static class Parent implements Runnable {
+		
+		private CountDownLatch countDownLatch;
+		
+		public Parent(CountDownLatch countDownLatch){
+			this.countDownLatch = countDownLatch;
+		}
+
+		@Override
+		public void run() {
+			System.out.println(Thread.currentThread().getName() + ": parent run begin");
+			try {
+                //等待countDownLatch为零
+				this.countDownLatch.await();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println(Thread.currentThread().getName() + ": parent run end");
+		}
+		
+	}
+
+	public static void main(String[] args){
+		int num = 5;
+		CountDownLatch countDownLatch = new CountDownLatch(num);
+		ExecutorService service = Executors.newFixedThreadPool(num + 1);
+		
+		service.submit(new Parent(countDownLatch));
+		
+		for(int i = 0; i < num; i++){
+			service.submit(new Child(countDownLatch));
+		}
+		
+		service.shutdown();
+	}	
+}
+
 ```
 
 * 信号量
-例如Semaphore，用来控制同时访问某个资源的操作数量  
+例如Semaphore，用来控制同时访问某个资源的操作数量。  
 
 ```
-//例子
+//关键api:
+acquire(): 获取信号量
+release(): 释放信号量
+//示例
+public class Test {
+	
+	private static class Tourist implements Runnable{
+
+		private Semaphore semphore;
+		
+		public Tourist(Semaphore semphore){
+			this.semphore = semphore;
+		}
+		
+		@Override
+		public void run() {
+			try {
+				System.out.println(Thread.currentThread().getName() + ": 排队进入景区。");
+				this.semphore.acquire();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println(Thread.currentThread().getName() + ": 可以进景区参观了。");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.semphore.release();
+		}
+		
+	}
+
+	public static void main(String[] args) {
+
+		Semaphore semphore = new Semaphore(5);
+		ExecutorService service = Executors.newCachedThreadPool();
+		for(int i = 0; i < 10; i++){
+			service.submit(new Tourist(semphore));
+		}
+		
+		service.shutdown();
+		
+	}
+
+}
 ```
 
 * 栅栏
@@ -49,7 +154,56 @@ ___
 与闭锁的区别是，所有的线程必须都到达栅栏的位置才可以向下执行。例如跑步的时候，必须所有人都在起跑线上排好队才可以开始跑步  
 
 ```
-//例子
+//关键api
+await(): 等待
+//示例
+public class Test {
+
+	private static class Child implements Runnable{
+		
+		private CyclicBarrier cyclicBarrier;
+		
+		public Child(CyclicBarrier cyclicBarrier){
+			this.cyclicBarrier = cyclicBarrier;
+		}
+
+		@Override
+		public void run() {
+			System.out.println(Thread.currentThread().getName() + ": child run begin");
+			try {
+                //会在cyclicBarrier上等待，在cyclicBarrier上调用指定次数的await后，后面代码会接着执行
+				this.cyclicBarrier.await();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (BrokenBarrierException e) {
+				e.printStackTrace();
+			}
+			System.out.println(Thread.currentThread().getName() + ": child run end");
+		}
+	}
+	
+	private static class Parent implements Runnable{
+
+		@Override
+		public void run() {
+            //当在cyclicBarrier上调用指定次数的await后，代码会被执行
+			System.out.println(Thread.currentThread().getName() + ": parent run start");
+			System.out.println(Thread.currentThread().getName() + ": parent run end");
+		}
+		
+	}
+	
+	public static void main(String[] args) {
+		int num = 5;
+		CyclicBarrier cyclicBarrier = new CyclicBarrier(num, new Parent());
+		ExecutorService service = Executors.newFixedThreadPool(num + 1);
+		for(int i = 0; i < num; i++){
+			service.submit(new Child(cyclicBarrier));
+		}
+		
+	}
+
+}
 ```
 
 #### 定时任务

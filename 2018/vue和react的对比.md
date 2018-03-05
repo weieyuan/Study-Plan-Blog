@@ -163,5 +163,9 @@ Test.defaultProps = {
 <MyComponent ref={(el) => this.myComponent=el}></MyComponent>
 ```
 
+18.UI异步更新，vue和react中UI都是异步更新的。在vue中当观察到数据发生变化后，vue开启一个队列，将数据变化缓存到这个队列中，等待下一次的执行。在react中，当调用setState之后，state的值也不会立马修改，而是把修改值放到一个更新队列中，等待后续的执行。
+
+
+
 
 

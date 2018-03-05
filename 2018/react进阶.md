@@ -464,7 +464,7 @@ React.Component是一个抽象的基类，必须继承后使用，至少实现re
 * constructor(props)
 * componentWillMount()
 * render()
-* componentDidMount()
+* componentDidMount()，这个函数被调用时，render函数返回的东西已经被渲染，组件已经被挂载到了DOM树中
 
 **Updating**  
 
