@@ -862,6 +862,12 @@ transform属性只对block元素生效。
 
 transform属性允许修改CSS视觉格式模型的坐标控件，例如转换(translate)、旋转(rotate)、缩放(scale)、倾斜(skew)。  
 
+## CSS属性选择器
+```
+[attr]：表示有attr属性的元素
+[attr=value]：表示有值为value的attr属性的元素
+```
+
 ## javascript和css
 可以使用javascript来控制元素的样式，使用示例：  
 ```

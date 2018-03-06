@@ -484,7 +484,15 @@ React.Component是一个抽象的基类，必须继承后使用，至少实现re
 
 ### Other APIs
 * setState()
-* forceUpdate()
+setState并不会立马执行state的更新和界面的更新。  
+```
+//如果希望执行state更新后，执行一些动作，有两种方式：
+setState(updater, callback)//callback会在执行更新后调用
+在componentDidUpdate中执行动作
+```
+* forceUpdate(callback)  
+调用forceUpdate会导致组件的render函数被调用，并且会忽略shouldComponentUpdata，这个函数调用后会触发子组件的生命周期函数被调用，包括shouldComponentUpdate。
+
 
 ### class属性
 * defaultProps

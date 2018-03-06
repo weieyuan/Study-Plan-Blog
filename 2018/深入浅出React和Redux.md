@@ -38,6 +38,20 @@ Counter.defaultProps = {
 };
 ```
 
+render函数返回null或者false，表示这个组件不需要渲染任何DOM元素。  
+
+componentDidMount被调用的时候，render函数返回的东西已经引发了渲染，组件已经被装载到了DOM树上。
+
+componentWillMount可以在服务器端调用，也可以在浏览器端调用，componentDidMount只能在浏览器端调用。
+
+只要父组件的render函数被调用，在render函数中被渲染的子组件就会经历更新过程，不管父组件传递给子组件的props有没有变化，都会触发子组件的componentWillReceiveProps函数。
+
+调用forceUpdate会强制引发一次重新绘制。
+
+应该考虑实现shouldComponentUpdate(nextProps, nextState)，返回false表示组件不需要重新渲染，返回true表示组件需要重新渲染，可以提升性能。
+
+
+
 
 
 
