@@ -1,5 +1,5 @@
-### Spring Boot实战
-#### 1.入门
+# Spring Boot实战
+## 入门
 Spring Boot的四大核心：
 
 * 自动配置
@@ -7,7 +7,7 @@ Spring Boot的四大核心：
 * 命令行界面
 * Actuator,提供了在运行时检视应用程序内部情况的能力
 
-#### 开发第一个应用程序
+## 开发第一个应用程序
 @SpringBootApplication的作用  
 
 * @Configuration标注该类使用Spring的java配置
@@ -31,7 +31,7 @@ compile("org.springframework.boot:spring-boot-starter-web"){
 }
 ```
 
-#### 自定义配置
+## 自定义配置
 Spring Boot会优先使用自定义配置，再使用自动配置  
 @ConfigurationProperties说明该Bean的属性是通过配置属性值注入的(setter方法)  
 ```
@@ -86,7 +86,7 @@ logging:
 
 ```
 
-#### 测试
+## 测试
 测试注解(推荐使用)  
 ```
 @RunWith(SpringRunner.class)
@@ -125,7 +125,7 @@ String url = "http://localhost:8089/card/add";
 String strRes = template.postForObject(url, entity, String.class);
 ```
 
-#### Groovy与Spring Boot CLI
+## Groovy与Spring Boot CLI
 Spring Boot CLI的功能：
 
 * CLI可以利用Spring Boot的自动配置和起步依赖
@@ -133,9 +133,9 @@ Spring Boot CLI的功能：
 * CLI知道多数常用的类在哪些包中，如果用到了这些类，它会把那些包加入Groovy的默认包中
 * CLI可以检测到当前运行的是一个web应用程序，并自动引入嵌入式web容器供使用
 
-#### 在Spring Boot中使用Grails
+## 在Spring Boot中使用Grails
 
-#### 深入Actuator
+## 深入Actuator
 Actuator提供的端点(13个)
 
 * /autoconfig [GET] 自动配置报告
@@ -190,7 +190,7 @@ management:
   context-path: /mgmt
 ```
 
-#### 部署Spring Boot应用程序
+## 部署Spring Boot应用程序
 构建war文件  
 ```
 //修改build.gradle脚本
@@ -212,7 +212,7 @@ public class ReadingListServletInitializer extends SpringBootServletInitializer 
 }
 ``` 
 
-#### Spring Boot开发者工具
+## Spring Boot开发者工具
 spring-boot-devtools开发者工具提供了如下的功能：
 
 * 自动重启，当classpath里的文件发生变化时，自动重启应用程序
@@ -236,7 +236,7 @@ LiveReload,需要在浏览器中安装LiveReload插件
 //通过设置spring.devtools.livereload.enabled的属性来关闭LiveReload功能
 ```
 
-### 杂项知识点
+## 杂项知识点
 * @SpringBootApplication会自动做以下事情：
   * @Configuration
   * @EnableAutoConfiguration: Spring会根据classpath的设置、其他设置来加载bean
@@ -293,7 +293,7 @@ public void doAfterReturing(Object object){
 	> @RunWith(SpringRunner.class) @SpringBootTest
 	> web中的controller中的接口测试：@AutoConfigureMockMvc MockMvc
 
-#### spring boot中定义controller的异常处理
+## spring boot中定义controller的异常处理
 * 异常处理  
 @ControllerAdvice @ExceptionHandler  
 ```
@@ -311,7 +311,7 @@ public class ControllerExceptionHandler {
 }
 ```
 
-#### spring boot中支持跨域请求
+## spring boot中支持跨域请求
 * 在contoller类或者controller中的方法上添加@CrossOrigin的注解  
 ```
 @Controller
@@ -345,11 +345,9 @@ public class MyConfiguration {
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurerAdapter() {
 			public void addCorsMappings(CorsRegistry registry) {
-
 				registry.addMapping("/**").allowedOrigins("*").allowedMethods("POST", "GET");
 			}
 		};
-
 	}
 }
 ```

@@ -75,7 +75,7 @@ static class Entry<K, V> extends HashMap.Node<K,V>{
 
 **TreeMap**  
 * 内部使用一颗红黑数来存储数据
-* 数据是有序的
+* 数据是有序的  
   * 根据key的比较来排序，因此要求key是实现了Comparable接口
   * 在TreeMap的构造函数中显示传入Comparator类
 * 内部存储数据的结构是：
@@ -105,7 +105,7 @@ static final class Entry<K,V> implements Map.Entry<K,V>{
 * 内部使用Object[] vals来存储value，value的索引就是key.ordinal()
 * 使用K[] keyUniverse来存储所有的枚举值
 
-** IdentityHashMap**  
+**IdentityHashMap**  
 * key的相等判断条件是k1==k2
 * 允许key和value为null
 * 使用Object[] table来存储数据，table[i]存储key，table[i+1]存储value

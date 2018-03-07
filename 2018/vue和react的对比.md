@@ -127,6 +127,20 @@ class A extends React.Component{
 ```
 
 15.均支持自定义组件中的内容。Vue通过`slot`来实现；React中通过`props.children`或者props中的普通属性来实现。
+```
+//vue
+//A组件
+<div>
+  xxxx
+  <slot></slot>
+  <slot name="a"></slot>
+</div>
+//B组件中使用A组件
+<A>
+	<div>默认内容</div>
+    <div slot="a"></div>
+</A>
+```
 
 16.均支持props的类型检查，但是使用方式不一样：  
 ```

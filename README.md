@@ -65,11 +65,12 @@
 
 #### 前端工程
 [基于webpack的代码分离在vue项目中使用懒加载](./2018/基于webpack的代码分离在vue项目中使用懒加载.md)  
-[webpack常用插件](./2018/webpack常用插件.md)
+[webpack常用插件](./2018/webpack常用插件.md)  
 [高性能网站建设指南](./2018/高性能网站建设指南.md)
 
 #### 练习项目
 [vue + Spring Boot简易博客系统](https://github.com/weieyuan/vue-demo-tucao-weibo)
 
 #### 杂项
-[vue和spring-boot实现websocket通信](./2018/vue和spring-boot实现websocket通信.md)
+[vue和spring-boot实现websocket通信](./2018/vue和spring-boot实现websocket通信.md)    
+[前端杂项知识点](./2018/前端杂项知识点.md)

@@ -1,4 +1,4 @@
-#### 发布vue组件到npm
+## 发布vue组件到npm
 
 * 使用vue-cli创建vue工程
 
@@ -89,7 +89,7 @@ import NBButton from "n-b-button"
 
 ```
 
-#### vue-router
+## vue-router
 * vue中使用vue-router
 
 ```
@@ -214,7 +214,7 @@ const Foo = {
 }
 ```
 
-#### vuex
+## vuex
 1.vue中使用vuex
 
 ```
@@ -401,7 +401,7 @@ const store = new Vue.Store({
 });
 ```
 
-#### vue中使用jquery
+## vue中使用jquery
 1.安装jquery  
 
 ```
@@ -424,7 +424,7 @@ plugins: [
 
 ``` 
 
-#### vue中使用bootstrap
+## vue中使用bootstrap
 1.安装bootstrap  
 
 ```
@@ -440,7 +440,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/js/bootstrap.js'
 ```
 
-#### vue中使用less  
+## vue中使用less  
 1.安装less-loader和less  
 
 ```
@@ -477,7 +477,7 @@ npm install less-loader less --save-dev
 </style>
 ```
 
-#### vue中实现前后台ajax通信
+## vue中实现前后台Ajax通信
 1.安装vue-resource  
 
 ```
@@ -512,7 +512,7 @@ this.$http.post("/getStudentInfo", [1,2,3], {emulateJSON: true}).then((response)
 })
 ```
 
-#### vue实现跨域访问
+## vue实现跨域访问
 1.安装http-proxy-middleware(基于vue-cli创建的webpack的工程已经默认安装)  
 
 ```
@@ -553,4 +553,3 @@ Object.keys(proxyTable).forEach(function (context) {
   app.use(proxyMiddleware(options.filter || context, options))
 })
 ```
-
