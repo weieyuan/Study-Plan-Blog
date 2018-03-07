@@ -227,19 +227,22 @@
 		background-color: red;
 		flex-grow: 0;
 		flex-shrink: 1;
-		width: 30%;
+		flex-basis: 30%;
+		<!-- width: 30%; -->
 	}
 	.flex_class > div:nth-child(2){
 		background-color: blue;
 		flex-grow: 0;
 		flex-shrink: 1;
-		width: 30%;
+		flex-basis: 30%;
+		<!-- width: 30%; -->
 	}
 	.flex_class > div:nth-child(3){
 		background-color: lime;
 		flex-grow: 0;
 		flex-shrink: 1;
-		width: 30%;
+		flex-basis: 30%;
+		<!-- width: 30%; -->
 	}
 </style>
 <h1 class="h1_class">Title</h1>
@@ -303,9 +306,51 @@
   }
 }
 </style>
-
 <div class="div_2">
 xxxx
+</div>
+
+<!-- div居中1 -->
+<style>
+.div_1_1{
+	display: flex;
+	height: 100px;
+	background-color: red;
+	justify-content: center;
+	align-items: center;
+}
+.div_1_2{
+	background-color: green;
+	flex: 0 0 50px;
+	height: 50px;
+}
+</style>
+<h1>div居中1(水平+垂直)</h1>
+<div class="div_1_1">
+	<div class="div_1_2"></div>
+</div>
+<!-- div居中2 -->
+<style>
+.div_2_1{
+	height: 100px;
+	background-color: red;
+}
+.div_2_2{
+	background-color: green;
+	margin: auto;
+	width: 50px;
+	height: 50px;
+}
+</style>
+<h1>div居中2(水平)</h1>
+<div class="div_2_1">
+	<div class="div_2_2"></div>
+</div>
+
+<!-- 行内元素 -->
+<div style="height: 200px; background-color: lime; margin-top: 20px;">
+	<span style="margin-left: 10px; margin-top: 10px;">xxxx</span>
+	<span style="padding-left: 10px; padding-top: 10px;">sssss</span>
 </div>
 
 </body>

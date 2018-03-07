@@ -249,3 +249,28 @@ img、map、area:
   <area shape="rect" coords="100,0,200,100" href="2.html"></area>
 </map>
 ```
+
+## 块级元素与行内元素
+区别：
+  
+* 一般情况下行内元素只能包含数据和其他行内元素，而块级元素可以包含行内元素和其他块级元素。
+* 默认情况下，行内元素不会以新行开始，而块级元素会新起一行。
+* 块级元素可以设置宽高、行内元素不可以设置宽高
+* 块级元素可以设置margin、padding；行内元素水平方向margin-left、margin-right、padding-left、padding-right可以生效，但在垂直方向上margin-top、margin-bottom、padding-top、padding-bottom不能生效。
+
+有些行内元素是可以设置宽高的，原因是：  
+有些行内元素是可替换元素，例如`img、input、textarea、select、button、label`，这些元素会根据元素的标签和属性来决定元素的具体内容，替换元素一般是有内在尺寸的，例如width、height。
+
+
+行内元素：  
+```
+b,big,i,small,tt
+abbr,strong,em
+a,br,img,map,script,span,sub,sup
+button,input,label,select,textarea
+```
+
+块级元素：  
+```
+div,canvas,p,h1,footer,header,hr,ul,ol
+```

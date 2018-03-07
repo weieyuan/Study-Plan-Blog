@@ -399,7 +399,7 @@ box-sizing: border-box;
 
 box-shadow，盒子阴影  
 ```
-box-shadow: (inset) 5px 5px 5px raba(0,0,0,0.7);  //inset可选，表示是内阴影
+box-shadow: (inset) 5px 5px 5px rgba(0,0,0,0.7);  //inset可选，表示是内阴影
 第一个参数：阴影的横向偏移  
 第二个参数：阴影的纵向偏移  
 第三个参数：阴影的半径，值越大，阴影越大  
@@ -741,7 +741,7 @@ transition-delay:
 
 
 transition:  
-简写： <property> <duration> <timing-function> <delay>
+简写： `<property> <duration> <timing-function> <delay>`
 
 可以监听过渡是否完成：  
 ```
