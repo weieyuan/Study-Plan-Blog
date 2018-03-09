@@ -868,6 +868,14 @@ transform属性允许修改CSS视觉格式模型的坐标控件，例如转换(t
 [attr=value]：表示有值为value的attr属性的元素
 ```
 
+## visibility/display
+```
+//即使元素不可见，也会占据页面上的空间
+visibility: visible | hidden
+//none，元素不会占据页面空间
+display: none | block
+```
+
 ## javascript和css
 可以使用javascript来控制元素的样式，使用示例：  
 ```

@@ -477,6 +477,46 @@ npm install less-loader less --save-dev
 </style>
 ```
 
+## vue-i18n使用
+国际化组件
+
+```
+npm install vue-i18n --save
+
+//主入口文件
+import VueI18n from "vue-i18n";
+import i18n from "./i18n.js";
+Vue.use(VueI18n);
+
+new Vue({
+  i18n
+});
+
+//资源文件
+const messages = {
+  "zh": {
+   a: "你好"
+  }，
+  "en": {
+   a: "Hello"
+  }
+};
+
+export default messages;
+
+//VueI18n配置文件
+import VueI18n from "vue-i18n";
+import messages from ""./messages.js";
+const i18n = new VueI18n({
+  local: "zh",
+  messages
+});
+export default i18n;
+
+//在组件中使用
+<div>{{$t("a")}}</div>
+```
+
 ## vue中实现前后台Ajax通信
 1.安装vue-resource  
 

@@ -59,5 +59,33 @@ dispatch接收action参数，调用reducer生成新的state，在state变化后�
 reducer接收state和action参数，生成新的state。  
 action描述了动作类型和传递的数据。  
 
+createStore的简易实现：  
+```
+const createStore = (reducer) => {
+	let state = {};
+    let listeners = [];
+
+    const getState = () => state;
+    const dispatch = (action) => {
+        let prevState = state;
+		state = reducer(prevState, action);
+        listeners.forEach((listener) => listener(state));
+        return state;
+    };
+
+    const subscribe = (listener) => {
+      listener.push(listener);
+      return () => {
+        listeners = listeners.filter((l) => l!= listener)
+      }
+    };
+
+    return {
+      getState,
+      dispatch,
+      subscribe
+    };
+};
+```
 
 
