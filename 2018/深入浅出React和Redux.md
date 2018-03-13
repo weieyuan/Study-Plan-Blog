@@ -55,6 +55,11 @@ componentWillMount可以在服务器端调用，也可以在浏览器端调用�
 
 ![](./flux.png)
 
+Flux的缺点：  
+
+* Store之间的依赖关系，当多个Store之间有依赖关系时，需要通过Dispatcher.waitFor函数来确定调用关系。
+* 难以进行服务器端渲染
+* Store混杂了逻辑和状态
 
 **Redux思想：**  
   
@@ -98,6 +103,81 @@ const createStore = (reducer) => {
 * 应用的state存储在全局唯一的state中
 * state是只读的，只能通过emit一个action来修改state
 * 使用纯函数来实现reducer，reducer中不要修改旧的state，返回一个新的state
+
+使用示例：  
+```
+//actions,js
+const SET_CARD_ID = "setCardId"
+
+function setCardId(cardId) {
+    return {
+        type: SET_CARD_ID,
+        cardId: cardId
+    };
+}
+
+export {SET_CARD_ID, setCardId}
+
+//reducer.js
+import * as actions from "./actions"
+import {combineReducers} from "redux"
+
+function RemarkDetails(state = {}, action) {
+    switch (action.type) {
+        case actions.SET_CARD_ID : {
+            return {...state, cardId: action.cardId}
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
+const reducer = combineReducers({
+    RemarkDetails
+})
+
+export default reducer
+
+//store.js
+import {createStore} from "redux"
+import reducer from "./reducer"
+
+const store = createStore(reducer)
+
+export default store
+```
+
+容器组件和傻瓜组件：  
+容器组件负责和Redux Store打交道，傻瓜组件不感知Redux Store，负责逻辑处理和ui展示。容器组件通过props向傻瓜组件传递数据，达到傻瓜组件和Redux Store打交道的目的。  
+
+react-redux的作用：  
+1.通过connect返回容器组件，容器组件会自动订阅Redux state，通过dispatch发布action。  
+2.通过Provider组件提供context功能，用于向子组件传递Store对象。   
+
+使用： 
+```
+//connect返回的组件必须用Provider包裹，否则connect中访问不到store对象
+connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+  mapStateToProps(state, [ownProps])用于将state映射为props
+  mapDispatchToProps(dispatch, [ownProps])props中添加callback，callback中可以调用dispatch;如果mapDispatchToProps是一个对象，那么对象中的函数都被认为是actionCreator，并且会自动调用dispatch。例如如下两种方式等价的：
+  const mapDispatchToProps = {
+    onToggleTodo: toggleTodo
+  }
+  const mapDispatchToProps = function(dispatch){
+    return {
+      onToggleTodo: (id) => {
+        dispatch(toggleTodo(id));
+      }
+    }
+  }
+  
+  mergeProps(stateProps, dispatchProps, ownProps)缺省的时候等价于Object.assign({}, ownProps, stateProps, dispatchProps)
+
+<Provider store={store}>
+	<MyRootComponent />
+</Provider>
+```
 
 
 

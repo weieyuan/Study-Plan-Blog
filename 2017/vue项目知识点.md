@@ -593,3 +593,77 @@ Object.keys(proxyTable).forEach(function (context) {
   app.use(proxyMiddleware(options.filter || context, options))
 })
 ```
+
+## 添加一个全局响应式属性的一种方式
+某些场景中希望所有的vue组件都对一个属性值的变化而响应，从而自动刷新ui，例如国际化。
+
+思路：  
+1.首先通过mixin注入生命周期函数，在beforeCreate生命周期中将组件对象添加到订阅者队列中，在beforeDestroy生命周期中将组件对象从订阅者队列中移除。  
+2.通过Object.defineProperty(obj, prop, {set() {}})定义属性值prop，在set函数中循环订阅者队列，调用vm.$forceUpdate()方法。  
+
+示例：  
+
+```
+function g(messages, localLang, strKey, defaultLang = "zh") {
+  if (messages[localLang]) {
+    return messages[localLang][strKey];
+  }
+  else {
+    return messages[defaultLang][strKey];
+  }
+}
+
+let lang = "zh"
+let installed = false
+const listeners = []
+
+function install(Vue, options) {
+  if (installed) {
+    return;
+  }
+  installed = true;
+
+  if (options && options.lang) {
+    lang = options.lang;
+  }
+  let func = (messages, strkey, defaultLang = "zh") => {
+    return g(messages, lang, strkey, defaultLang);
+  };
+  Vue.prototype.$g = func;
+
+  Vue.mixin({
+    beforeCreate() {
+      listeners.push(this);
+    },
+    beforeDestroy() {
+      let index = listeners.indexOf(this);
+      if (index > -1) {
+        listeners.splice(index, 1);
+      }
+    }
+  });
+}
+
+const i18nPlugin = {}
+
+Object.defineProperty(i18nPlugin, "lang", {
+  get() {
+    return lang;
+  },
+  set(strVal) {
+    if (strVal === lang) {
+      return;
+    }
+    lang = strVal;
+    listeners.forEach((listener) => listener.$forceUpdate());
+  }
+})
+
+i18nPlugin.setLang = (strVal) => {
+  i18nPlugin.lang = strVal;
+}
+i18nPlugin.install = install
+
+export default i18nPlugin
+
+```
