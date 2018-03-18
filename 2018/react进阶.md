@@ -502,5 +502,26 @@ setState(updater, callback)//callback会在执行更新后调用
 * props
 * state
 
+## SyntheticEvent
+在React的事件系统中，会使用SyntheticEvent，SyntheticEvent事件对象是一个跨浏览器的封装了浏览器原生事件的对象，它和原生的事件拥有相同的API。 通过nativeEvent可以取到原生的事件对象。   
+```
+boolean bubbles
+boolean cncelable
+DOMEventTarget currentTarget
+boolean defaultPrevented
+number eventPhase
+boolean isTrusted
+DOMEvent nativeEvent
+void preventDefault()
+boolean isDefaultPrevented()
+void stopPropagation()
+DOMEventTarget target
+number timeStamp
+string type
+```
+
+SyntheticEvent对象是公用的，也就是该对象会被重用，在事件回调执行完后，所有的属性都会被置null，因此在异步函数中获取不到事件对象。但是调用event.persist()可以将事件对象从pool中移除，这样在异步函数中就可以正常使用事件对象。
+
+
 
 
