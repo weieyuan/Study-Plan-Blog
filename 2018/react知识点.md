@@ -179,7 +179,7 @@ class Clock extends React.component{
 
 ### 正确使用state
 三条规定：  
-1.不要直接修改state。  
+1.不要直接修改state，只有在构造函数中才能直接对state赋值。  
 ```
 //not correct
 this.state.comment = "Hello";
@@ -289,7 +289,7 @@ class Toggle extends React.Component{
   }
 }
 
-//3.在将callback作为prop传递时，可能会有性能问题，建议慎用
+//3.这种方式的问题是在每次渲染的时候，都会创建一个回调处理函数，在将该回调作为prop传递时，可能会有性能问题，建议慎用
 class Toggle extends React.Component{
   constructor(props){
     super(props);
@@ -328,7 +328,6 @@ class Toggle extends React.Component{
 
 使用方式1时，需要显示地传递参数e。
 使用方式2时，不需要显示地传递参数e，bind方法会将id参数置于实参之前传递给被绑定的函数。
-
 
 ## 条件渲染
 几种使用条件渲染的方式：  
@@ -409,7 +408,7 @@ class Page extends React.Component{
 注意，即使render中返回null，组件的生命周期方法还是会被调用。在上述例子中componentWillUpdate和componentDidUpdate都会被调用。
 
 ## Lists和keys
-key在一个循环中应该唯一，用于帮助react唯一标识一个item。
+key在一个循环中应该唯一，用于帮助react唯一标识一个item。如果没有显示提供key，react会默认使用index作为key。在组件上使用key时，key属性是不会通过props传递给组件的。  
 
 使用：  
 ```
@@ -472,7 +471,7 @@ class Test extends React.Component{
   <option value="c">c</option>
 </select>
 
-<select multiplie={true} value={["a", "b"]}>
+<select multiplie={true} value={["a", "b"]}>//多选
   <option value="a">a</option>
   <option value="b">b</option>
   <option value="c">c</option>
@@ -485,6 +484,18 @@ class Test extends React.Component{
 当明确指定表单为一个非null或者undefined的值时，表单呈现不可输入状态：  
 ```
 <input value="a" />
+```
+
+一般情况下推荐使用控制组件，但是也可以使用非控制组件，通过ref指向这个DOM元素，并且可以通过ref获取DOM元素的值。  
+```
+<input type="text" ref={(input) => this.input=input}>
+<button onClick={this.handleClick}></button>
+handleClick() {
+  console.log(this.input.value);
+}
+
+//通过defaultValue指定初始值(注意不要使用value指定初始值)
+<input type="text" defalutValue="A" ref={(input) => this.input=input}/>
 ```
 
 ## state上移到公共的父元素

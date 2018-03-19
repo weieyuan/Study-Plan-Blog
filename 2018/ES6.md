@@ -129,4 +129,18 @@ var sthEx = require("./a.js").default;
 ```
 
 
+### 计算属性名
+允许在`[]`中放入表达式，计算的结果可以当做属性名。  
+```
+var i = 0;
+var a = {
+  ["foo" + ++i]: i
+};
+
+var param = "size";
+var config = {
+  [params]: 12
+};
+```
+
 
