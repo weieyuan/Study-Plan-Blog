@@ -453,7 +453,31 @@ class Test extends Component {
 ## Integrating with other Libraries
 
 
+## code-splitting
+1.使用import()  
+```
+//在webpack.config.js中
+output: {
+  chunkFileName: [name].buldle.js
+}
 
+//在代码中
+import(/*webpackChunkName: "A"*/"./A.js").then((A) => A.doSth())
+```
+
+2.React Loadable  
+```
+import Loadable from "react-loadable"
+
+const LoadableOtherComponent = Loadable({
+  loader: () => import("./OtherComponent"),
+  loading: () => <div>Loading...</div>
+});
+
+const MyComponent = () => (
+  <LoadbleOtherComponent />
+);
+```
 
 ## React.Component
 React.Component是一个抽象的基类，必须继承后使用，至少实现render()方法。

@@ -51,7 +51,7 @@ componentWillMount可以在服务器端调用，也可以在浏览器端调用�
 应该考虑实现shouldComponentUpdate(nextProps, nextState)，返回false表示组件不需要重新渲染，返回true表示组件需要重新渲染，可以提升性能。
 
 ## 从Flux到Redux
-**Flux的思想：**  
+### Flux的思想  
 
 ![](./flux.png)
 
@@ -61,7 +61,7 @@ Flux的缺点：
 * 难以进行服务器端渲染
 * Store混杂了逻辑和状态
 
-**Redux思想：**  
+### Redux思想
   
 ![](./redux.png)
 
@@ -177,6 +177,30 @@ connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 <Provider store={store}>
 	<MyRootComponent />
 </Provider>
+```
+
+异步Actions:  
+使用`redux-thunk`中间件，action creator能够返回一个函数。    
+```
+//入口文件中
+import thunkMiddleware from "redux-thunk"
+import {createStore, applyMiddleware} from "redux"
+
+const store = createStore(reducer, applyMiddleware(thunkMiddleware))
+
+//action.js
+import fetch from "cross-fetch"
+
+export function fetchPosts(subreddit){
+  
+  return function(dispatch){
+    dispatch("some action");
+
+    return fetch(url).then((response) => {
+      dispatch("some action")
+   });
+  };
+}
 ```
 
 

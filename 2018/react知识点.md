@@ -118,6 +118,7 @@ ReactDOM.render(
 
 ## State和生命周期
 ### State的使用
+state是组件私有的数据。  
 ```
 class Clock extends React.Component{
   constructor(props){

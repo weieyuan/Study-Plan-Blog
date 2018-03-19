@@ -56,7 +56,6 @@ npm install babel-polyfill --save-dev
 import "babel-polyfill";
 ```
 
-
 ## Class
 实例的属性除非显示定义在其本身上(即定义在this对象上)，否则都是定义在原型上。  
 下面示例中x和y都是实例对象，toString是原型对象的属性。  
@@ -72,6 +71,15 @@ class Point{
     return '(' + this.x + ',' + this.y + ')';
   }
 }
+```
+
+## 语法
+### 模板字符串
+可以在字符串中嵌入表达式。  
+```
+var a = 1;
+var b = 2;
+console.log(`2 * 1 is ${a * b}`);
 ```
 
 ## ES6和Commonjs
