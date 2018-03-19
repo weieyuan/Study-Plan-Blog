@@ -289,6 +289,75 @@ render() {
 }
 ```
 
+## 性能优化
+* 使用生产环境配置。
+* 覆写shouldComponentUpdate(nextProps, nextState)，返回false表示不需要渲染该组件。在大部分场景下可以继承自React.PureComponent，PureComponent中shouldComponentUpdate(nextProps, nextState)会"浅"比较当前的state、props和之前的state、props。如果某个组件的shouldComponentUpdate返回false，那么它的子组件甚至连shouldComponentUpdate方法都不会被调用。  
+* 使用不可变的数据结构，例如Immutable.js
+
+## React Without ES6
+ES6不支持mixin，因此不能在ES6的class中使用mixins，同时也不推荐使用mixins。
+
+## Reconciliation
+### Diffing Algorithm
+* 不同类型的Elements:
+当root节点的类型不同时，React直接销毁掉旧的树，然后生成一颗新的树。在销毁掉旧树的过程中，DOM节点直接销毁，组件对象会调用componentWillUnmount()，在构建新树的过程中，组件的componentWillMount()和componentDidMount()会被调用。
+
+* 相同的DOM类型节点：  
+当React DOM元素的类型相同时，React会对比DOM元素的属性，只更新变化的属性。
+
+* 相同的组件类型元素：  
+组件更新时，React会更新该组件下面组件对象(这些组件对象的componentWillReceiveProps和componentWillUpdate会被调用)
+
+* 子元素的循环递归：  
+可以使用key来标识一个元素，这样当子元素的数量或者位置发生变化时，不会删除所有节点后再重新构建所有节点，对于key相同的元素只是更新和移动。
+
+## Context
+**一般情况下不要使用context**
+
+context的使用方法：  
+```
+//context的提供者
+class Parent extends React.Component {
+  constructor(props){
+    super(props);
+  
+  }
+
+  getChildContext() {
+    return {msg: "xxxx"};
+  }
+}
+Parent.childContextTypes = {
+  msg: PropTyoes.string
+}
+
+//子节点
+class Child extends React.Component {
+  constructor(props){
+    super(props);
+  
+  }
+
+  render() {
+    return (<div>{this.context.color}</div>)
+  }  
+
+}
+Child.contextTypes = {
+  msg: PropTypes.string
+};
+```
+
+生命周期中访问context:  
+```
+constructor(props, context)
+componentWillReceiveProps(nextProps, nextContext)
+shouldComponentUpdate(nextProps, nextState, nextContext)
+componentWillUpdate(nextProps, nextState, nextContext)
+```
+
+建议不要修改context，在state或者props变化时，getChildContext方法会被调用。当context修改时，子节点可以收到这个变化，但是如果某个中间节点的shouldComponentUpdate返回false，那么后续的节点就不会更新。
+
 ## Fragments
 Fragments的作用是用于将多个元素组成一个group使用，并且不会添加额外的DOM元素。
 

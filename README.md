@@ -61,6 +61,8 @@
 
 #### React
 [react知识点](./2018/react知识点.md)  
+[react进阶](./2018/react进阶.md)  
+[深入浅出React和Redux](./2018/深入浅出React和Redux.md)  
 [vue和react的对比](./2018/vue和react的对比.md)
 
 #### 前端工程
