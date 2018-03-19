@@ -82,6 +82,20 @@ var b = 2;
 console.log(`2 * 1 is ${a * b}`);
 ```
 
+### 计算属性名
+允许在`[]`中放入表达式，计算的结果可以当做属性名。  
+```
+var i = 0;
+var a = {
+  ["foo" + ++i]: i
+};
+
+var param = "size";
+var config = {
+  [params]: 12
+};
+```
+
 ## ES6和Commonjs
 由于ES6还未被广泛支持，因此一般将ES6转换为ES5的语法，例如使用`Babel`来转换。  
 
@@ -126,21 +140,6 @@ function _interopRequireDefault(obj){return obj && obj._esModule ? obj : {defaul
 //commonjs
 var sthEx = require("./a.js").default;
 
-```
-
-
-### 计算属性名
-允许在`[]`中放入表达式，计算的结果可以当做属性名。  
-```
-var i = 0;
-var a = {
-  ["foo" + ++i]: i
-};
-
-var param = "size";
-var config = {
-  [params]: 12
-};
 ```
 
 

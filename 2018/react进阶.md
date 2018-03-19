@@ -1,7 +1,17 @@
 # React进阶
 
 ## 深入JSX
-JSX代码会使用React.createElement编译成React Element。
+JSX代码会使用React.createElement编译成React Element。  
+```
+<MyButton color="blue" shadowSize={2}>
+  Click Me
+</MyButton>
+
+React.createElement(
+  MyButton, 
+  {color: "blue", shadowSize: 2},
+  "Click Me");
+```
 
 在使用JSX的地方，React必须在作用域内，如果是通过`<script>`标签将React引入，那么React将会变成全局变量。
 
@@ -39,7 +49,7 @@ function Test(props){
 ```
 
 JSX中的props有如下几种传递方式：  
-1.JavaScript表达式：  
+1.JavaScript表达式(注意在`{}`中不能使用Javascript语句)：    
 ```
 <MyComponent foo={1+2+3} />
 ```  
@@ -60,9 +70,24 @@ JSX中的props有如下几种传递方式：
 <MyComponent a="A" b="B" />
 const props = {a: "A", b: "B"};
 <MyComponent {...props} />
+
+const {kind, ...other} = props;
+return <button className={kind}, {...other}>
 ```
 
-Booleans，null，undefined都是有效的children，但是它们不会被渲染。  
+render函数中也可以返回数组元素：  
+```
+render() {
+
+  return [
+    <li key="A">First</li>
+    <li key="B">Second</li>
+    <li key="C">Third</li>
+  ];
+}
+```
+
+Booleans，null，undefined都是有效的children，但是它们不会被渲染。如果需要在界面上展示这些值，需要将这些值转换为字符串。  
 ```
 //以下几种方式在界面上呈现是一样的
 <div></div>
@@ -70,6 +95,8 @@ Booleans，null，undefined都是有效的children，但是它们不会被渲染
 <div>{null}</div>
 <div>{undefined}</div>
 <div>{true}</div>
+
+<div>String(true)</div>
 ```
 
 ## 使用prop-types进行类型检查
@@ -92,6 +119,31 @@ Greeting.propTypes = {
 Greeting.defaultProps = {
   name: "Stranger"
 }
+```
+
+出于性能的考虑，propTypes只会在开发环境中使用。  
+
+支持的检查类型：  
+```
+PropTypes.array
+PropTypes.bool
+PropTypes.func
+PropTypes.number
+PropTypes.object
+PropTypes.string
+PropTypes.symbol
+//A React element
+PropTypes.element
+PropTypes.instanceOf(Message)
+//限定只能是"one"或者"two"
+PropTypes.oneOf(["one", "two"])
+PropTypes.oneOfType([
+  PropTypes.array
+  PropTypes.bool
+  PropTypes.func
+])
+PropTypes.func.isRequired
+...
 ```
 
 ## 静态类型检查
@@ -169,6 +221,7 @@ class Child extends React.Component {
 ```
 
 函数组件上不能使用ref，但是函数组件的内部可以使用ref。
+> 函数组件上也不能使用生命周期函数或者state
 
 ## 非控制组件(Uncontrolled Components)
 大部分情况下，form表单中推荐使用Controlled Components，但是在某些场景下也需要使用Uncontrolled Component，在Uncontrolled Component中使用ref来获取DOM的值。
