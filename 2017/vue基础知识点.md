@@ -144,7 +144,7 @@ data: {
 }
 ```
 
-* v-bind绑定内联样式，v-bind:style='Obj', Obj可以是json对象也可以是数组。  
+* v-bind绑定内联样式，v-bind:style='Obj', Obj可以是json对象也可以是数组。CSS属性名可以是驼峰式或者短横线分隔。  
 
 ```
 <div v-bind:style="styleObject"></div>
@@ -637,7 +637,60 @@ Vue异步执行DOM更新，只要观察到数据变化，Vue将开启一个队�
 
 19.$forceUpdate仅仅只会强制view重新渲染，不会强制computed属性重新计算。
 
+20.Vue.component(id,[definition])，注册或者获取全局组件，注册时会将id设置为组件的名称。  
+```
+Vue.component("my-component", Vue.extend({}))
 
+//会自动调用Vue.extend
+Vue.component("my-component", {})
+
+//获取组件(返回的是构造器)
+var MyComponent = Vue.component("my-component");
+```
+Vue.component("name", {})会返回构造器对象，因此如下两种方式取到的对象是一样的：  
+```
+var a = Vue.component("my-component", Vue.extend({}));
+var b = Vue.component("my-component");
+```
+
+21.Vue.component vs Vue.extend  
+Vue.extend返回扩展的构造器，Vue.component定义组件的时候，内部也是使用的Vue.extend。  
+Vue.component(name, {})，定义了名为name的组件，当在`template`中遇到name标签时会解析成对应的组件。  
+```
+let CustomerA = Vue.component("CustomerA", {
+  template: "<div>customer-a {{msg}}</div>"
+})
+
+let CustomerB = Vue.extend({
+  template: "<div>customer-b {{msg}}</div>"
+})
+
+//使用
+new CustomerA({
+  data: {
+    msg: "AAA"
+  }
+}).$mount("#mount1");
+
+new CustomerB({
+  el: "#mount2",
+  data() {
+    return {
+      msg: "BBB"
+    }
+  }
+})
+```
+
+22.vm.$mount([elementOrSelector])，如果vue实例在实例化的时候没有el选项，那么它处于"未挂载"状态，没有关联DOM元素，可以使用vm.$mount()手动挂载一个未挂载的实例。如果没有提供参数，那么将会渲染为文档之外的元素。  
+```
+//以下两种方式均会将组件挂载到#app(会替换掉#app)
+new MyComponent().$monut("#app")
+new MyComponent({el: "#app"})
+
+var component = new MyComponent().$mount();
+document.getElementById("app").appendChild(component.$el);
+```
 
 
 

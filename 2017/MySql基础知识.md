@@ -106,7 +106,8 @@
 
 **分组数据** 
 
-* GROUP BY
+* GROUP BY  
+select字句中的列名必须是分组列或者列函数。  
 	> GROUP BY语句必须出现在WHERE子句之后，ORDER BY之前  
 	> SELECT column_name1, COUNT(*) FROM tbl_custom WHERE column_name2 = 'a' ORDER BY column_name1;  
 	> 使用WITH ROLLUP,可以获取组的信息和所有组的汇总信息：SELECT column_name1, COUNT(*) as num WHERE column_name2 = 'a' ORDER BY column_name1 WITH ROLLUP  
@@ -143,6 +144,8 @@ LIMIT
   
 * 自联结
 	> SELECT p1.prod_id,p1.prod_name FROM products AS p1, products AS p2 WHERE p1.vend_id = p2.vend_id AND p2.prod_id = 'DENTR'
+* 内联结，返回两个表中联结字段相等的行  
+    > SELECT * FROM A Inner JOIN B ON A.id=B.id
 * 外联结：内联结是查询出所有关联的行，外联结中还查询出来没有关联的行。
 	> RIGHT OUTER JOIN: 包含右表的所有行  
 	> LEFT OUTER JOIN: 包含左表的所有行  

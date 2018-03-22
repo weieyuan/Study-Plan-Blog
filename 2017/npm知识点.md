@@ -52,7 +52,7 @@ npm config list
 
 设置配置  
 ```
-npm set key value [-g]
+npm config set key value [-g]
 ```
 
 删除配置  

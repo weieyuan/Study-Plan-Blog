@@ -232,7 +232,16 @@ const app = new Vue({
 
 ```
 
-2.Store的getter属性  
+2.Store的state属性  
+```
+const store = new Vuex.Store({
+  state: {
+    a: "a"
+  }
+});
+```
+
+3.getters    
 getters属性会暴露为store.getters对象
 
 ```
@@ -249,9 +258,13 @@ const store = new Vuex.Store({
     }
   }
 })
+
+//使用
+store.getters.doneTodos
+
 ```
 
-3.Mutations  
+4.Mutations  
 用于提交同步动作  
 
 ```
@@ -268,12 +281,13 @@ const store = new Vuex.Store({
 	}
   }
 });
+
 //触发
 store.commit("increment");
 store.commit("increment", 10);
 ```
 
-4.Actions  
+5.Actions  
 actions提交mutation，action可以包含任意的异步操作
 
 ```
@@ -293,17 +307,18 @@ const store = new Vuex.Store({
 	increment(context){
 		context.commit("increment");
 	},
-	incrementN(state, n){
+	incrementN(context, n){
 		context.commit("increment", n);
 	}
   }
 });
+
 //触发
 store.dispatch("increment");
 store.dispatch("increment", 10);
 ```
 
-5.map辅助函数  
+6.map辅助函数  
 用于简化代码  
 
 mapState辅助函数  
@@ -374,13 +389,15 @@ methods: {
 }
 ```
 
-6.模块划分  
+7.模块划分  
 每个模块中可以定义state，mutations，getters，actions。    
 默认情况下，模块内部的mutations，action，getters是定义在全局命名空间的，这样使得多个模块能够对同一个mutation或者action作出响应。    
 
 ```
 const modeulA = {
-  state: {},
+  state: {
+    msg: "xxxx"
+  },
   getter: {
 	doubleCount(state,getter,rootState){}//state为模块中定义的state变量，不是全局的state,rootState为根节点状态
   },
@@ -396,9 +413,58 @@ const modeulA = {
 
 const store = new Vue.Store({
   modules: {
-	a:moduleA
+	A:moduleA
   }
 });
+
+//访问state
+store.state.A.msg
+```
+
+使用命名空间，为了达到更加封闭，模块之间减少冲突：  
+```
+const modeulA = {
+  namespaced: true,
+  state: {
+    msg: "xxxx"
+  },
+  getter: {
+	doubleCount(state,getter,rootState){}//state为模块中定义的state变量，不是全局的state,rootState为根节点状态
+  },
+  mutations:{
+	increment(state){}//state为模块中定义的state变量
+  },
+  actions: {
+	increment({state,commit,rootState}){//state为局部状态，rootState为根节点状态
+
+	}
+  }
+}
+
+const store = new Vue.Store({
+  modules: {
+	A:moduleA
+  }
+});
+
+//使用
+store.state.A.msg
+store.getters["A/doubleCount"]
+store.commit("A/increment")
+store.dispatch("A/increment")
+```
+
+
+8.模块动态注册  
+在store创建之后，使用store.registerModule方法注册模块：  
+```
+store.registerModule("myModule", {
+  //
+})
+
+store.registerModule(["nested", "myModule"], {
+  //
+})
 ```
 
 ## vue中使用jquery

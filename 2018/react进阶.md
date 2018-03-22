@@ -396,9 +396,59 @@ render() {
 }
 ```
 
+## portals
+有时候我们希望不要将子组件渲染进入父组件的DOM结构中。  
+```
+//child是可以渲染的元素，例如element、string、fragment，container是DOM元素
+ReactDOM.createPortal(child, container);
+
+//render函数中也可以直接将元素渲染进其他的DOM元素中
+render(){
+
+  return ReactDOM.createPortal(
+    this.props.children,
+    domNode
+  );
+
+}
+```
+
+使用portal时，元素中的事件可以冒泡到父元素上，虽然该元素并不是父元素的后代元素。  
+```
+//点击button时，会打印"PortalChild Click"、"Portals click"
+class PortalChild extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        const ele = (
+            <div>
+                <button onClick={() => console.log("PortalChild Click")}>PortalChild</button>
+            </div>
+        );
+        return ReactDOM.createPortal(ele, document.getElementById("test"));//确保id为test的元素存在于DOM树上
+    }
+}
+
+class Portals extends Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <div onClick={() => console.log("Portals click")}>
+                <PortalChild></PortalChild>
+            </div>
+        );
+    }
+}
+```
+
 ## Error Boundaries
 Error Boundaries是一个React Component，这个组件能够捕获它的后代组件中的错误。Error Boundaries可以捕获后代组件的rendering、lifecycle、constructors方法中的错误，不能够捕获如下的错误：  
-1.事件处理函数中的错误。  
+1.事件处理函数中的错误。因为即使在事件处理中抛出错误，react也知道界面怎么渲染。    
 2.异步代码例如setTimeout。  
 3.服务器端的rendering。  
 4.Error Boundaries自己抛出来的错误。
@@ -411,6 +461,7 @@ class ErrorBoundary extends React.Component{
     this.state = {hasError:false};
   }
 
+  //error:被抛出的error对象；info：component stack的相关信息
   componentDidCatch(error, info){
     this.setState({hasError: true});
   }
@@ -430,8 +481,14 @@ class ErrorBoundary extends React.Component{
 ```
 如果一个error boundary没有成功渲染错误信息，那么错误就会向上冒泡到上一个error boundary。  
 
+只有class component才能够成为error boundary。  
+
+## web component
+
 ## Higher-Order Component
 Higher-Order Component(HOC)是一个函数，这个函数接收一个组件作为参数，返回一个新的组件，作用是可以重用组件的逻辑。
+
+HOC是一个没有副作用的纯函数。  
 
 使用示例：  
 ```
@@ -572,7 +629,66 @@ class Test extends Component {
 
 ```
 
+children属性不需要在属性列表中显示定义：  
+```
+//如下两种方式等价
+//1.
+<Mouse children={mouse => (<p>The mouse position is {mouse.x}, {mouse.y}</p>)} />
+
+//2.
+<Mouse>
+  {mouse => (<p>The mouse position is {mouse.x}, {mouse.y}</p>)}
+</Mouse>
+```
+
+如果组件是继承自React.PureComponet时，使用render props要注意:  
+```
+class Mouse extends React.PureComponent {
+
+}
+
+//render函数每次渲染的时候，传递给Mouse的render的属性都是一个新的函数，导致Mouse组件的shouldComponentUpdate(nextProp, nextState)的比较总是返回false。
+class MouseCat extends React.Component {
+
+  render() {
+
+    return (
+      <Mouse render={mouse => (<Cat mouse={mouse} />)} />
+    );
+  }
+}
+
+//解决方式
+class MouseCat extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.renderCat = this.renderCat.bind(this);
+  }
+
+  renderCat(mouse) {
+    return <Cat mouse={mouse} />
+  }
+
+  render() {
+
+    return (
+      <Mouse render={this.renderCat} />
+    );
+  }
+}
+
+```
+
 ## Integrating with other Libraries
+* jQuery
+
+## Accessibility
+* Labeling，使用label的时候在jsx中需要将`for`改为`htmlFor`  
+```
+<label htmlFor="nameInput"></label>
+<input id="nameInput" />
+```
 
 
 ## code-splitting

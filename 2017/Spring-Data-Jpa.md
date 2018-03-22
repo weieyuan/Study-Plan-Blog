@@ -125,7 +125,7 @@ int setFixedFirstnameFor(String firstname, String lastname)
 //deleteInBulkByRoleId这个只会执行一次数据库的查询，生命周期的回调不会被执行
 //
 @Modifying
-@Query("delett from User u where user.role.id = ?1")
+@Query("delete from User u where user.role.id = ?1")
 void deleteInBulkByRoleId(long roleId)
 
 void deleteByRoleId(long roleId)
