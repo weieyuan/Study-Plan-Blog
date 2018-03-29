@@ -182,13 +182,16 @@ connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 异步Actions:  
 使用`redux-thunk`中间件，action creator能够返回一个函数。    
 ```
-//入口文件中
+//1.安装
+npm install redux-thunk --save
+
+//2.使用中间件
 import thunkMiddleware from "redux-thunk"
 import {createStore, applyMiddleware} from "redux"
 
 const store = createStore(reducer, applyMiddleware(thunkMiddleware))
 
-//action.js
+//3.在action中返回函数
 import fetch from "cross-fetch"
 
 export function fetchPosts(subreddit){
@@ -197,11 +200,13 @@ export function fetchPosts(subreddit){
     dispatch("some action");
 
     return fetch(url).then((response) => {
+      //异步执行      
       dispatch("some action")
    });
   };
 }
 ```
+
 
 
 

@@ -639,10 +639,10 @@ Vue异步执行DOM更新，只要观察到数据变化，Vue将开启一个队�
 
 20.Vue.component(id,[definition])，注册或者获取全局组件，注册时会将id设置为组件的名称。  
 ```
-Vue.component("my-component", Vue.extend({}))
+Vue.component("my-component", {})
 
 //会自动调用Vue.extend
-Vue.component("my-component", {})
+Vue.component("my-component", Vue.extend({}))
 
 //获取组件(返回的是构造器)
 var MyComponent = Vue.component("my-component");

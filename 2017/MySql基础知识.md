@@ -353,3 +353,17 @@ RENAME TABLE customer TO customers;
 > 或者
 > `grant all privileges on *.x to 'platfrom_admin'@'localhost';`
 > `flush privileges`
+
+#### 杂项知识点
+* CHAR和VARCHAR  
+均可以指定最大长度，CHAR是定长存储的，VARCHAR是变长存储的。  
+CHAR长度在1-255，VARCHAR长度在1-65535  
+|Value|CHAR(4)|Storage|VARCHAR(4)|Storage|
+|----|----|----|----|----|
+|''|'    '|4bytes|''|1byte|
+|'ab'|'ab  '|4bytes|'ab'|2byte|
+|'abcdef'|'abce'|4bytes|'abcd'|bytes|
+
+* SELECT DATABASE()显示当前在使用的数据库名称
+
+
