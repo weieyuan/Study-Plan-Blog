@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XMLHttpRequest Demo</title>
+</head>
+<body>
+<button id="send">发送请求</button>
+<p id="info"></p>
+<h5>返回的数据是：</h5>
+<p id="res"></p>
+<script>
+    window.onload = function(){
+        document.getElementById("send").addEventListener("click", function(event){
+            var xhr = new XMLHttpRequest();
+            if(xhr.withCredentials != undefined){
+                document.getElementById("info").innerText = "浏览器支持跨域的XMLHttpRequest";
+            }
+
+            xhr.open("post", "http://localhost:3000/getInfo", true);
+            xhr.onreadystatechange = function(e){
+                console.log(e);
+            };
+            xhr.onload = function(e) {
+                document.getElementById("res").innerText = e.currentTarget.response;
+            };
+            xhr.send("I want to getInfo");
+        });
+    }
+</script>
+</body>
+</html>

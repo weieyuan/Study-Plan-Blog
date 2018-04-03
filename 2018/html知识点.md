@@ -274,3 +274,65 @@ button,input,label,select,textarea
 ```
 div,canvas,p,h1,footer,header,hr,ul,ol
 ```
+
+## web worker
+模拟多线程，可以让javascript在后台运行，而不阻塞当前的运行。
+
+```
+//主页面
+var worker = new Worker("./calc.js");
+worker.postMessage([1,2,3,4,5]);
+worker.addEventListener("message", function(event){
+  console.log(event.data);
+});
+worker.addEventListener("error", function(event){
+  console.log(event.message);
+});
+
+//calc.js
+this.onmessage = function(event){
+  return sum(event.data);
+}
+
+function sum(arr){
+  return arr.reduce(function(clc, cur){
+    return clc + cur;
+  });
+}
+```
+
+## postMessage
+在不同的文档中进行通信，比如当页面嵌入其它页面时，可以在这两个页面之间进行通信。  
+
+```
+//父页面
+window.addEventListener("message", function(event){
+  console.log(event.origin);
+  console.log(event.data);
+});
+//第一个参数表示发送的消息内容，第二个参数表示发送的目标url
+window.frames[0].postMessage("I am parent", "http://localhost:3000")
+
+//子页面
+window.addEventListener("message", function(event){
+  console.log(event.origin);
+  console.log(event.data);
+  console.log(event.source);//event.source表示对发送消息的窗口对象的引用
+});
+window.parent.postMessage("I am child", "http://localhost:63342");
+```
+
+## cors
+CORS(cross-origin-resource-sharing)跨域资源共享。
+
+XMLHttpRequest level2中支持跨域请求。
+
+检测浏览器是否支持跨域XMLHttpRequest：  
+```
+var xhr = new XMLHttpRequest();
+if(xhr.withCredentials != undefined){
+  console.log("支持跨域请求");
+}
+```
+
+需要后台配置设置`Access-Control-Allow-Origin`

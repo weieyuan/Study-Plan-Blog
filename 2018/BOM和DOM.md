@@ -112,6 +112,33 @@ history.forward()//前进1
 hisgory.length//历史记录数量
 ```
 
+HTML5中的history api：
+
+* pushState  
+在浏览器的历史记录中添加一条新的记录，同时改变地址栏的地址内容：  
+```
+history.pushState(null,null,"/abc")
+参数1： 用于描述新纪录的特性
+参数2：新页面的标题
+参数3：新页面的相对地址
+```  
+
+* replateState  
+用于替换当前的记录。  
+```
+history.replaceState(null,null,"/abc")
+参数同pushState
+```
+
+* popstate  
+当用户点击浏览器的前进、后退按钮时，就会触发popstate事件。  
+```
+window.addEventListener("popstate", function(e){
+
+});
+```
+
+
 ## DOM
 
 

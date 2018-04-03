@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Worker Demo</title>
+</head>
+<body>
+<button id="calc">开始计算</button>
+<div>
+    <span>计算结果：</span>
+    <div id="res"></div>
+</div>
+<script>
+    window.onload = function(){
+        var worker = new Worker("./calc.js");
+        worker.addEventListener("message", function(event){
+            document.getElementById("res").innerHTML = event.data;
+            //worker终止之后不可以重新启动
+//            worker.terminate();
+        });
+        worker.addEventListener("error", function(event){
+            console.log(event.message);
+        });
+        document.getElementById("calc").addEventListener("click", function(event){
+            document.getElementById("res").innerHTML = "";
+            worker.postMessage([1,2,3,4,5,6,7,8,9,10]);
+        });
+    }
+</script>
+</body>
+</html>

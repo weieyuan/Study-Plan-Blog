@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>postMessage demo</title>
+</head>
+<body>
+<button id="send">发送消息</button>
+<h5>收到消息：</h5>
+<span id="res"></span>
+<div style="padding: 10px; margin: 10px;">
+<iframe width="100%" src="http://localhost:3000/index" name="page1"></iframe>
+</div>
+<script>
+    window.onload = function () {
+        window.addEventListener("message", function (event) {
+            if (event.origin == "http://localhost:3000") {
+                document.getElementById("res").innerHTML = "消息来源:" + event.origin + ",消息内容:" + event.data;
+            }
+            else {
+                document.getElementById("res").innerHTML = "非可信的消息来源:" + event.origin + ",消息内容:" + event.data;
+            }
+        });
+        document.getElementById("send").addEventListener("click", function(){
+            //window.frames[0]等价于documen.getElementsByTagName("iframe")[0].contentWindow
+            window.frames[0].postMessage("I am another page", "http://localhost:3000");
+        });
+    }
+</script>
+</body>
+</html>
