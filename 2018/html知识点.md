@@ -349,3 +349,56 @@ xhr.send("message");
 
 设置`withCredentials=true`前端在发送跨域请求时，可以附带凭证，例如cookies。同时后端返回信息时消息头中必须设置`Access-Control-Allow-Credentials:true`，否则前端不能正常接收响应。
 
+## SSE
+SSE(Server-Send Event)，使用http协议，单工通信，用于服务器向浏览器器推送数据。
+
+使用：
+```
+var sse = new EventSource(url);
+sse.onopen = function(){
+  console.log("open...")
+}
+sse.onmessage = function(event){
+  console.log(event.lastEventId);
+  console.log(event.data);
+}
+sse.onerror = function(){
+  console.log("error...")
+}
+```
+
+服务器端的响应内容必须为`Content-Type：text/event-stream`的文本数据流，并且使用`utf-8`的编码格式。
+
+事件流格式，消息由多个字段组成，每个字段由字段名、冒号、字段值组成，消息的字段需要使用换行符分割、消息的末尾使用`\n\n`结尾：  
+
+* 以`:`号开头的行为注释行
+* `event`字段用于指定事件类型，这样客户端可以使用`addEventListener`监听自定义事件，如果没有指定，那么会触发`message`事件
+* `data`字段用于指定传递的数据，前端通过`event.data`来获取
+* `id`字段表示事件ID，前端通过`event.lastEventId`来获取
+* `retry`字段，指定客户端重连的时间间隔
+
+## Storage
+sessionStorage/localStorage
+
+API:  
+```
+length
+key(index) 返回key
+setItem(key, value)
+getItem(key)
+removeItem(key)
+clear()
+```
+
+事件`storage`，该事件可用于同源页面之间通信，修改storage的页面中不会触发该事件，其他同源页面会触发改事件：  
+```
+window.addEventListener("storage", function(event){
+	
+})
+event对象的属性：
+key
+oldValue
+newValue
+url：storage事件发生的源
+storageArea:指向值发生变化的sessionStorage或者localStorage
+```

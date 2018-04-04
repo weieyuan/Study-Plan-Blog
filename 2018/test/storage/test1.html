@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Storage Demo</title>
+</head>
+<body>
+<p>这是同源的另一个页面</p>
+<p id="storage"></p>
+<script>
+    window.onload = function () {
+        window.addEventListener("storage", function (event) {
+            console.log(event);
+            document.getElementById("storage").innerHTML = "Storage change. <br/>key:" + event.key + "<br/>oldValue:" + event.oldValue +
+                "<br/>newValue:" + event.newValue + "<br/>url:" + event.url;
+        })
+    }
+</script>
+</body>
+</html>

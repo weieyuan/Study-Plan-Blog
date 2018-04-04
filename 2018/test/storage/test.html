@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Storage Demo</title>
+</head>
+<body>
+<button id="1">addStorage(sessionStorage)</button>
+<button id="2">getStorage(sessionStorage)</button>
+<button id="3">removeStorage(sessionStorage)</button>
+<button id="4">clearStorage(sessionStorage)</button>
+<button id="5">addStorage(localStorage)</button>
+<button id="6">getStorage(localStorage)</button>
+<button id="7">removeStorage(localStorage)</button>
+<button id="8">clearStorage(localStorage)</button>
+<div style="width: 100%;">
+    <iframe style="width: 100%;" src="./test1.html"></iframe>
+</div>
+<script>
+    window.onload = function () {
+        document.getElementById("1").addEventListener("click", function (event) {
+            window.sessionStorage.setItem("a", "value");
+        });
+        document.getElementById("2").addEventListener("click", function (event) {
+            console.log(window.sessionStorage.getItem("a"));
+        });
+        document.getElementById("3").addEventListener("click", function (event) {
+            window.sessionStorage.removeItem("a");
+        });
+        document.getElementById("4").addEventListener("click", function (event) {
+            window.sessionStorage.clear();
+        });
+
+        document.getElementById("5").addEventListener("click", function (event) {
+            window.localStorage.setItem("a", "value");
+        });
+        document.getElementById("6").addEventListener("click", function (event) {
+            console.log(window.localStorage.getItem("a"));
+        });
+        document.getElementById("7").addEventListener("click", function (event) {
+            window.localStorage.removeItem("a");
+        });
+        document.getElementById("8").addEventListener("click", function (event) {
+            window.localStorage.clear();
+        });
+
+        window.addEventListener("storage", function (event) {
+            console.log(event);
+        }, true);
+    };
+</script>
+</body>
+</html>

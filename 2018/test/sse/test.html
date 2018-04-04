@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SSE DEMO</title>
+</head>
+<body>
+<button id="start">启动SSE</button>
+<script>
+    window.onload = function () {
+        document.getElementById("start").addEventListener("click", function(event){
+            var sse = new EventSource("http://localhost:3000/sse", {withCredentials: true});
+            sse.onopen = function(){
+                console.log("open...")
+            };
+            sse.onmessage = function(event){
+                console.log(event.lastEventId);
+                console.log(event.data);
+                console.log(event.retry);
+            };
+            sse.onerror = function(event){
+                console.log("error");
+                console.log(event);
+            };
+        });
+    }
+</script>
+</body>
+</html>
