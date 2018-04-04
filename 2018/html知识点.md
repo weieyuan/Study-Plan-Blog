@@ -335,4 +335,17 @@ if(xhr.withCredentials != undefined){
 }
 ```
 
-需要后台配置设置`Access-Control-Allow-Origin`
+使用：  
+```
+var xhr = new XMLHttpRequest();
+xhr.open("post", url, true);
+xhr.onload = function(event){
+  console.log(xhr.responseText);
+}
+xhr.send("message");
+```
+
+前端发送CORS请求时，需要后台配置设置`Access-Control-Allow-Origin`
+
+设置`withCredentials=true`前端在发送跨域请求时，可以附带凭证，例如cookies。同时后端返回信息时消息头中必须设置`Access-Control-Allow-Credentials:true`，否则前端不能正常接收响应。
+

@@ -16,7 +16,7 @@
             if(xhr.withCredentials != undefined){
                 document.getElementById("info").innerText = "浏览器支持跨域的XMLHttpRequest";
             }
-
+            xhr.withCredentials = true;
             xhr.open("post", "http://localhost:3000/getInfo", true);
             xhr.onreadystatechange = function(e){
                 console.log(e);
