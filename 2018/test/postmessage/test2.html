@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Child Html</title>
+</head>
+<body>
+<h1>子页面</h1>
+<p id="msg"></p>
+<script>
+    window.onload = function () {
+        window.addEventListener("message", function(event){
+            document.getElementById("msg").innerHTML = "收到新消息, origin:" + event.origin + ";数据：" + event.data;
+        })
+    };
+</script>
+</body>
+</html>

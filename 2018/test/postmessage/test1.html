@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parent Html</title>
+</head>
+<body>
+    <button id="open">打开子页面</button>
+    <button id="send">向子页面发送消息</button>
+    <script>
+        window.onload = function() {
+            var win;
+            document.getElementById("open").addEventListener("click", function(event){
+                win = window.open("./test2.html", "_blank");
+            });
+            document.getElementById("send").addEventListener("click", function(event){
+                win.postMessage("This is a msg from parent", "http://localhost:63342");
+            });
+        }
+    </script>
+</body>
+</html>

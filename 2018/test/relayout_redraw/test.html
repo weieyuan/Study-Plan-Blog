@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>relayout_redraw</title>
+</head>
+<body>
+<style>
+    .div1{
+        width: 100%;
+        background-color: red;
+        word-wrap: break-word;
+    }
+</style>
+    <div id="1" class="div1" style="color: green"></div>
+    <div id="2"></div>
+    <div id="3"></div>
+<script>
+    window.onload = function(){
+        var times = 10000;
+
+        //重排+重绘: 3276.587158203125ms
+        console.time(1);
+        for(var i = 0; i < times; i++){
+            document.getElementById("1").innerHTML += "a";
+        }
+        console.timeEnd(1);
+
+        //只读: 29.472900390625ms
+        console.time(2);
+        var str = "";
+        for(var i = 0; i < times; i++){
+            var temp = document.getElementById("2").innerHTML;
+            str += temp + "a";
+        }
+        document.getElementById("2").innerHTML = str;
+        console.timeEnd(2);
+
+        //7.927001953125ms
+        console.time(3);
+        var strEx = "";
+        for(var i = 0; i < times; i++){
+            strEx += "a";
+        }
+        document.getElementById("3").innerHTML = strEx;
+        console.timeEnd(3);
+
+    }
+</script>
+</body>
+</html>

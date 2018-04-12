@@ -321,9 +321,93 @@ window.addEventListener("message", function(event){
 });
 window.parent.postMessage("I am child", "http://localhost:63342");
 ```
+## 同域页面之间进行通信
+* postMessage  
+适用于通过iframe嵌入的父子页面之间的通信。或者通过`var win = window.open(""，"_blank")`打开的不同浏览器标签页之间的通信，但是当子窗口刷新的时候父子窗口的引用关系就会丢失。  
+```
+//父页面
+win.postMessage("msg", url);
+
+//子页面
+window.addEventListener("message", function(event){
+ console.log(event.origin);
+  console.log(event.data);
+  console.log(event.source);//event.source表示对发送消息的窗口对象的引用
+});
+```
+
+* sessionStorage/localStorage  
+推荐使用：  
+```
+window.addEventListener("storage", function(event){
+	
+})
+event对象的属性：
+key
+oldValue
+newValue
+url：storage事件发生的源
+storageArea:指向值发生变化的sessionStorage或者localStorage
+```
+
+* WebSocket通过服务器端中转  
 
 ## cors
 CORS(cross-origin-resource-sharing)跨域资源共享。
+
+XMLHttpRequest的基础知识点：  
+```
+属性：
+onreadystatechange
+
+readyState: 0/1/2/3/4
+
+response
+
+responseText
+
+responseType
+
+responseXML
+
+status
+
+statusText
+
+upload:在upload上添加一个事件监听来跟踪上传过程
+
+withCredentials: 是否带上凭证
+
+API:
+abort():中止请求
+
+getAllResponseHeaders():返回响应头信息
+
+getResponseHeader(DOMString header)
+
+open(
+  DOMString method,//HTTP请求方法，GET POST PUT DELETE
+  DOMString url,
+  optional boolean async,
+  optional DOMString user,
+  optional DOMString password
+)
+
+send()//发送请求
+send(ArrayBuffer data)
+send(Blob data)
+send(DOMString data)
+send(FormData data)
+
+setRequestHeader(//给指定的HTTP请求头赋值，必须在调用open()方法之后调用
+  DOMString header
+  DOMString value
+)
+
+//事件
+onreadystatechange //所有浏览器都支持
+onload //firefox chrome支持
+```
 
 XMLHttpRequest level2中支持跨域请求。
 
@@ -343,6 +427,10 @@ xhr.onload = function(event){
   console.log(xhr.responseText);
 }
 xhr.send("message");
+
+xhr.onreadystatechange = function(){
+  xhr.readyState//0:UNSET 表示open()方法还未调用；1:OPEND open()方法已经被调用；2：HEADERS_RECEIVED send()方法已经调用；3：LOADING responseText中已经获取部分数据；4:DONE，整个请求已经完毕
+}
 ```
 
 前端发送CORS请求时，需要后台配置设置`Access-Control-Allow-Origin`
@@ -402,3 +490,9 @@ newValue
 url：storage事件发生的源
 storageArea:指向值发生变化的sessionStorage或者localStorage
 ```
+
+## fetch
+fetch和jQuery.ajax()的区别：  
+
+* 当接收一个代表错误的HTTP的状态码时，例如404、500，会将Promise状态标记为resolve，但是会将resolve.ok属性值设置为false；仅当网络故障或者请求被阻止时，才会标记为reject。  
+* 默认情况下fetch不会从服务器端发送或者接收任何cookies，如果要发送cookie那么必须设置credentials选项。
