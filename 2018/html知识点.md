@@ -1,9 +1,9 @@
 ## 开始HTML
 HTML(HyperText Markup Language)是一种标记语言，用于告诉浏览器如何构造网页。  
 
-元素的组成：
+元素的组成：  
 1.开始标签  
-2.介绍标签  
+2.结束标签  
 3.内容  
 4.元素，由前三者组成  
 
@@ -323,7 +323,7 @@ window.parent.postMessage("I am child", "http://localhost:63342");
 ```
 ## 同域页面之间进行通信
 * postMessage  
-适用于通过iframe嵌入的父子页面之间的通信。或者通过`var win = window.open(""，"_blank")`打开的不同浏览器标签页之间的通信，但是当子窗口刷新的时候父子窗口的引用关系就会丢失。  
+适用于通过iframe嵌入的父子页面之间的通信。或者通过`var win = window.open("","_blank")`打开的不同浏览器标签页之间的通信，但是当子窗口刷新的时候父子窗口的引用关系就会丢失。  
 ```
 //父页面
 win.postMessage("msg", url);
@@ -495,7 +495,15 @@ storageArea:指向值发生变化的sessionStorage或者localStorage
 fetch和jQuery.ajax()的区别：  
 
 * 当接收一个代表错误的HTTP的状态码时，例如404、500，会将Promise状态标记为resolve，但是会将resolve.ok属性值设置为false；仅当网络故障或者请求被阻止时，才会标记为reject。  
-* 默认情况下fetch不会从服务器端发送或者接收任何cookies，如果要发送cookie那么必须设置credentials选项。
+* 默认情况下fetch不会从服务器端发送或者接收任何cookies，如果要发送cookie那么必须设置credentials选项。  
+```
+fetch("url", {
+  method: "GET",
+  credentials: "include"
+})
+.then((res) => res.json())
+.then((res) => console.log(res))
+```
 
 ## performance
 performance对象提供了性能相关的参数。  
