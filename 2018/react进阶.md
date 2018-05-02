@@ -358,6 +358,41 @@ componentWillUpdate(nextProps, nextState, nextContext)
 
 建议不要修改context，在state或者props变化时，getChildContext方法会被调用。当context修改时，子节点可以收到这个变化，但是如果某个中间节点的shouldComponentUpdate返回false，那么后续的节点就不会更新。
 
+**v16.3及以上的版本**
+使用React.createContext:  
+```
+//context.js
+import {createContext} from "react"
+
+const {Provider, Consumer} = createContext({});//这里可以设置默认值
+export const Provider = Provider
+export const Consumer = Consumer
+
+//parent.js
+import {Provider} from "./context.js"
+render () {
+
+	return (
+      <Provider value={{a:"abc"}}>
+        <Child />
+      </Provider>
+    );
+}
+
+//child.js
+import {Consumer} from "./context.js"
+
+render() {
+  
+  return (
+    <Consumer>
+    {(value) => (<Button {...props} val={value} />)}
+    </Consumer>
+  );
+
+}
+```
+
 ## Fragments
 Fragments的作用是用于将多个元素组成一个group使用，并且不会添加额外的DOM元素。
 

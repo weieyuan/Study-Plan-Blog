@@ -496,3 +496,16 @@ fetch和jQuery.ajax()的区别：
 
 * 当接收一个代表错误的HTTP的状态码时，例如404、500，会将Promise状态标记为resolve，但是会将resolve.ok属性值设置为false；仅当网络故障或者请求被阻止时，才会标记为reject。  
 * 默认情况下fetch不会从服务器端发送或者接收任何cookies，如果要发送cookie那么必须设置credentials选项。
+
+## performance
+performance对象提供了性能相关的参数。  
+```
+performance.timing对象包含了延迟相关的信息
+例如：
+performance.timing.loadEventStart - performance.timing.navigationStart//表示页面加载的耗时
+performance.timing.connectEnd - performance.timing.connectStart//表示Tcp连接的耗时
+
+performance.now()//表示从performance.timing.navigationStart到当前时间的微秒数
+
+performance.getEntries()//返回对脚本、样式、图片等发出的http请求的耗时统计
+```

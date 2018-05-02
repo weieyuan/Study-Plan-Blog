@@ -8,21 +8,21 @@ JavaScript中的所有字符都是16位的，采用Unicode编码集。
 
 JavaScript中的代码块不会创建新的作用域。
 
-如下的值会被当做假：
-false
-null
-undefined
-空字符串""
-数字0
-数字NaN
+如下的值会被当做假：  
+false  
+null  
+undefined  
+空字符串""  
+数字0  
+数字NaN  
 
-typeof运算符产生值：
-number
-string
-boolean
-undefined
-function
-object
+typeof运算符产生值：  
+number  
+string  
+boolean  
+undefined  
+function  
+object  
 
 #### 对象
 每个对象都连接到一个原型对象，并且可以从中继承属性，所有通过字面量创建的对象都连接到Object.prototype
@@ -43,7 +43,7 @@ var add = function(a,b){}
 ```
 一个内部函数除了可以访问自己的参数和变量，同时它也可以自由访问其父函数的参数和变量，通过函数字面量创建的函数对象包含一个连到外部上下文的连接，这被称为闭包。
 
-函数的调用模式：
+函数的调用模式：  
 1.方法调用模式：当一个函数被保存为对象的一个属性时，我们称它为一个方法，当这个方法被调用时，this被绑定到该对象
 
 ```

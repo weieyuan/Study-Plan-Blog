@@ -309,7 +309,7 @@ Vue.component("my-component", {
 使用v-emit触发事件。  
 
 ## vue组件的生命周期
-* beforeCteate  
+* beforeCreate  
 在实例初始化之后，数据观测(data observer)和event/watcher事件配置之前被调用  
 * created  
 实例已经创建完成之后被调用，实例已经完成以下的配置：数据观测、属性和方法的计算、watch/event事件的回调。挂载阶段还没开始，$el属性不可见。  
@@ -354,14 +354,14 @@ directives: {
 <input v-focus>
 ```
 
-钩子函数
+钩子函数  
 1.bind: 只调用一次，指令第一次绑定到元素时调用。  
 2.inserted: 被绑定元素插入父节点的时候调用。  
 3.update: 所在组件的VNode更新时调用。  
 4.componentUpdated: 指令所在组件的VNode及其子VNode全部更新后调用。  
 5.unbind: 只调用一次，指令与元素解绑定时调用。  
 
-钩子函数的参数：
+钩子函数的参数：  
 1.el: 指令所绑定的元素，可以用于操作DOM。  
 2.binding:一个对象，包含各种属性，这个对象中所有属性都是只读属性：    
 ```
@@ -620,7 +620,7 @@ this.$set(this.obj, key, value)
 14.global bus event    
 通过一个Vue对像(bus)来发布和监听事件。  
 监听事件：bus.$on("event", function(){})    
-取消监听事件：bus.$off("event")    
+取消监听事件：bus.$off("event", function(){})    
 发布事件：bus.$emit("event")   
 
 15.深入响应式原理    

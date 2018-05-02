@@ -1,3 +1,51 @@
+## 概念
+**#Route**  
+通过匹配location.pathname和`<Route>`标签中的path属性来选择路由，如果没有匹配到路由将会渲染null，没有path属性的`<Route>`标签总是会被匹配成功。
+
+`<Switch>`标签用于将`<Route>`进行分组，它会渲染第一个匹配上的`<Route>`标签。
+
+Route渲染的方式：  
+
+* component，应用场景是已经存在React组件(React.Component或者函数组件)
+```
+<Route exact path="/" component={Home} />
+```
+
+* render，render是一个内联的函数，当需要向组件传递局部变量时使用  
+```
+const someVariable = true;
+<Route path="/contact" render={(props) => <About {...props} extra={someVariable} />} />
+```
+
+* children
+
+**#Link**  
+`<Link>`标签用于创建`<a>`标签  
+```
+<Link to='/'>Home</Link>
+// <a href='/'>Home</a>
+```
+
+`<NavLink>`标签是一个特殊的`<Link>`标签，可以设置active的style样式  
+```
+<NavLink to="/react" activeClassName="hurray">React</NavLink>
+// <a href="/react" className="hurray">React</a>
+```  
+
+**#match**
+match对象包括如下属性：  
+1. params
+2. isExact，如果是严格匹配，那么为true
+3. path，用于匹配的路径模式
+4. url，匹配的url
+
+如下地方可以获取到match参数：  
+1. Route Component as this.props.match
+2. Route Render as ({match}) => ()
+3. Route Children as ({match}) => ()
+4. withRouter as this.props.match
+5. matchPath as the return value
+
 ## 基础使用
 ```
 npm install react-router-dom --save
