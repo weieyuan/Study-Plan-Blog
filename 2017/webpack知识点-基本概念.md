@@ -120,7 +120,7 @@ import foo from "./user/file.js"
 > 在其他值包括node，默认值是"["module", "main"]"
 
 2.2.如果没有package.json或者resolve.mainFields中指向的是无效的路径，那么通过resolve.mainFiles中指定的值来查找模块  
-> resolve.mainFields的默认值是"["index"]"
+> resolve.mainFiles的默认值是"["index"]"
 
 #### 编译后生成的文件
 主要有三类文件：  

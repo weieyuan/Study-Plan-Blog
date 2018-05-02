@@ -42,7 +42,7 @@ selectionEnd//返回选中文本的结束索引，如果没有选中文本，那
 **margin的陷阱**  
 当两个box元素相邻时，它们之间的距离是这两个box中margin值最大的那个距离，而不是两者相加。  
 
-**z-index**
+**z-index**  
 z-index只对定位元素有效，也就是对设置了position属性的元素有效
 
 **nth-child用法**  
@@ -150,7 +150,7 @@ import(path).then();
 ```
 
 ## nodejs  
-1.process是nodejs中的一个全局变量，它提供了当前运行的nodejs进程的信息
+1.process是nodejs中的一个全局变量，它提供了当前运行的nodejs进程的信息  
 2.process.env返回包含用户环境变量的一个对象
 
 ### module.exports/exports

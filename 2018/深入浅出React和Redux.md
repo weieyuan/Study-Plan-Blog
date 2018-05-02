@@ -98,7 +98,7 @@ const createStore = (reducer) => {
 };
 ```
 
-三条规则：  
+**#三条规则**  
 
 * 应用的state存储在全局唯一的state中
 * state是只读的，只能通过emit一个action来修改state
@@ -119,6 +119,7 @@ function setCardId(cardId) {
 export {SET_CARD_ID, setCardId}
 
 //reducer.js
+//每个reducer在store初始化的时候都会被调用一次用于初始化state(type为"@@redux/INIT")
 import * as actions from "./actions"
 import {combineReducers} from "redux"
 
@@ -148,7 +149,7 @@ const store = createStore(reducer)
 export default store
 ```
 
-容器组件和傻瓜组件：  
+**#容器组件和傻瓜组件**    
 容器组件负责和Redux Store打交道，傻瓜组件不感知Redux Store，负责逻辑处理和ui展示。容器组件通过props向傻瓜组件传递数据，达到傻瓜组件和Redux Store打交道的目的。  
 
 react-redux的作用：  
@@ -206,6 +207,10 @@ export function fetchPosts(subreddit){
   };
 }
 ```
+
+flux和redux的区别：  
+1. flux中有多个store，但是redux中只有一个store
+2. redux中有唯一的reducer，flux中可以注册多个处理函数
 
 
 

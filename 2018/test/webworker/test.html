@@ -10,6 +10,11 @@
     <span>计算结果：</span>
     <div id="res"></div>
 </div>
+
+<div>
+    <p>Worker之间的通信</p>
+    <button id="send">触发worker1向worker2发送信息</button>
+</div>
 <script>
     window.onload = function(){
         var worker = new Worker("./calc.js");
@@ -24,6 +29,19 @@
         document.getElementById("calc").addEventListener("click", function(event){
             document.getElementById("res").innerHTML = "";
             worker.postMessage([1,2,3,4,5,6,7,8,9,10]);
+        });
+
+        //worker之间的通信
+        var worker1 = new Worker("./worker1.js");
+        var worker2 = new Worker("./worker2.js");
+        //初始化worker中的port
+        var mc = new MessageChannel();
+        var port1 = mc.port1;
+        var port2 = mc.port2;
+        worker1.postMessage("init", [port1]);
+        worker2.postMessage("init", [port2]);
+        document.getElementById("send").addEventListener("click", function(event){
+            worker1.postMessage("send");
         });
     }
 </script>

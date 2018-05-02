@@ -56,6 +56,87 @@ npm install babel-polyfill --save-dev
 import "babel-polyfill";
 ```
 
+## let const
+**不存在变量提升**  
+var变量存在变量提升，也就是在使用var声明变量之前，可以使用变量，其值为undefined。但是let必须要求先声明后使用。  
+```
+console.log(abc);//undefined
+var abc;
+
+console.log(bcd);//报错
+let bcd;
+```
+
+**暂时性死区**  
+在块级作用域中使用let或者const时，它所声明的变量就绑定到这个区域，不再受外部的影响。例如：  
+```
+var temp = 123;
+
+if(true){
+  temp = "abc";//报错
+  let temp;
+}
+```
+
+**块级作用域**  
+var变量的问题：  
+
+* 内层变量可能会覆盖外层变量  
+```
+var a = "abc";
+
+function f(){
+  console.log(a);//undefined
+  if(true){
+    var a = "bcd";
+  }
+}
+```
+
+* 变量泄漏  
+```
+for(var i = 0; i < 20; i++){
+  
+}
+
+console.log(i); //20
+```
+**const**  
+const变量必须在声明的时候赋值。只声明不赋值会报错。
+
+## 扩展运算符(...)
+可以将数组转换为用逗号分隔的参数序列。  
+```
+function f(x,y,z){}
+var args = [1,2,3,4];
+f.apply(null, args);
+
+//ES6语法
+f(...args);
+
+//ES6语法
+Math.max(...args); //等同于Math.max(1,2,3,4)
+```
+
+## 变量的解构赋值
+判断一个位置是否有值，在ES6的内部是使用===符号来确定的，只有当一个数组成员严格等于undefined的时候，默认值才会生效。  
+```
+let [x = 1] = [undefined];//x=1
+let [y = 1] = [null]; //y=null
+```
+
+对象解构赋值：  
+```
+let {foo} = {foo: "xxx", fooq: "sss"};
+//等价于
+let {foo: foo} = {foo: "xxx", fooq: "sss"};
+
+//foo只是匹配的模式，baz才会真正被赋值
+let {foo: baz} = {foo: "xxx", fooq: "sss"};
+//baz="sss";
+//foo是undefined的
+```
+
 ## Class
 实例的属性除非显示定义在其本身上(即定义在this对象上)，否则都是定义在原型上。  
 下面示例中x和y都是实例对象，toString是原型对象的属性。  
