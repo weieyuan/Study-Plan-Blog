@@ -105,3 +105,38 @@ npm unpublish packagename@version
 ### package.json和package-lock.json  
 package.json定义了版本的范围，具体安装什么样的版本需要解析之后才能确定。例如^8.0.1的版本表示向后兼容，只要大版本号8相同，那么就会下载最新的版本。  
 package-lock.json中描述了node_modules中所安装的每个包的具体版本和来源，只要按照package-lock.json中的依赖进行安装，就能确保安装的包是完全一样的
+
+## package.json/scripts
+package.json的scripts标签下定义了可执行的命令，当执行`npm run`时，会自动新建一个shell，并且会将当前目录node_modules/.bin目录添加到PATH变量中，因此node_modules/.bin目录下的脚本都可以调用。  
+
+**#传参**  
+通过`--`标明传递的参数
+
+**#脚本执行顺序**  
+并行执行使用`&`符号连接：  
+```
+npm run a & npm run b
+```
+
+串行执行使用`&&`符号连接：  
+```
+npm run a && npm run b
+```
+
+**#钩子**
+npm脚本有两个钩子`pre`和`post`，例如build脚本的钩子分别是prebuild和postbuild
+
+示例：  
+```
+"prebuild": "xxx",
+"build": "xxx",
+"postbuild": "xxxx"
+
+npm run build 等价于：npm run prebuild && npm run build && npm run postbuild
+```
+
+**#变量**
+通过npm run启动的脚本中可以通过process.env.npm_package_name来取到package.json中定义的name的属性值(name表示属性的名称)。
+
+
+

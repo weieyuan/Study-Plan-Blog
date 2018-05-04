@@ -370,3 +370,88 @@ reportFileName: String，默认值report.html
 openAnalyzer: Boolean，默认值true，是否自动在浏览器中打开报告
 ```
 
+## DllPlugin/DllReferencePlugin
+作用是可以将某些比较稳定的模块(文件)打包到单独的bundle中，其他地方直接饮用这个bundle中的模块，这样在全量打包时，不需要打包之前bundle中的文件，提升构建的效率。
+
+**#DllPlugin**  
+用于将模块打包到单独的bundle中，配置参数：  
+```
+context: manifest中请求的上下文，默认为webpack的上下文
+name: 暴露出的Dll函数名称([hash][name]) 和library设置为相同
+path： manifest.json文件的绝对路径
+```
+
+使用示例：  
+```
+//新建webpack.config.vendor.js
+const webpack = require("webpack");
+const path = require("path");
+
+module.exports = {
+  entry: ["./src/vendor.js"],
+  output: {
+    path: path.resolve(__dirname, "dll"),
+    filename: "[name].dll.js",
+    library: "[name]_[hash]"
+ 
+  },
+  plugins: [{
+    new webpack.DllPlugin({
+      path: path.join(__dirname, "dll", "[name]-manifest.json"),
+      name: "[name]_[hash]"
+    })
+  }]
+}
+
+//执行
+webpack --config webpack.config.vendor.js
+
+//说明vendor.js中包含了需要单独打包的模块，例如：
+import "lodash";
+```
+
+**#DllReferencePlugin**  
+在主webpack的配置文件中配置，通过引用dll的manifest文件来把依赖的模块映射到对应的模块id上。
+
+配置参数：  
+```
+context: 请求的上下文
+manifest: manifest.json文件的绝对路径
+...
+```
+
+使用示例：  
+```
+//webpack.config.prod.js
+module.exports = {
+  plugins: [{
+    new webpack.DllReferencePlugin({
+      manifest: require("./dll/main-mainfest.json") //指向DllPlugin中生成的manifest.json文件
+    })
+  }]
+}
+
+``` 
+
+**注意事项**  
+在编译发布的时候，需要将单独打包的main.dll.js引入到html文件中，可以借助于add-asset-html-webpack-plugin来实现或者直接在html模板文件中引入。  
+
+使用示例：  
+```
+npm i add-asset-html-webpack-plugin -d
+
+//webpack.config.prod.js
+const AddAssetHtmlWebpackPlugin = require("add-asset-html-webpack-plugin");
+
+module.exports = {
+  plugins: [
+    new AddAssetHtmlWebpackPlugin({
+      filepath: require.resolve("./dll/main.dll.js"),
+      includeSourcemap: false
+    })
+  ]
+
+}
+
+``` 
+
