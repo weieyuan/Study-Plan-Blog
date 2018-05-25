@@ -226,7 +226,17 @@ public class Test {
 * newScheduledThreadPool
 > 创建固定长度的线程池，可以延时或者定时执行任务。
 
-#### 线程池的饱和策略
+线程池的创建：  
+```
+//Executors
+ExecutorService newFixedThreadPool(int nThreads);
+ExecutorService newSingleThreadPool()
+ExecutorService newCachedThreadPool()
+
+ScheduledExecutorService newScheduledThreadPool(int corePoolsize)
+```
+
+**#线程池的饱和策略**  
 * 概念
 > 当有界队列被填满或者向已经关闭的Executor提交任务都会触发饱和策略。可以通过ThreadPoolExecutor.setRejectedExecutionHandler()来修改饱和策略
 * AbortPolicy，这是线程池的默认策略。抛出未检查的RejectedExecutionException
@@ -382,4 +392,39 @@ java的内存模型中“天然具有”的先行发生关系的操作有：
 * CompletionService
 > 实现类ExcutorCompletionService，这个实现类能够执行任务，并且会把每个任务的结果放置到BlockingQueue中。
 
+**#CAS**  
+CAS(Compare and Swap)比较并交换，当内存值V和预期值A相等时，将内存值A更新为B，否则什么也不干。CAS可以保证一次读-改-写是原子操作的。
+
+缺点：  
+1. 循环时间长开销大
+2. ABA问题
+3. 只能保证一个共享变量的原子操作
+
+**#AQS**  
+(AbstractQueuedSynchronizer)队列同步器维护一个volatile int state(代表共享资源)和一个FIFO线程等待队列(多线程争用资源被阻塞时会进入此队列)，state访问方式有三种：  
+getState()  
+setState()  
+compareAndSetState()  
+
+AQS定义了两种资源共享方式，独占式，例如ReentrantLock；共享式(多个线程可同时执行)，例如Semaphone和CountDownLatch
+
+#### 锁的分类  
+* 公平锁/非公平锁  
+
+* 独享锁/共享锁
+synchronized是独享锁。  
+ReentrantLock是独享锁，ReentrantReadWriteLock中的读锁是共享的，写锁是独享的
+
+* 乐观锁/悲观锁  
+悲观锁认为对同一个数据的并发访问，一定会发生修改，那么不加锁的并发操作一定会出问题。  
+乐观锁认为对同一个数据的并发操作，是不会发生修改，那么不加锁的并发操作是不会发生问题的。
+
+* 分段锁
+例如ConcurrentHashMap
+
+* 偏向锁
+指一段同步代码一直被一个线程所访问，那么该线程会自动获取该锁，降低获取锁的代价。
+
+* 自旋锁
+尝试获取锁的线程不会阻塞，而是采用循环的方式去获取锁，好处是减少线程的上下文切换的消耗，缺点是循环会消耗CPU
 

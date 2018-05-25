@@ -692,6 +692,40 @@ var component = new MyComponent().$mount();
 document.getElementById("app").appendChild(component.$el);
 ```
 
+23.怎样在监听事件的回调函数中传递自定义参数。  
+```
+//在父组件中
+<template v-for="(item) in items">
+  <child @onClick="onClick(item, arguments)"></child>
+</template>
+```
+
+24.lodash.debounce函数在vue组件中的使用，如果直接在methods中使用lodash.debounce，那么会导致所有的组件实例共享同一个函数，因此会导致预期之外的结果。  
+```
+//错误的使用
+methods: {
+
+  onInput: _.debounce(function(event){
+      //doSth
+      this.$emit("onInput", event);
+  }, 1000),
+}
+
+//正确使用
+created() {
+  this.inputWrap = _.debounce(function(event){
+      //doSth
+      this.$emit("onInput", event);
+  }, 1000);
+},
+methods: {
+  onInput(event) {
+    this.inputWrap(event);
+  }
+}
+
+```
+
 
 
 
