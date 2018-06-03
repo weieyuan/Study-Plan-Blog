@@ -367,3 +367,28 @@ CHAR长度在1-255，VARCHAR长度在1-65535
 * SELECT DATABASE()显示当前在使用的数据库名称
 
 
+**MySQL碎片**  
+参数的原因：  
+表中的内容被删除时，该空间就会留空，当插入数据时，MySQL会尝试使用这些空白空间，但是这些空白空间可能不会被占满，因此产生了碎片空间。
+
+查看单个表的碎片信息：  
+```
+show table status like "表名"；
+返回的数据中，data_free表示碎片空间大小
+```
+
+查询所有有数据碎片的表：  
+```
+select table_schema, table_name, data_free, engine from information_schema.tables where table_schema not in {"information_schema", "mysql"} and data_free > 0;
+```
+
+清除碎片表：  
+```
+//MyISAM表
+optimize table 表名
+
+//InnoDB
+alter table 表名 engine=InnoDB
+```
+
+清理表时，会暂时锁住表，而且数据量越大，耗费的时间也越长，因此建议在访问低谷时期进行碎片整理。
