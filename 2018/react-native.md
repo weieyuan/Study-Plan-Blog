@@ -66,6 +66,14 @@ ScrollView中所有的元素都会被渲染，即使元素不在视图中。
 
 * SectionList
 
+* Picker
+
+* Slider
+
+* Switch
+
+* 
+
 ## 网络交互
 * fetch
 * XMLHttpRequest
