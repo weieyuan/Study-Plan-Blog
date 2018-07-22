@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>页面分为三部分，头部固定，内容部分可变，footer部分在总内容高度小于窗口高度时，固定在窗口的底部，否则在窗口外面</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+        }
+
+        .container {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            /*flex-wrap: wrap;*/
+        }
+
+        .header {
+            width: 100%;
+            height: 100px;
+            background-color: green;
+        }
+
+        .content {
+            width: 100%;
+            min-height:calc(100% - 200px);
+            background-color: red;
+        }
+
+        .footer {
+            width: 100%;
+            height: 100px;
+            background-color: blue;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header"></div>
+    <div class="content">xxxxxx
+        <div>sssss</div>
+    </div>
+    <div class="footer"></div>
+</div>
+</body>
+</html>
