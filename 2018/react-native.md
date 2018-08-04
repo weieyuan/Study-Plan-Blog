@@ -1,3 +1,15 @@
+## 环境搭建
+```
+//安装命令
+npm install -g react-native-cli
+
+//初始化项目
+react-native init ProjName
+
+//运行项目
+react-native run-android
+```
+
 ## 尺寸
 * 固定尺寸，无单位  
 ```
