@@ -13,9 +13,12 @@ wq! 强制存储后离开
 
 ```
 
-* 创建文件  
+* 文件  
 ```
-touch 文件名称
+touch： 文件名称
+rmdir 目录： 删除空目录
+rm -rf 目录： 删除该目录以及该目录的子目录，-f表示强制删除，-r表示递归
+rm -f 文件：强制删除文件
 ```
 * 剪切文件  
 ```
@@ -62,4 +65,11 @@ command + 向右的方向键：浏览器前进
 command + 向下的方向键：跳转到页面的最底部
 command + 向上的方向键：跳转到页面的最上部
 ```
-
+* mac上使用sourceTree  
+```
+//配置用户名和邮箱
+git config --global user.name "xxx"
+git config --global user.email "xxxx"
+//生成秘钥，生成的秘钥的存放地址是~/.ssh
+ssh-keygen -t rsa -C "邮箱地址"
+```
