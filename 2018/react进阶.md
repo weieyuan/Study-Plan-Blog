@@ -758,26 +758,34 @@ React.Component是一个抽象的基类，必须继承后使用，至少实现re
 ### 组件的生命周期
 **Mounting**
 
-* constructor(props)
+* constructor(props)，构造函数中应该只做两件事情，1）初始化state，2）绑定事件处理函数
 * componentWillMount()
-* render()
+* render()，render函数应该是一个纯函数，不应该修改组件的state
 * componentDidMount()，这个函数被调用时，render函数返回的东西已经被渲染，组件已经被挂载到了DOM树中
 
 **Updating**  
 
-* componentWillReceiveProps(nextProps)
+* componentWillReceiveProps(nextProps)，新版本中不推荐使用，新版本中的替代方法是static getDerivedStateFromProps，但是这个新的api也不太推荐使用。
 * shouldComponentUpdate(nextProps, nextState)
 * componentWillUpdate(nextProps, nextState)
 * render()
-* componentDidUpdate(prevProps, prevState)
+* componentDidUpdate(prevProps, prevState)，这里面适合放置比如当props中的属性发生变化时，需要做的事情，比如重新获取数据等。
+
+componentWillReceiveProps和getDerivedStateFromProps的区别是，前者是实例方法，只有在父组件触发重新渲染时，子组件的这个方法才会被调用，子组件自己调用setState时是不会触发该方法的；后者是类的静态方法，只要组件发生渲染就会被调用，包括组件初始化时，这个方法也会被调用。
+
+> 如果组件的props发生变化后，组件需要跟随这个变化，怎么做了，在vue中是可以直接watch属性的变化的，在react中，根据应用的场景有如下几种处理方式：
+> 1）如果props发生变化后需要触发数据的重新获取，那么应该在componentDidUpdate中处理
+> 2）如果props发生变化后需要重新计算一些结果，应该直接在render函数中根据props计算想要的结果，考虑到性能问题，可以使用memoization。
+> 3）如果props发生变化后需要重置state，那么考虑将组件变成“全控制”组件，也就是唯一数据源或者拥有唯一key值的非控制组件(这样每次渲染时会重新构造一个新的组件)。
+> 4）父组件通过ref取到子组件对象，当父组件传递给子组件的props发生变化时，父组件通过ref调用子组件的接口。
 
 **Unmounting**
 
-* componentWillUnmount()
+* componentWillUnmount()，这里适合放置一些清理性的动作，比如清除定时器、取消事件监听等，不要在这里调用setState
 
 **ErrorHanding**
 
-* componentDidCatch(error, info)
+* componentDidCatch(error, info)，只能捕获位于它之下的组件的错误，自身的错误是捕获不了的，捕获的错误来源于render、生命周期函数、构造函数中的错误。
 
 ### Other APIs
 * setState()
