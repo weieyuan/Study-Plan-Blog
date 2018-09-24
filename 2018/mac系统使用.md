@@ -73,3 +73,8 @@ git config --global user.email "xxxx"
 //生成秘钥，生成的秘钥的存放地址是~/.ssh
 ssh-keygen -t rsa -C "邮箱地址"
 ```
+* 系统快捷键
+```
+command + 空格：全局搜索
+
+```
